@@ -6,8 +6,8 @@
 ░░░██║░░░██║░░██║╚█████╔╝██║░╚██╗███████╗██║░░██║
 ░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝
 
-##Author: Seth Hager
-###Start date: August 29th 2021
+## Author: Seth Hager
+### Start date: August 29th 2021
 
 Full stack college based social media project that connects a backend and a frontend to
 achieve a working and deployed application.

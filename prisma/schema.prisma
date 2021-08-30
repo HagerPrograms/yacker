@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model post {
+  author     String?  @db.Inet
+  created_on DateTime @default(now()) @db.Timestamp(6)
+  last_reply DateTime @default(now()) @db.Timestamp(6)
+  id         Int      @id @default(autoincrement())
+  school     String   @db.VarChar(255)
+  file       String   @db.VarChar(255)
+  threadid   Int      @default(autoincrement())
+  content    String   @db.VarChar
+  users      users?   @relation(fields: [author], references: [address])
+  post       post     @relation("postTopost_threadid", fields: [threadid], references: [id])
+  other_post post[]   @relation("postTopost_threadid")
+  report     report[]
+}
+
+model report {
+  author      String?  @db.Inet
+  created_on  DateTime @default(now()) @db.Timestamp(6)
+  id          Int      @id @default(autoincrement())
+  school      String   @db.VarChar(255)
+  threadid    Int      @default(autoincrement())
+  reason      String   @db.VarChar
+  description String   @db.VarChar
+  users       users?   @relation(fields: [author], references: [address])
+  post        post     @relation(fields: [threadid], references: [id])
+}
+
+model users {
+  address   String    @unique @db.Inet
+  createdat DateTime? @default(now()) @db.Timestamp(6)
+  banned    Boolean?  @default(false)
+  id        Int       @id @default(autoincrement())
+  post      post[]
+  report    report[]
+}

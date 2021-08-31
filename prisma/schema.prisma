@@ -13,13 +13,22 @@ model post {
   last_reply DateTime @default(now()) @db.Timestamp(6)
   id         Int      @id @default(autoincrement())
   school     String   @db.VarChar(255)
-  file       String   @db.VarChar(255)
-  threadid   Int      @default(autoincrement())
-  content    String   @db.VarChar
+  file_path  String   @db.VarChar(255)
+  content    String   @db.VarChar(255)
   users      users?   @relation(fields: [author], references: [address])
-  post       post     @relation("postTopost_threadid", fields: [threadid], references: [id])
-  other_post post[]   @relation("postTopost_threadid")
-  report     report[]
+  reply      reply[]
+}
+
+model reply {
+  author     String?  @db.Inet
+  created_on DateTime @default(now()) @db.Timestamp(6)
+  last_reply DateTime @default(now()) @db.Timestamp(6)
+  id         Int      @id @default(autoincrement())
+  file_path  String?  @db.VarChar(255)
+  thread_id  Int      @default(autoincrement())
+  content    String   @db.VarChar(255)
+  users      users?   @relation(fields: [author], references: [address])
+  post       post     @relation(fields: [thread_id], references: [id])
 }
 
 model report {
@@ -31,7 +40,6 @@ model report {
   reason      String   @db.VarChar
   description String   @db.VarChar
   users       users?   @relation(fields: [author], references: [address])
-  post        post     @relation(fields: [threadid], references: [id])
 }
 
 model users {
@@ -40,5 +48,6 @@ model users {
   banned    Boolean?  @default(false)
   id        Int       @id @default(autoincrement())
   post      post[]
+  reply     reply[]
   report    report[]
 }

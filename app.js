@@ -1,14 +1,23 @@
-const user = require('./CRUD/user');
-// const post = require('./CRUD/post');
-// const reply = require('./CRUD/reply');
-// const report = require('./CRUD/report');
-async function init(){
-    await user.deleteUser({ip:'198.168.2.1'});
-    await user.createUser({ip:'198.168.2.1'});
-    await user.banUser({ip:'198.168.2.1'});
-    await user.getUser({ip:'198.168.2.1'});
-    await user.unbanUser({ip:'198.168.2.1'});
-    await user.getUser({ip:'198.168.2.1'});
-}
+const express = require('express');
+const app = express();
 
-init();
+const { graphqlHTTP } = require('express-graphql');
+
+const graphql_schema = require('./graphql/schema');
+const graphql_resolvers = require('./graphql/resolvers');
+
+const PORT = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+})
+
+app.use('/graphql', graphqlHTTP({
+    schema: graphql_schema,
+    rootValue: graphql_resolvers,
+    graphiql: true
+}))
+
+app.listen(PORT, () => {
+    console.log(`Application listing at http://localhost:${PORT}`);
+})

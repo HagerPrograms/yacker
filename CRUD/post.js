@@ -67,21 +67,21 @@ async function muteMedia(post){
     })
 };
 
-async function getPosts(school_url){
+async function getPosts(school_abrv){
     const posts = await prisma.post.findMany({
         where:{
             school: {
-                contains: school_url
+                contains: school_abrv
             }
         }
     })
     return posts
 }
 
-async function getPost(post){
+async function getPost(post_id){
     const post = await prisma.post.findUnique({
         where:{
-            id: post.id
+            id: post_id
         },
         include:{
             reply:true
@@ -90,6 +90,12 @@ async function getPost(post){
     return post;
 }
 
-id: {
-    contains: school_url
-}
+
+exports.createPost = createPost;
+exports.mutePost = mutePost;
+exports.deleteAllPosts = deleteAllPosts;
+exports.getPost = getPost;
+exports.getPosts = getPosts
+exports.muteContent = muteContent;
+exports.deletePost = deletePost;
+exports.muteMedia = muteMedia;

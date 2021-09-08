@@ -78,3 +78,13 @@ async function muteMedia(reply){
         }
     })
 };
+
+
+
+
+exports.createReply = createReply;
+exports.muteReply = muteReply;
+exports.deleteAllReplies = deleteAllReplies;
+exports.deleteReply = deleteReply;
+exports.muteContent = muteContent;
+exports.muteMedia = muteMedia;

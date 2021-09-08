@@ -16,7 +16,7 @@ async function createReport({ip},{desc,rule,thread_id}){
 
 //If reports to a post all seem to be not infracting
 async function resolveAll(report){
-  const report = await prisma.report.updateMany({
+  const resolve = await prisma.report.updateMany({
       where: {
         threadid:{
             contains: report
@@ -30,7 +30,7 @@ async function resolveAll(report){
 
 //Resolve one instance of a report
 async function resolveOne(report){
-  const report = await prisma.report.updateMany({
+  const resolve = await prisma.report.updateMany({
       where: {
         threadid:{
             contains: report_id
@@ -59,11 +59,11 @@ async function getAllReports(){
 }
 
 //Get all reports for one thread
-async function findReports({id}){
+async function findReports({post_id}){
   const reports = await prisma.report.findMany( {
     where:{
       threadid:{
-        includes: id
+        includes: post_id
       }
     }
   }

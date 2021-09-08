@@ -6,23 +6,47 @@ module.exports = buildSchema(`
         text: String!
         views: Int!
     }
-    
-    type RootQuery {
-        hello: TestData!
-    }    
+
+    type Admin{
+        _id: ID!
+        name: String!
+        email: String!
+        password: String
+    }
+
+    input AdminData{
+        email: String!
+        password: String!
+    }
 
     type Post {
         author:      String!
+        created_on:  String!
+        last_reply:  String!   
+        id:          ID
+        school:      String!
+        file_path:   String
         content:     String!
-        created_at:  String!   
     }
 
-    type AnotherQuery {
-        post: Post!
+    type User {
+        address: String!
+    }
+    
+    type RootQuery {
+        posts: [Post!]!
+        users: [User!]!
+    }
+
+    type RootMutation{
+        createAdmin(adminInput)
+        deleteAdmin
+        banUser
+        unbanUser
     }
 
     schema {
-        query: RootQuery
-        query: AnotherQuery
+        query:    RootQuery
+        mutation: 
     }
 `);

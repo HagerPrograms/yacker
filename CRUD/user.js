@@ -45,6 +45,11 @@ async function getUser({ip}){
     console.dir(user, {depth: null});
 };
 
+async function getUsers(){
+  const user = await prisma.users.findMany();
+  return user;
+};
+
 //Delete user for debugging purposes
 async function deleteUser({ip}){
     const deleteUser = await prisma.users.delete({
@@ -58,4 +63,5 @@ exports.createUser = createUser;
 exports.banUser = banUser;
 exports.unbanUser = unbanUser;
 exports.getUser = getUser;
+exports.getUsers = getUsers;
 exports.deleteUser = deleteUser;

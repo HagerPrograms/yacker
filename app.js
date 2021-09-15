@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 const { graphqlHTTP } = require('express-graphql');
 
@@ -8,7 +9,7 @@ const graphql_resolvers = require('./graphql/resolvers');
 
 const Post = require('./CRUD/post');
 
-const PORT = 3000;
+const PORT = 4000;
 
 // const getPosts = async function() {
 //     const posts = await Post.getPosts('New Mexico State University');
@@ -23,9 +24,7 @@ const PORT = 3000;
 //     console.log(normalized);
 // }
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
+app.use(cors());
 
 app.use('/graphql', graphqlHTTP({
     schema: graphql_schema,

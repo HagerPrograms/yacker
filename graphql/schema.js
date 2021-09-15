@@ -7,20 +7,9 @@ module.exports = buildSchema(`
         views: Int!
     }
 
-    type Admin{
-        _id: ID!
-        name: String!
-        email: String!
-        password: String
-    }
-
-    input AdminData{
-        email: String!
-        password: String!
-    }
 
     type Post {
-        author:      String!
+        author:      String
         created_on:  String!
         last_reply:  String!   
         id:          ID
@@ -31,22 +20,24 @@ module.exports = buildSchema(`
 
     type User {
         address: String!
+        banned: String!
+        createdat: String!
+        id: ID!
+    }
+
+    type AuthData {
+        token:  String!
+        email: String!
     }
     
     type RootQuery {
-        posts: [Post!]!
-        users: [User!]!
-    }
-
-    type RootMutation{
-        createAdmin(adminInput)
-        deleteAdmin
-        banUser
-        unbanUser
+        posts:                                    [Post!]!
+        users:                                    [User!]!
+        login(email: String!, password: String!): AuthData!
+        getPosts(abbreviation: String!):          [Post!]!
     }
 
     schema {
-        query:    RootQuery
-        mutation: 
+        query:   RootQuery
     }
 `);

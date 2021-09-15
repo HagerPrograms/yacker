@@ -39,6 +39,7 @@ model report {
   threadid    Int      @default(autoincrement())
   reason      String   @db.VarChar
   description String   @db.VarChar
+  resolved    Boolean? @default(false)
   users       users?   @relation(fields: [author], references: [address])
 }
 
@@ -50,4 +51,10 @@ model users {
   post      post[]
   reply     reply[]
   report    report[]
+}
+
+model admin {
+  email    String  @id @db.VarChar(20)
+  password String? @db.VarChar(255)
+  address  String  @db.Inet
 }

@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
+const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient()
 
@@ -59,6 +60,18 @@ async function deleteUser({ip}){
       })
 };
 
+async function getAdmin(email) {
+  const admin = await prisma.admin.findUnique({
+    where : {
+      email: email
+    }
+  })
+
+  return admin;
+
+}
+
+exports.getAdmin = getAdmin;
 exports.createUser = createUser;
 exports.banUser = banUser;
 exports.unbanUser = unbanUser;

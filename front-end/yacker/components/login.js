@@ -29,7 +29,7 @@ function LoginForm(props){
       </div>
       <style global jsx>{`
         body{
-          background: black;
+          background-image: url("yacker-background.png");
         }
       `}</style>
       </>

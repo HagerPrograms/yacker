@@ -57,7 +57,6 @@ export async function getServerSideProps({params}){
         body: JSON.stringify(graphqlQuery)
     })
     
-
     const { data } = await req.json()
 
     const college = Schools.find(element => element.abrv === params.school);

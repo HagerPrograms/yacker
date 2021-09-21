@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
 
 html,
 body {
@@ -6,6 +7,11 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+
+body{
+  background-image: url("../public/yacker-background.png");
 }
 
 a {
@@ -141,4 +147,55 @@ a {
 
 .state-header{
   display: inline-block;
+}
+
+.welcome-banner{
+  width: 60%;
+  margin: 0 auto 0 auto;
+  border: 3px solid #cacaca;
+  border-radius: 10px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Montserrat', sans-serif;
+}
+
+#welcome-header{
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#welcome-body{
+  padding: 10px;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+#nsfw-warning{
+  color: red;
+  font-weight: 800;
+}
+
+.button{
+  display: table;
+  background-color: transparent;
+  padding: 5px;
+  border: 2px solid #cacaca;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.button:hover{
+  background-color: white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.button:active{
+  color:blue;
 }

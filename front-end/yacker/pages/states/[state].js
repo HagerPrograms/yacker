@@ -11,7 +11,7 @@ export default function State(props){
     })
     
     const schoolList = stateSchools.map((school) => {
-        return <li>
+        return <li key={school.abrv} className="school-list">
             <Link href={"/" + school.abrv}>
             {school.school}
             </Link>
@@ -20,8 +20,8 @@ export default function State(props){
 
     return(
     <>
-    <Nav></Nav>
-    <h1>Select your school:</h1>
+    <Nav states={true}></Nav>
+    <h1 className="list-header">Select your school:</h1>
     <ul>
         {schoolList}
     </ul>

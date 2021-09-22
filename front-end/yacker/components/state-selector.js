@@ -10,7 +10,7 @@ export default function StateSelector() {
     }
 
     return (
-    <form>
+    <form className="state-selector">
         <select onChange={handleChange} required className="state-form">
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>

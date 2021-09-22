@@ -9,6 +9,8 @@ export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query
 
+    console.log(props.college);
+
     const posts = props.posts;
     const feed = posts.map(post => {
         return (
@@ -21,7 +23,7 @@ export default function Home(props) {
     return ( 
     <>
         <div class="nav">
-            <Nav school={school}/>
+            <Nav school={school} state={props.college.state}/>
         </div>
         <Banner school={props.college.school}/>
         <PostForm/>
@@ -60,8 +62,6 @@ export async function getServerSideProps({params}){
     const { data } = await req.json()
 
     const college = Schools.find(element => element.abrv === params.school);
-
-    console.log(college);
 
     if (!college){
         return {

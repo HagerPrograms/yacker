@@ -20,8 +20,10 @@ export default function StateList() {
     return (
         <>
         <Nav/>
+        <div className="class-wrapper">
         <h1 className="state-header">Choose your state:</h1>
         <StateSelector/>
+        </div>
         </>
     )
 }

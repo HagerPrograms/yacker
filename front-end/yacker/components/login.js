@@ -8,6 +8,7 @@ function LoginForm(props){
   function onEmailChange(event) {
     setEmail(() => {return event.target.value})
   }
+
   function onPasswordChange(event){
     setPassword(() => {return event.target.value})
   }
@@ -22,16 +23,11 @@ function LoginForm(props){
               <label htmlFor="email">Email:</label>
               <input value={email} onChange={onEmailChange} type="email" id="email" name="name" required></input>
               <label htmlFor="password">Password:</label>
-              <input value={password} onChange={onPasswordChange}type="password" id="password" name="password" required></input>
+              <input value={password} onChange={onPasswordChange} type="password" id="password" name="password" required></input>
               <input type="submit" value="Login" id="login-button"></input>
           </form>
         </div>
       </div>
-      <style global jsx>{`
-        body{
-          background-image: url("yacker-background.png");
-        }
-      `}</style>
       </>
   )
 }

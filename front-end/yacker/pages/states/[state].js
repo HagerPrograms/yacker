@@ -21,11 +21,14 @@ export default function State(props){
     return(
     <>
     <Nav states={true}></Nav>
-    <h1 className="list-header">Select your school:</h1>
-    <ul>
-        {schoolList}
-    </ul>
+    <div className="class-wrapper">
+        <h1 className="list-header">Select your school:</h1>
+        <ul>
+            {schoolList}
+        </ul>
+    </div>
     </>
+    
     )
 }
 

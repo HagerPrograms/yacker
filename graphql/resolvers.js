@@ -94,9 +94,66 @@ module.exports = {
                 last_reply: p.last_reply.toISOString()
             };
         })
-
-        console.log(posts);
-
         return graphqlArray;
-    }
+    },
+
+    createPost: async function({ postInput }, req) {
+        const errors = [];
+        
+        const user = await User.getUser(req.socket.remoteAddress)
+        console.log(user);
+
+        console.log(req.socket.remoteAddress);
+
+
+        if(!user){
+            const user = await User.createUser(req.socket.remoteAddress)
+        }
+
+        if(user.banned === true){
+            errors.push("User is banned");
+            return {
+                author: req.socket.remoteAddress,
+                filepath: '',
+                created_on: '',
+                last_reply: '',
+                id: null,
+                school: '',
+                content: '',
+                replies: []
+            }
+        }
+
+        //Input errors
+        if(postInput.filepath === ''){
+            errors.push("No picture/video uploaded.")
+        }
+
+        if(postInput.content == ''){
+            errors.push("Post content is empty!")
+        }
+
+        if(errors.length > 0){
+            const error = new Error('Invalid input.');
+            error.data = errors;
+            error.code = 422;
+            throw error;
+        }
+
+        //if no errors sucessful post
+        const createdPost = await Post.createPost({
+            ip: req.socket.remoteAddress,
+            content: postInput.content,
+            file: postInput.file_path,
+            school: postInput.school
+            })        
+        
+        console.log(createdPost);
+
+        return{    
+            ...createdPost,
+            author: createdPost.ip,
+            created_on: createdPost.created_on.toISOString(),
+            last_reply: createdPost.last_reply.toISOString()}
+        }
 }

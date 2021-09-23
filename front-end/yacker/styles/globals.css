@@ -11,7 +11,10 @@ body {
 
 
 body{
-  background-image: url("../public/yacker-background.png");
+  min-height: 100vh;
+  width: 100%;
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(231,231,231,1) 100%);
 }
 
 a {
@@ -96,9 +99,9 @@ a {
   border: 2px solid black;
   border-radius: 10px;
   background-color: transparent;
-  color: black;
+  color: white;
   overflow: hidden;
-
+  background-color: maroon;
 }
 
 #post-form-text{
@@ -115,8 +118,13 @@ a {
   border-color: black;
   border-radius: 5px;
   margin: 0 5px 0 5px;
-
 }
+
+#post-form-submit:hover{
+  background-color: #eaeaea;
+}
+
+
 
 #file-upload{
   grid-column: 2/4;
@@ -158,7 +166,8 @@ a {
 }
 
 .state-form{
-  
+  height:25px;
+  font-size: 20px;
 }
 
 .state-header{
@@ -170,7 +179,7 @@ a {
 .welcome-banner{
   width: 60%;
   margin: 0 auto 0 auto;
-  border: 3px solid #cacaca;
+  border: 1px solid black;
   border-radius: 10px;
   position: absolute;
   top: 40%;
@@ -203,7 +212,7 @@ a {
   display: table;
   background-color: transparent;
   padding: 5px;
-  border: 2px solid #cacaca;
+  border: 1px solid black;
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
@@ -223,6 +232,7 @@ a {
 }
 
 .school-list{
+  display: block;
   list-style: none;
   color: blue;
   text-decoration: underline;
@@ -273,4 +283,139 @@ textarea{
 .state-selector{
   display: table;
   margin: 0 auto 0 auto;
+}
+
+#go-button{
+  height: 25px;
+  font-size: 20px;
+  display: inline;
+  vertical-align: top;
+}
+
+.state-form{
+  display: inline;
+  margin-right: 20px;
+}
+
+.class-wrapper{
+  background-color: transparent;
+  width: 60%;
+  margin: 0 auto 0 auto;
+  border-radius: 10px;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+.feed-container{
+  margin-top: 25px;
+  width: 60%;
+  margin: 0 auto 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: maroon;
+}
+
+#page-separator{
+  width:60%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  border-color: black;
+  border-width: 1px;
+  border-top: transparent;
+}
+
+.post{
+  width: 95%;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: auto;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 3px 3px 5px black;
+  overflow: hidden;
+}
+
+.post>img{
+  display: block;
+  max-width: 95%;
+  margin: 0 auto 0 auto;
+  padding-bottom: 15px;
+  
+}
+
+.post-content{
+  display: block;
+  margin: 0;
+  padding-bottom: 5px;
+  font-size: 32px;
+}
+
+.post-author{
+  display: inline-block;
+  color: red;
+  margin: 0;
+}
+
+
+.post:nth-child(odd){
+  background-color: #F9F9F0;
+}
+
+.post-header{
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  padding-bottom: 0px;
+  margin: 0 auto 0 auto;
+}
+
+.post-created{
+  color: #6a6a6a;
+  display: block;
+  float: left;
+  margin: 0;
+}
+.post-updated{
+  color: #6a6a6a;
+  display: block;
+  margin: 0;
+  float: right;
+}
+
+.post-id{
+  color: green;
+  display: block;
+  margin: 0;
+  clear:both;
+  padding-bottom: 10px;
+}
+
+.thread-actions{
+  color: blue;
+  text-decoration: underline;
+  padding: 5px;
+}
+
+.thread-actions:hover{
+  color: purple;
+  cursor: pointer;
+}
+
+.reply-text{
+  display: block;
+  width: 95%;
+  margin: 0 auto 0 auto;
+}
+
+.reply-file{
+  padding-left: 2.5%;
+  display: block;
+  float: left;
+}
+.reply-submit{
+  float: right;
+  margin-right: 2.5%;
 }

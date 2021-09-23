@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const prisma = new PrismaClient()
 
 //Create a user, once a new connection goes to Yacker, their IP is logged to the database.
-async function createUser({ip}){
+async function createUser(ip){
     const user = await prisma.users.create({
         data: {
           address: ip
@@ -37,13 +37,13 @@ async function unbanUser({ip}){
 };
 
 //To read user information for debugging.
-async function getUser({ip}){
+async function getUser(ip){
     const user = await prisma.users.findUnique({
         where: {
           address: ip,
         },
       })
-    console.dir(user, {depth: null});
+    return user;
 };
 
 async function getUsers(){

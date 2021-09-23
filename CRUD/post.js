@@ -3,16 +3,18 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //Create a post, takes ip and 
-async function createPost({ip}, post){ 
+async function createPost({ip,file,content,school}){ 
     
-    const createPost = await prisma.post.create({
+    const createdPost = await prisma.post.create({
         data: {
           author: ip,
-          file_path: post.file,
-          content: post.content,
-          school: post.school
+          file_path: file,
+          content: content,
+          school: school
         },
     });
+
+    return createdPost;
 };
 
 async function deletePost(post){

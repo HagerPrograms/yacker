@@ -7,15 +7,24 @@ module.exports = buildSchema(`
         views: Int!
     }
 
-
-    type Post {
-        author:      String
+    type Reply {
         created_on:  String!
         last_reply:  String!   
         id:          ID
         school:      String!
-        file_path:   String
+        file_path:   String!
         content:     String!
+    }
+
+    type Post {
+        author:      String!
+        created_on:  String!
+        last_reply:  String!   
+        id:          ID
+        school:      String!
+        file_path:   String!
+        content:     String!
+        replies:     [Reply!]!
     }
 
     type User {
@@ -30,6 +39,12 @@ module.exports = buildSchema(`
         email: String!
     }
     
+    input PostInputData{
+        content: String!
+        school: String!
+        file_path: String!
+    }
+
     type RootQuery {
         posts:                                    [Post!]!
         users:                                    [User!]!
@@ -37,7 +52,12 @@ module.exports = buildSchema(`
         getPosts(abbreviation: String!):          [Post!]!
     }
 
+    type RootMutation{
+        createPost(postInput: PostInputData): Post!
+    }
+
     schema {
         query:   RootQuery
+        mutation: RootMutation
     }
 `);

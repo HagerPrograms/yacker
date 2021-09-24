@@ -406,16 +406,29 @@ textarea{
 
 .reply-text{
   display: block;
-  width: 95%;
+  width: 100%;
   margin: 0 auto 0 auto;
+  height: 75px;
 }
 
 .reply-file{
-  padding-left: 2.5%;
   display: block;
   float: left;
 }
 .reply-submit{
   float: right;
-  margin-right: 2.5%;
+}
+
+.reply-form-wrapper{
+  width: 95%;
+  background-color: maroon;
+  color: white;
+  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 auto 10px auto;
+}
+
+.reply-form-header{
+  margin: 5px 0 5px 0;
 }

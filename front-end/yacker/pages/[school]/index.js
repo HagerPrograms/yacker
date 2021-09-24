@@ -7,10 +7,15 @@ import Schools from '../../../data/schools.json'
 export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query
-
+    let replies= null;
     console.log(props.college);
 
-
+    if(!replies){
+        replies = (
+        <>
+        <h2>No posts yet.</h2>
+        </>)
+    }
 
     const posts = props.posts;    
     const feed = posts.map(post => {
@@ -31,11 +36,15 @@ export default function Home(props) {
                 </div>
             </div>
             <img src="https://i.imgur.com/MUZrItF.jpg"/>
-            <form>
-                <textarea className="reply-text"></textarea>
-                <input className="reply-file" type="file"></input>
-                <input className="reply-submit" value="Reply"type="submit"></input>
-            </form>
+            <div className="reply-form-wrapper">
+                <h4 className="reply-form-header">Reply:</h4>
+                <form>
+                    <textarea placeholder="Write a reply..."className="reply-text"></textarea>
+                    <input className="reply-file" type="file"></input>
+                    <input className="reply-submit" value="Reply"type="submit"></input>
+                </form>
+            </div>
+            {replies}
         </div>
         </>
         )

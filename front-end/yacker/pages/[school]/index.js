@@ -3,52 +3,46 @@ import {useRouter} from 'next/router'
 import PostForm from '../../components/postform'
 import Banner from '../../components/banner.js';
 import Schools from '../../../data/schools.json'
+import Post from '../../components/post'
+import Error from '../../components/error.js';
 
 export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query
-    let replies= null;
+    let replies = null;
     console.log(props.college);
 
-    if(!replies){
-        replies = (
-        <>
-        <h2>No posts yet.</h2>
-        </>)
-    }
+    const posts = props.posts; 
 
-    const posts = props.posts;    
-    const feed = posts.map(post => {
-        let created_on = new Date(post.created_on);
-        let last_reply = new Date(post.last_reply);
-        return (
-        <>
-        <div className="post">
-            <div className="post-header">
-                <h4 className="post-author">{post.author}</h4>
-                <a className="thread-actions">(Ban user and close thread)</a>
-                <a className="thread-actions">(Close thread)</a>
-                <h3 className="post-content">{post.content}</h3>
-                <h4 className="post-created">{"Post created on: " + created_on.toLocaleString()}</h4>
-                <h4 className="post-updated">{"Last reply: " + last_reply.toLocaleString()}</h4>
-                <div className="id-wrapper">
-                    <h4 className="post-id">{"Post ID: " + post.id}</h4>
-                </div>
-            </div>
-            <img src="https://i.imgur.com/MUZrItF.jpg"/>
-            <div className="reply-form-wrapper">
-                <h4 className="reply-form-header">Reply:</h4>
-                <form>
-                    <textarea placeholder="Write a reply..."className="reply-text"></textarea>
-                    <input className="reply-file" type="file"></input>
-                    <input className="reply-submit" value="Reply"type="submit"></input>
-                </form>
-            </div>
-            {replies}
-        </div>
-        </>
+    console.log(posts);
+    let feed;
+        (posts.length > 0) ?
+        feed = posts.map(post => {
+            let created_on = new Date(post.created_on);
+            let last_reply = new Date(post.last_reply);
+            return (
+                <Post
+                    key={post.id} 
+                    author={post.author}
+                    id= {post.id}
+                    school= {post.school}
+                    file={post.file_path}
+                    created_on={created_on} 
+                    last_reply={last_reply} 
+                    content={post.content} 
+                    replies={replies}
+                />
+            )
+        }) :
+        feed = (
+            <>
+            <Error content={"No posts for " + school + " yet, but you can create one!"}/>
+            </>
         )
-    })
+
+    //console.log(feed);
+
+
 
     return ( 
     <>
@@ -56,7 +50,7 @@ export default function Home(props) {
             <Nav school={school} state={props.college.state}/>
         </div>
         <Banner school={props.college.school}/>
-        <PostForm/>
+        <PostForm school={school}/>
         
         <hr id="page-separator"/>
         

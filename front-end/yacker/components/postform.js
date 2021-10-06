@@ -48,11 +48,11 @@ function PostForm(props){
     return (
         <>
         <div className="post-form-container">
-            <form onSubmit={(e)=>postHandler(e, {content, media, school})} className="post-form">
+            <form method="POST" onSubmit={(e)=>postHandler(e, {content, media, school})} className="post-form">
                 <textarea value={content} onChange={onContentChange} required id="post-form-text"placeholder="Say something!"/>
                 {wordCounter}
                 <label id="post-form-label" htmlFor="file-upload">Media upload:</label>
-                <input value={media} onChange={onMediaChange} required id="upload" type="file"></input>
+                <input accept="image/*,video/*" value={media} onChange={onMediaChange} required id="upload" type="file"></input>
                 <input required id="post-form-submit" type="submit" value="Create Post"></input>
             </form>
         </div>
@@ -61,6 +61,8 @@ function PostForm(props){
 }
 
 async function postHandler(event, postData){
+
+  event.preventDefault();
 
   const formData = new FormData();
   const content = postData.content.replaceAll(`"`, `\\"`);
@@ -75,19 +77,21 @@ async function postHandler(event, postData){
     body:formData
   }).then(res => {
     res.json().then((data)=>{
-      console.log(data);
+      
       const graphqlQuery = {
       query: `
       mutation{
         createPost(postInput: {
           content: "${content}", 
           school: "${postData.school}",
-          file_path: "/${data.file_path}"}){
+          file_path: "/${postData.school}/${data.file_path}"}){
           id
           content
         }
       }
       `};
+
+      console.log(graphqlQuery);
       fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
@@ -95,8 +99,7 @@ async function postHandler(event, postData){
         },
         body: JSON.stringify(graphqlQuery)
     }).then(res => {
-      console.log(res.json());
-      refreshData();
+      console.log(res.json().then(window.location.reload()));
     })
     })
 })

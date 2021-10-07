@@ -74,6 +74,9 @@ async function getPosts(school_abrv){
         where:{
             school: {
                 contains: school_abrv
+            },
+            include:{
+                reply:true
             }
         }
     })
@@ -91,7 +94,6 @@ async function getPost(post_id){
     })
     return post;
 }
-
 
 exports.createPost = createPost;
 exports.mutePost = mutePost;

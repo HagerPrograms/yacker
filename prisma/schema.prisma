@@ -54,7 +54,7 @@ model users {
 }
 
 model admin {
-  email    String  @id @db.VarChar(20)
+  email    String  @id @db.VarChar(255)
   password String? @db.VarChar(255)
   address  String  @db.Inet
 }

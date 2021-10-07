@@ -86,6 +86,8 @@ module.exports = {
             return b.date - a.date;
         })
 
+        console.log(posts);
+
         const graphqlArray = posts.map(p => {
             return {
                 ...p,
@@ -104,7 +106,6 @@ module.exports = {
         console.log(user);
 
         console.log(req.socket.remoteAddress);
-
 
         if(!user){
             const user = await User.createUser(req.socket.remoteAddress)
@@ -154,6 +155,60 @@ module.exports = {
             ...createdPost,
             author: createdPost.ip,
             created_on: createdPost.created_on.toISOString(),
-            last_reply: createdPost.last_reply.toISOString()}
+            last_reply: createdPost.last_reply.toISOString()
+            
         }
+        },
+
+    createReply: async function({replyData}, req){
+        const errors = [];
+
+        const user = await User.getUser(req.socket.remoteAddress)
+        console.log(user);
+
+        const ip = req.socket.remoteAddress;
+        
+        if(!user){
+            const user = await User.createUser(req.socket.remoteAddress)
+        }
+
+        // if(user.banned === true){
+        //     errors.push("User is banned");
+        //     return {
+        //         author: req.socket.remoteAddress,
+        //         filepath: '',
+        //         created_on: '',
+        //         last_reply: '',
+        //         id: null,
+        //         school: '',
+        //         content: '',
+        //         replies: []
+        //     }
+        // }
+
+        if(replyData.content == ''){
+            errors.push("Reply content is empty!")
+        }
+
+        if(errors.length > 0){
+            const error = new Error('Invalid input.');
+            error.data = errors;
+            error.code = 422;
+            throw error;
+        }
+
+        const createdReply = await Reply.createReply(
+            {
+                masterID: replyData.masterID,
+                content:  replyData.content,
+                file:     replyData.file,
+                author:   ip
+            })
+        
+        return {
+            ...createdReply,
+            author: createdReply.ip,
+            created_on: createdReply.created_on.toISOString()
+        }   
+    }
 }

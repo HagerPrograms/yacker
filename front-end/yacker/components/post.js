@@ -1,4 +1,4 @@
-export default function Post (props) {
+export default function Post(props) {
     let media = (<></>);
     
     console.log(props.file);
@@ -15,12 +15,8 @@ export default function Post (props) {
         )
     }
 
-
-
     return ( 
         <>
-        <div className="post">
-            
             <div className="post-header">
                 <h4 className="post-author">{props.author}</h4>
                 <a className="thread-actions">(Ban user and close thread)</a>
@@ -47,10 +43,6 @@ export default function Post (props) {
                     <input className="reply-submit" value="Reply"type="submit"></input>
                 </form>
             </div>
-            
-            {props.replies}
-
-        </div>
         </>
     )
 }

@@ -91,7 +91,6 @@ async function postHandler(event, postData){
       }
       `};
 
-      console.log(graphqlQuery);
       fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {

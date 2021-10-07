@@ -42,13 +42,17 @@ const fileStorageEngine = multer.diskStorage({
     }
 })
 
-
-
 //set port 
 const PORT = 4000;
 
 //import multer package for file upload.
 const upload = multer({storage: fileStorageEngine})
+
+//enable cors
+app.use(cors());
+
+//
+app.use(express.static('./uploads'));
 
 //graphql endpoint
 app.use('/graphql', graphqlHTTP({
@@ -65,12 +69,9 @@ app.use("/:school/:file", (req, res, next)=>{
     if(req.params.file.includes('.mp4') || req.params.file.includes('.avi') || req.params.file.includes('.mov')){
         res.contentType('video/mp4');
     }
-
-    app.use(express.static('./uploads'));
 })
 
-//enable cors
-app.use(cors());
+
 
 //rest endpoint to accept file upload.
 app.put('/post-media-upload', upload.single('upload'), (req, res, next) => {

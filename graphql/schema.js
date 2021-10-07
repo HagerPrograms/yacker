@@ -28,21 +28,28 @@ module.exports = buildSchema(`
     }
 
     type User {
-        address: String!
-        banned: String!
+        address:   String!
+        banned:    String!
         createdat: String!
-        id: ID!
+        id:        ID!
     }
 
     type AuthData {
         token:  String!
-        email: String!
+        email:  String!
     }
     
     input PostInputData{
-        content: String!
-        school: String!
+        content:   String!
+        school:    String!
         file_path: String!
+    }
+
+    input ReplyInputData{
+        content:   String!
+        school:    String!
+        file_path: String
+        masterID:  String!
     }
 
     type RootQuery {
@@ -53,11 +60,12 @@ module.exports = buildSchema(`
     }
 
     type RootMutation{
-        createPost(postInput: PostInputData): Post!
+        createPost  (postInput:  PostInputData):  Post!
+        createReply (replyData:  ReplyInputData): Reply!
     }
 
     schema {
-        query:   RootQuery
+        query:    RootQuery
         mutation: RootMutation
     }
 `);

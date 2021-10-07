@@ -3,23 +3,34 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //Upon creating a reply it must update the parent 'thread' object
-async function createReply({ip}, thread, reply){
+async function createReply({author, file, masterID, content}){
+    
+    console.log(author);
+    console.log(file);
+    console.log(parseInt(masterID));
+    console.log(content);
+
     const createReply = await prisma.reply.create({
         data: {
-          author: ip,
-          file_path: post.file,
-          thread_id: thread.id,
-          content: post.content
+          author:    author,
+          file_path: file,
+          thread_id: parseInt(masterID),
+          content:   content
         },
       });
-      const updateThread = await prisma.post.update({
+
+    const updateThread = await prisma.post.update({
         where: {
-            id: thread.id,
+            id: parseInt(masterID),
         },
         data: {
-            last_reply: Date.now()
+            last_reply: new Date(Date.now()),
         }
       })
+    
+
+    console.log(createReply);
+    return createReply;
 };
 
 //Deleting reply for debug

@@ -5,22 +5,42 @@ import Banner from '../../components/banner.js';
 import Schools from '../../../data/schools.json'
 import Post from '../../components/post'
 import Error from '../../components/error.js';
+import Reply from '../../components/reply.js';
+
 
 export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query
-    let replies = null;
     console.log(props.college);
 
-    const posts = props.posts; 
+    const posts = props.posts;
 
-    console.log(posts);
     let feed;
         (posts.length > 0) ?
         feed = posts.map(post => {
             let created_on = new Date(post.created_on);
             let last_reply = new Date(post.last_reply);
+            
+            if(reply)
+            replyFeed = post.replies.map(reply => {
+                
+                let created_on = new Date(post.created_on);
+
+                return(
+                    <Reply
+                    key={reply.id} 
+                    author={reply.author}
+                    id= {reply.id}
+                    school= {post.school}
+                    file={reply.file_path}
+                    created_on={created_on} 
+                    content={reply.content} 
+                />
+                )
+            })
+
             return (
+                <div className="post">
                 <Post
                     key={post.id} 
                     author={post.author}
@@ -30,8 +50,8 @@ export default function Home(props) {
                     created_on={created_on} 
                     last_reply={last_reply} 
                     content={post.content} 
-                    replies={replies}
                 />
+                </div>
             )
         }) :
         feed = (
@@ -75,6 +95,7 @@ export async function getServerSideProps({params}){
             school
             file_path
             content
+            reply
           }
         }
         `

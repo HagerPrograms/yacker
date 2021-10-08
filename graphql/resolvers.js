@@ -83,7 +83,7 @@ module.exports = {
         const posts = await Post.getPosts(abbreviation);
 
         posts.sort((a,b) => {
-            return b.date - a.date;
+            return b.last_reply - a.last_reply;
         })
 
         console.log(posts);
@@ -163,6 +163,8 @@ module.exports = {
     createReply: async function({replyData}, req){
         const errors = [];
 
+        console.log("ReplyData: ", replyData);
+
         const user = await User.getUser(req.socket.remoteAddress)
         console.log(user);
 
@@ -171,20 +173,6 @@ module.exports = {
         if(!user){
             const user = await User.createUser(req.socket.remoteAddress)
         }
-
-        // if(user.banned === true){
-        //     errors.push("User is banned");
-        //     return {
-        //         author: req.socket.remoteAddress,
-        //         filepath: '',
-        //         created_on: '',
-        //         last_reply: '',
-        //         id: null,
-        //         school: '',
-        //         content: '',
-        //         replies: []
-        //     }
-        // }
 
         if(replyData.content == ''){
             errors.push("Reply content is empty!")
@@ -199,10 +187,10 @@ module.exports = {
 
         const createdReply = await Reply.createReply(
             {
-                masterID: replyData.masterID,
-                content:  replyData.content,
-                file:     replyData.file,
-                author:   ip
+                masterID:  replyData.masterID,
+                content:   replyData.content,
+                file_path: replyData.file_path,
+                author:    ip
             })
         
         return {

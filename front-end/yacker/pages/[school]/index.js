@@ -6,7 +6,7 @@ import Schools from '../../../data/schools.json'
 import Post from '../../components/post'
 import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
-
+import ReplyForm from '../../components/replyform'
 
 export default function Home(props) {
     const router = useRouter();
@@ -14,6 +14,7 @@ export default function Home(props) {
     console.log(props.college);
 
     const posts = props.posts;
+    console.log(posts)
 
     let feed;
         (posts.length > 0) ?
@@ -21,23 +22,21 @@ export default function Home(props) {
             let created_on = new Date(post.created_on);
             let last_reply = new Date(post.last_reply);
             
-            if(reply)
-            replyFeed = post.replies.map(reply => {
+            const replyFeed = (post.reply.length>0) ? post.reply.map(reply => {
                 
                 let created_on = new Date(post.created_on);
-
-                return(
+                console.log(reply);
+                return (
                     <Reply
                     key={reply.id} 
-                    author={reply.author}
-                    id= {reply.id}
                     school= {post.school}
-                    file={reply.file_path}
+                    file_path={reply.file_path}
                     created_on={created_on} 
                     content={reply.content} 
+                    author={reply.author}
                 />
                 )
-            })
+            }): (<h2 className="error-container">No replies yet.</h2>)
 
             return (
                 <div className="post">
@@ -51,6 +50,11 @@ export default function Home(props) {
                     last_reply={last_reply} 
                     content={post.content} 
                 />
+                <ReplyForm 
+                masterID={post.id}
+                school={school}
+                />
+                {replyFeed}
                 </div>
             )
         }) :
@@ -87,17 +91,23 @@ export async function getServerSideProps({params}){
     const graphqlQuery = {
         query: `
         {
-            getPosts(abbreviation: "${params.school}"){
-            author
-            created_on
-            last_reply
-            id
-            school
-            file_path
-            content
-            reply
+            getPosts(abbreviation: "${params.school}") {
+              author
+              created_on
+              last_reply
+              id
+              school
+              file_path
+              content
+              reply {
+                content
+                author
+                created_on
+                file_path
+              }
+            }
           }
-        }
+          
         `
     }
 
@@ -110,6 +120,7 @@ export async function getServerSideProps({params}){
     })
     
     const { data } = await req.json()
+    console.log(data);
 
     const college = Schools.find(element => element.abrv === params.school);
 

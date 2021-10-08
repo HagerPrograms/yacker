@@ -75,9 +75,9 @@ async function getPosts(school_abrv){
             school: {
                 contains: school_abrv
             },
-            include:{
-                reply:true
-            }
+        },
+        include: {
+            reply: true,
         }
     })
     return posts

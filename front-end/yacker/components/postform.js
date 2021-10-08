@@ -1,21 +1,11 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 function PostForm(props){
-  const router = useRouter();
-
-  const refreshData = () => 
-  {
-    router.replace(router.asPath);
-  }
-
   const school = props.school
 
   const [content, setContent] = useState('');
   const [media, setMedia] = useState('');
   const [size, setSize] = useState(0)
-
-
 
   let wordCounter;
 

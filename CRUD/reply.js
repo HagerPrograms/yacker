@@ -3,17 +3,17 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //Upon creating a reply it must update the parent 'thread' object
-async function createReply({author, file, masterID, content}){
+async function createReply({author, file_path, masterID, content}){
     
     console.log(author);
-    console.log(file);
+    console.log("FILE: ", file_path);
     console.log(parseInt(masterID));
     console.log(content);
 
     const createReply = await prisma.reply.create({
         data: {
           author:    author,
-          file_path: file,
+          file_path: file_path,
           thread_id: parseInt(masterID),
           content:   content
         },
@@ -85,7 +85,7 @@ async function muteMedia(reply){
             id: reply.id
         },
         data: {
-            file_path: '/image/removed.jpg',
+            file_path: '',
         }
     })
 };

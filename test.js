@@ -16,3 +16,10 @@ const Post = require('./CRUD/post');
 const Reply = require('./CRUD/reply');
 
 Reply.createReply({masterID: '155', content:'test', file: null, author: '::1'})
+
+async function test(){
+const posts = await Post.getPosts("centralaz");
+console.log(posts);
+}
+
+test();

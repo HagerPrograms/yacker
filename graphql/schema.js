@@ -8,11 +8,11 @@ module.exports = buildSchema(`
     }
 
     type Reply {
+        author:      String!
         created_on:  String!
         last_reply:  String!   
         id:          ID
-        school:      String!
-        file_path:   String!
+        file_path:   String
         content:     String!
     }
 
@@ -24,7 +24,7 @@ module.exports = buildSchema(`
         school:      String!
         file_path:   String!
         content:     String!
-        replies:     [Reply!]!
+        reply:     [Reply!]!
     }
 
     type User {

@@ -32,17 +32,6 @@ export default function Post(props) {
             <div className="media-container">
             {media}
             </div>
-            
-            <div className="reply-form-wrapper">
-                <h4 className="reply-form-header">Reply:</h4>
-                <form>
-                    <div className="text-area-container">
-                        <textarea placeholder="Write a reply..."className="reply-text"></textarea>
-                    </div>
-                    <input className="reply-file" type="file"></input>
-                    <input className="reply-submit" value="Reply"type="submit"></input>
-                </form>
-            </div>
         </>
     )
 }

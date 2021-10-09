@@ -8,53 +8,64 @@ datasource db {
 }
 
 model post {
-  author     String?  @db.Inet
-  created_on DateTime @default(now()) @db.Timestamp(6)
-  last_reply DateTime @default(now()) @db.Timestamp(6)
-  id         Int      @id @default(autoincrement())
-  school     String   @db.VarChar(255)
-  file_path  String   @db.VarChar(255)
-  content    String   @db.VarChar(255)
-  users      users?   @relation(fields: [author], references: [address])
-  reply      reply[]
+  author      String?       @db.Inet
+  created_on  DateTime      @default(now()) @db.Timestamp(6)
+  last_reply  DateTime      @default(now()) @db.Timestamp(6)
+  id          Int           @id @default(autoincrement())
+  school      String        @db.VarChar(255)
+  file_path   String        @db.VarChar(255)
+  content     String        @db.VarChar(255)
+  users       users?        @relation(fields: [author], references: [address])
+  post_report post_report[]
+  reply       reply[]
 }
 
 model reply {
-  author     String?  @db.Inet
-  created_on DateTime @default(now()) @db.Timestamp(6)
-  last_reply DateTime @default(now()) @db.Timestamp(6)
-  id         Int      @id @default(autoincrement())
-  file_path  String?  @db.VarChar(255)
-  thread_id  Int      @default(autoincrement())
-  content    String   @db.VarChar(255)
-  users      users?   @relation(fields: [author], references: [address])
-  post       post     @relation(fields: [thread_id], references: [id])
-}
-
-model report {
-  author      String?  @db.Inet
-  created_on  DateTime @default(now()) @db.Timestamp(6)
-  id          Int      @id @default(autoincrement())
-  school      String   @db.VarChar(255)
-  threadid    Int      @default(autoincrement())
-  reason      String   @db.VarChar
-  description String   @db.VarChar
-  resolved    Boolean? @default(false)
-  users       users?   @relation(fields: [author], references: [address])
+  author       String?        @db.Inet
+  created_on   DateTime       @default(now()) @db.Timestamp(6)
+  last_reply   DateTime       @default(now()) @db.Timestamp(6)
+  id           Int            @id @default(autoincrement())
+  file_path    String?        @db.VarChar(255)
+  thread_id    Int            @default(autoincrement())
+  content      String         @db.VarChar(255)
+  users        users?         @relation(fields: [author], references: [address])
+  post         post           @relation(fields: [thread_id], references: [id])
+  reply_report reply_report[]
 }
 
 model users {
-  address   String    @unique @db.Inet
-  createdat DateTime? @default(now()) @db.Timestamp(6)
-  banned    Boolean?  @default(false)
-  id        Int       @id @default(autoincrement())
-  post      post[]
-  reply     reply[]
-  report    report[]
+  address      String         @unique @db.Inet
+  createdat    DateTime?      @default(now()) @db.Timestamp(6)
+  banned       Boolean?       @default(false)
+  id           Int            @id @default(autoincrement())
+  post         post[]
+  post_report  post_report[]
+  reply        reply[]
+  reply_report reply_report[]
 }
 
 model admin {
   email    String  @id @db.VarChar(255)
   password String? @db.VarChar(255)
   address  String  @db.Inet
+}
+
+model post_report {
+  author         String?  @db.Inet
+  created_on     DateTime @default(now()) @db.Timestamp(6)
+  report_id      Int      @id @default(autoincrement())
+  thread_id      Int      @default(autoincrement())
+  report_content String   @db.VarChar(255)
+  users          users?   @relation(fields: [author], references: [address])
+  post           post     @relation(fields: [thread_id], references: [id])
+}
+
+model reply_report {
+  author         String?  @db.Inet
+  created_on     DateTime @default(now()) @db.Timestamp(6)
+  report_id      Int      @id @default(autoincrement())
+  reply_id       Int      @default(autoincrement())
+  report_content String   @db.VarChar(255)
+  users          users?   @relation(fields: [author], references: [address])
+  reply          reply    @relation(fields: [reply_id], references: [id])
 }

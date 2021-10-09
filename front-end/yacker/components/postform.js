@@ -17,8 +17,6 @@ function PostForm(props){
       <label style={{color: "white"}} className="word-counter">{size + "/255"}</label>
     )
 
-
-
   function onContentChange(event) {
     
     setContent(() => {
@@ -84,11 +82,12 @@ async function postHandler(event, postData){
       fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          auth: localStorage.getItem('token'),
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(graphqlQuery)
     }).then(res => {
-      console.log(res.json().then(window.location.reload()));
+      window.location.reload();
     })
     })
 })

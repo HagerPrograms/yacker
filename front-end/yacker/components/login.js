@@ -1,4 +1,5 @@
 import { useState } from "react";
+import cookie from "js-cookie";
 
 function LoginForm(props){
   
@@ -62,9 +63,8 @@ async function LoginHandler(event, authData){
     if(resData.errors){
       throw new Error("User login failed.")
     }
-    console.log(resData);
-    localStorage.setItem('token', resData.data.login.token);
-    localStorage.setItem('email', resData.data.login.email);
+    
+    cookie.set("token", resData.data.login.token)
   })
 
 

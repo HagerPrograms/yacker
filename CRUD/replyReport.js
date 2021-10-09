@@ -3,15 +3,16 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //If a post/reply is reported 
-async function createReport({ip},{desc,rule,thread_id}){
-    const report = await prisma.report.create({
+async function createReplyReport(ip ,{content,replyID}){
+
+    const report = await prisma.reply_report.create({
         data: {
           author: ip,
-          threadid: thread_id,
-          reason: rule,
-          description: desc
+          reply_id: parseInt(replyID),
+          content: content
         },
       })
+    return report;
 };
 
 //If reports to a post all seem to be not infracting
@@ -85,7 +86,7 @@ async function findReport({report_id}){
   return report;
 }
 
-exports.createReport = createReport;
+exports.createReplyReport = createReplyReport;
 exports.findReport = findReport;
 exports.findReports = findReports;
 exports.getAllReports = getAllReports;

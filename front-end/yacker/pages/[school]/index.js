@@ -7,14 +7,14 @@ import Post from '../../components/post'
 import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
+import Link from 'next/link'
+
 
 export default function Home(props) {
     const router = useRouter();
-    let{ school } = router.query
-    console.log(props.college);
+    let{ school } = router.query;
 
     const posts = props.posts;
-    console.log(posts)
 
     let feed;
         (posts.length > 0) ?
@@ -49,12 +49,16 @@ export default function Home(props) {
                     created_on={created_on} 
                     last_reply={last_reply} 
                     content={post.content} 
+                    loggedIn = {props.loggedIn}
                 />
                 <ReplyForm 
                 masterID={post.id}
                 school={school}
                 />
                 {replyFeed}
+                <Link href={`/${post.school}/${post.id}`}>
+                    <a className="thread-actions view-thread">View thread</a>
+                </Link>
                 </div>
             )
         }) :
@@ -71,7 +75,7 @@ export default function Home(props) {
     return ( 
     <>
         <div className="nav">
-            <Nav school={school} state={props.college.state}/>
+            <Nav school={school} state={props.college.state} loggedIn={props.loggedIn}/>
         </div>
         <Banner school={props.college.school}/>
         <PostForm school={school}/>
@@ -86,7 +90,7 @@ export default function Home(props) {
     )
 }
 
-export async function getServerSideProps({params}){
+export async function getServerSideProps({params, req}){
 
     const graphqlQuery = {
         query: `
@@ -111,16 +115,18 @@ export async function getServerSideProps({params}){
         `
     }
 
-    const req = await fetch('http://localhost:4000/graphql', {
+    const payload = await fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
+            auth: req.cookies.token,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)
     })
     
-    const { data } = await req.json()
-    console.log(data);
+    const { data } = await payload.json();
+
+
 
     const college = Schools.find(element => element.abrv === params.school);
 
@@ -132,8 +138,9 @@ export async function getServerSideProps({params}){
 
     return {
         props: {
-            posts: data.getPosts,
-            college: college
+            posts: data.getPosts || [],
+            college: college,
+            loggedIn: req.cookies.token || ""
         }
     }
 }

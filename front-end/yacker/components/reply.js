@@ -3,7 +3,6 @@ export default function Reply(props){
     // (props.media)
     let media = props.file_path;
     
-    console.log("MEDIA:", props.file_path)
     if(media === null){
         media = (<>
         </>)

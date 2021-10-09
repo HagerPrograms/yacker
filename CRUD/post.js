@@ -83,6 +83,22 @@ async function getPosts(school_abrv){
     return posts
 }
 
+async function getPostReports(){
+    const posts = await prisma.post.findMany({
+        where:{
+            post_report: {
+                some: {
+
+                }
+            }
+            },
+        include: {
+            post_report: true,
+        }
+    })
+    return posts
+}
+
 async function getPost(post_id){
     const post = await prisma.post.findUnique({
         where:{
@@ -95,6 +111,7 @@ async function getPost(post_id){
     return post;
 }
 
+exports.getPostReports = getPostReports;
 exports.createPost = createPost;
 exports.mutePost = mutePost;
 exports.deleteAllPosts = deleteAllPosts;

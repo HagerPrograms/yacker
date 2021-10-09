@@ -5,13 +5,18 @@ const multer = require('multer');
 const {v4 : uuidv4} = require('uuid');
 const fs = require('fs');
 const path = require('path');
+const cookie = require('cookie-parser');
 
 const { graphqlHTTP } = require('express-graphql');
 
 const graphql_schema = require('./graphql/schema');
 const graphql_resolvers = require('./graphql/resolvers');
+const auth = require('./middleware/auth');
 
 const Post = require('./CRUD/post');
+
+app.use(cookie());
+app.use(auth);
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -53,6 +58,7 @@ app.use(cors());
 
 //
 app.use(express.static('./uploads'));
+
 
 //graphql endpoint
 app.use('/graphql', graphqlHTTP({

@@ -1,12 +1,13 @@
 //import dev created libraries
-const { graphql } = require('graphql');
-const Post = require('../CRUD/post');
-const Reply = require('../CRUD/reply');
-const Report = require('../CRUD/report');
-const User = require('../CRUD/user');
+const { graphql } =  require('graphql');
+const Post =         require('../CRUD/post');
+const Reply =        require('../CRUD/reply');
+const ReportPost =   require('../CRUD/postReport');
+const ReportReply =  require('../CRUD/replyReport');
+const User =         require('../CRUD/user');
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt =       require('bcrypt');
+const jwt =          require('jsonwebtoken');
 
 module.exports = {
 
@@ -71,7 +72,6 @@ module.exports = {
         {expiresIn: '1h'} //new tokens required in an hour.
         );
 
-        console.log(token);
 
         return {
             token: token,
@@ -79,14 +79,14 @@ module.exports = {
         }
     },
     
-    getPosts: async function ({abbreviation}) {
+    getPosts: async function ({abbreviation}, req) {
+        console.log("User authenication status: ", req.isAuth);
+        
         const posts = await Post.getPosts(abbreviation);
 
         posts.sort((a,b) => {
             return b.last_reply - a.last_reply;
         })
-
-        console.log(posts);
 
         const graphqlArray = posts.map(p => {
             return {
@@ -103,9 +103,6 @@ module.exports = {
         const errors = [];
         
         const user = await User.getUser(req.socket.remoteAddress)
-        console.log(user);
-
-        console.log(req.socket.remoteAddress);
 
         if(!user){
             const user = await User.createUser(req.socket.remoteAddress)
@@ -148,8 +145,6 @@ module.exports = {
             file: postInput.file_path,
             school: postInput.school
             })        
-        
-        console.log(createdPost);
 
         return{    
             ...createdPost,
@@ -163,16 +158,20 @@ module.exports = {
     createReply: async function({replyData}, req){
         const errors = [];
 
-        console.log("ReplyData: ", replyData);
-
+        //console.log("ReplyData: ", replyData);
         const user = await User.getUser(req.socket.remoteAddress)
-        console.log(user);
 
         const ip = req.socket.remoteAddress;
-        
+
         if(!user){
-            const user = await User.createUser(req.socket.remoteAddress)
+            user = await User.createUser(req.socket.remoteAddress)
         }
+
+        if(user.banned){
+            const error = new Error('User is banned!');
+            throw error;
+        }
+
 
         if(replyData.content == ''){
             errors.push("Reply content is empty!")
@@ -198,5 +197,131 @@ module.exports = {
             author: createdReply.ip,
             created_on: createdReply.created_on.toISOString()
         }   
+    },
+    reportPost: async function ({reportData}, req){
+        const errors = [];
+
+        //console.log("ReplyData: ", replyData);
+        const user = await User.getUser(req.socket.remoteAddress)
+        console.log(reportData);
+        const ip = req.socket.remoteAddress;
+
+        if(!user){
+            user = await User.createUser(req.socket.remoteAddress)
+        }
+
+        if(user.banned){
+            const error = new Error('User is banned!');
+            throw error;
+        }
+
+        if(reportData.content == ''){
+            errors.push("Report content is empty.")
+        }
+
+        if(reportData.postID === null){
+            const error = new Error('Invalid Report');
+            throw error
+        }
+
+        if(errors.length > 0){
+            const error = new Error('Invalid input.');
+            error.data = errors;
+            error.code = 422;
+            throw error;
+        }
+        
+        const createdReport = await ReportPost.createPostReport(ip, {
+            content: reportData.content,
+            postID: reportData.postID,
+        })
+
+        console.log("Insertion complete: ", createdReport);
+
+        return {
+            ...createdReport,
+            created_on: createdReport.created_on.toISOString(),
+        }
+    },
+    reportReply: async function ({reportData}, req){
+        const errors = [];
+
+        console.log("ReplyData: ", reportData);
+        const user = await User.getUser(req.socket.remoteAddress)
+        const ip = req.socket.remoteAddress;
+
+        if(!user){
+            user = await User.createUser(req.socket.remoteAddress)
+        }
+
+        if(user.banned){
+            const error = new Error('User is banned!');
+            throw error;
+        }
+
+        if(reportData.content == ''){
+            errors.push("Report content is empty.")
+        }
+
+        if(reportData.replyID === null){
+            const error = new Error('Invalid Report');
+            throw error
+        }
+
+        if(errors.length > 0){
+            const error = new Error('Invalid input.');
+            error.data = errors;
+            error.code = 422;
+            throw error;
+        }
+        
+        const createdReport = await ReportReply.createReplyReport(ip, {
+            content: reportData.content,
+            replyID: reportData.replyID,
+        })
+
+        console.log("Insertion complete: ", createdReport);
+
+        return {
+            ...createdReport,
+        }
+    },
+
+    getPostReports: async function (req) {
+        
+        const posts = await Post.getPostReports();
+
+        console.log(posts);
+
+        const graphqlArray = posts.map(p => {
+            return {
+                ...p,
+                author: p.author.toString(),
+                created_on: p.created_on.toISOString(),
+                last_reply: p.last_reply.toISOString()
+            };
+        })
+        return graphqlArray;
+    },
+
+    getReplyReports: async function (req) {
+        
+        const replies = await Reply.getReplyReports();
+
+        console.log(replies.reply_report);
+
+        const graphqlArray = replies.map(r => {
+            console.log("HERE: ", r.reply_report);
+            return {
+                ...r,
+                report: r.reply_report,
+                author: '192.168.0.1',
+                created_on: r.created_on.toISOString(),
+                last_reply: r.last_reply.toISOString()
+            };
+        })
+
+        console.log(graphqlArray);
+        return graphqlArray;
     }
 }

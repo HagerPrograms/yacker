@@ -14,6 +14,8 @@ function Nav(props){
         </>
         )
     }
+    console.log(props.loggedIn)
+    let adminHeader = (props.loggedIn === "" || props.loggedIn === undefined) ? <></> : <p className="admin-subheader">Admin</p> 
     
     if(props.states){
         stateLink = (
@@ -30,6 +32,7 @@ function Nav(props){
         <div className="header">
         <h1 id="website-name">yacker{(props.school)? ` - ${props.school}`: ""}</h1>
         {stateLink}
+        {adminHeader}
         </div>
         </>
     )

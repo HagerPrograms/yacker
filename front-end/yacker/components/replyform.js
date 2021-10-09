@@ -35,9 +35,6 @@ export default function replyForm(props){
     function onMediaChange(event){
         setMedia(() => {return event.target.value})
     }    
-    
-    console.log("Reply: ", content)
-    console.log("File: ", media)
 
     return (
     <div className="reply-form-wrapper">
@@ -66,37 +63,65 @@ async function replyHandler(event, postData){
     formData.append('school', postData.school);
     formData.append('upload', fileField.files[0]);
   
-    fetch('http://localhost:4000/post-media-upload', {
-      method: 'PUT',
-      body:formData
-    }).then(res => {
-      res.json().then((data)=>{
-        
-        const graphqlQuery = {
+    if(fileField.files[0]){
+      fetch('http://localhost:4000/post-media-upload', {
+        method: 'PUT',
+        body:formData
+        }).then(res => {
+          res.json().then((data)=>{
+            
+            const graphqlQuery = {
+              query: `
+                  mutation{
+                  createReply(replyData: {
+                  content: "${content}", 
+                  masterID: "${postData.masterID}",
+                  school: "${postData.school}",
+                  file_path: "/${postData.school}/${data.file_path}"})
+                  {
+                      content
+                  }
+              }
+              `};
+            
+            fetch('http://localhost:4000/graphql', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(graphqlQuery)
+          }).then(res => {
+            console.log(res.json().then(window.location.reload()));
+            })
+          })
+      })
+    }else{
+      
+      const graphqlQuery = {
         query: `
             mutation{
             createReply(replyData: {
             content: "${content}", 
             masterID: "${postData.masterID}",
             school: "${postData.school}",
-            file_path: "/${postData.school}/${data.file_path}"})
+            file_path: null})
             {
                 content
             }
         }
         `};
-  
-        console.log("QUERY: ", graphqlQuery);
 
-        fetch('http://localhost:4000/graphql', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(graphqlQuery)
-      }).then(res => {
-        console.log(res.json().then(window.location.reload()));
-      })
-      })
-  })
+      fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(graphqlQuery)
+        }).then(res => {
+          console.log(res.json().then(window.location.reload()));
+        })
+    }
+
+
+
 }

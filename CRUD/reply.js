@@ -4,11 +4,6 @@ const prisma = new PrismaClient()
 
 //Upon creating a reply it must update the parent 'thread' object
 async function createReply({author, file_path, masterID, content}){
-    
-    console.log(author);
-    console.log("FILE: ", file_path);
-    console.log(parseInt(masterID));
-    console.log(content);
 
     const createReply = await prisma.reply.create({
         data: {
@@ -27,9 +22,6 @@ async function createReply({author, file_path, masterID, content}){
             last_reply: new Date(Date.now()),
         }
       })
-    
-
-    console.log(createReply);
     return createReply;
 };
 
@@ -66,6 +58,24 @@ async function muteReply(reply){
     })
 };
 
+async function getReplyReports(){
+    const replies = await prisma.reply.findMany({
+        where:{
+            reply_report: {
+                some: {
+
+                }
+            }
+            },
+        include: {
+            reply_report: true,
+        }
+    })
+
+    console.log(replies[0].reply_report);
+    return replies
+}
+
 //Mute content if comment is in violation of the rules
 async function muteContent(reply){
     const muteContent = await prisma.reply.update({
@@ -92,7 +102,7 @@ async function muteMedia(reply){
 
 
 
-
+exports.getReplyReports = getReplyReports;
 exports.createReply = createReply;
 exports.muteReply = muteReply;
 exports.deleteAllReplies = deleteAllReplies;

@@ -409,13 +409,14 @@ textarea{
   display: block;
   margin: 0;
   clear:both;
-  padding-bottom: 10px;
 }
 
 .thread-actions{
   color: blue;
   text-decoration: underline;
-  padding: 5px;
+  margin: 0;
+  display: inline;
+  padding-right: 5px;
 }
 
 .thread-actions:hover{
@@ -538,4 +539,19 @@ textarea{
 .media-text{
   color: white;
   margin: 0 auto 0 auto;
+}
+.admin-subheader{
+  color: red;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.action-bar{
+  padding-left: -2px;
+}
+
+.view-thread{
+  display: block;
+  text-align: center;
+  padding-bottom: 10px;
 }

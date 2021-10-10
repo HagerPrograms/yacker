@@ -2,9 +2,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req,res,next) => {
 
-    authHeader = req.headers.auth;
-
-    console.log("Token :", req.headers.auth);
+    authHeader = req.headers.auth || req.cookies.token;
+    console.log("req cookies: ", req.cookies);
 
     if(!authHeader) {
         console.log('No auth header');
@@ -27,5 +26,8 @@ module.exports = (req,res,next) => {
     }
     req.userID = decodedToken.userID;
     req.isAuth = true;
+
+    res.setHeader("Set-Cookie", `token=${authHeader}`)
+
     next();
 }

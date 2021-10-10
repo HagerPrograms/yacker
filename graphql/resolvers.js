@@ -203,24 +203,28 @@ module.exports = {
 
         //console.log("ReplyData: ", replyData);
         const user = await User.getUser(req.socket.remoteAddress)
-        console.log(reportData);
+        console.log("Report Data: ", reportData);
         const ip = req.socket.remoteAddress;
 
         if(!user){
             user = await User.createUser(req.socket.remoteAddress)
+            console.log("HERE 1");
         }
 
         if(user.banned){
             const error = new Error('User is banned!');
+            console.log("HERE 1");
             throw error;
         }
 
         if(reportData.content == ''){
             errors.push("Report content is empty.")
+            console.log("HERE 1");
         }
 
         if(reportData.postID === null){
             const error = new Error('Invalid Report');
+            console.log("HERE 1");
             throw error
         }
 
@@ -240,6 +244,7 @@ module.exports = {
 
         return {
             ...createdReport,
+            content: createdReport.report_content,
             created_on: createdReport.created_on.toISOString(),
         }
     },
@@ -261,6 +266,7 @@ module.exports = {
 
         if(reportData.content == ''){
             errors.push("Report content is empty.")
+            throw error;
         }
 
         if(reportData.replyID === null){
@@ -275,6 +281,8 @@ module.exports = {
             throw error;
         }
         
+        console.log("REPLY REPORT DATA", reportData);
+
         const createdReport = await ReportReply.createReplyReport(ip, {
             content: reportData.content,
             replyID: reportData.replyID,
@@ -287,41 +295,55 @@ module.exports = {
         }
     },
 
-    getPostReports: async function (req) {
+    getPostReports: async function (data, req) {
         
+        if(!req.isAuth()){
+            throw new Error('User is not authorized.')
+        }
+
         const posts = await Post.getPostReports();
 
-        console.log(posts);
+        console.log('Reported posts: ', posts);
 
         const graphqlArray = posts.map(p => {
             return {
                 ...p,
+                report: p.post_report,
                 author: p.author.toString(),
                 created_on: p.created_on.toISOString(),
                 last_reply: p.last_reply.toISOString()
             };
         })
+
         return graphqlArray;
     },
 
-    getReplyReports: async function (req) {
+    getReplyReports: async function (data, req) {
         
+        if(!req.isAuth()){
+            throw new Error('User is not authorized.')
+        }
+
         const replies = await Reply.getReplyReports();
+
+        const ip = req.socket.remoteAddress;
 
         console.log(replies.reply_report);
 
         const graphqlArray = replies.map(r => {
-            console.log("HERE: ", r.reply_report);
             return {
                 ...r,
                 report: r.reply_report,
-                author: '192.168.0.1',
+                author: r.author.toString(),
                 created_on: r.created_on.toISOString(),
                 last_reply: r.last_reply.toISOString()
             };
         })
 
-        console.log(graphqlArray);
         return graphqlArray;
+    },
+
+    isAdmin: (data, req) => {
+        return req.isAuth;
     }
 }

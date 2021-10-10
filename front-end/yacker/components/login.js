@@ -51,7 +51,7 @@ async function LoginHandler(event, authData){
   fetch('http://localhost:4000/graphql', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(graphqlQuery)
   }).then(res => {

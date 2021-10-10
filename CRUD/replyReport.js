@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 //If a post/reply is reported 
-async function createReplyReport(ip ,{content,replyID}){
+async function createReplyReport(ip , {content,replyID}){
 
     const report = await prisma.reply_report.create({
         data: {

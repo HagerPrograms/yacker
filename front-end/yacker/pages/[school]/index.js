@@ -1,5 +1,5 @@
 import Nav from '../../components/Nav.js';
-import {useRouter} from 'next/router'
+import {useRouter} from 'next/router';
 import PostForm from '../../components/postform'
 import Banner from '../../components/banner.js';
 import Schools from '../../../data/schools.json'
@@ -8,6 +8,8 @@ import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
+import Popup from '../../components/Popup.js';
+import ThreadActions from '../../components/threadActions'
 
 
 export default function Home(props) {
@@ -24,8 +26,7 @@ export default function Home(props) {
             
             const replyFeed = (post.reply.length>0) ? post.reply.map(reply => {
                 
-                let created_on = new Date(post.created_on);
-                console.log(reply);
+                let created_on = new Date(parseInt(reply.created_on));
                 return (
                     <Reply
                     key={reply.id} 
@@ -51,9 +52,13 @@ export default function Home(props) {
                     content={post.content} 
                     loggedIn = {props.loggedIn}
                 />
+                <ThreadActions
+                    loggedIn= {props.loggedIn}
+                    post = {post.id}
+                />
                 <ReplyForm 
-                masterID={post.id}
-                school={school}
+                    masterID={post.id}
+                    school={school}
                 />
                 {replyFeed}
                 <Link href={`/${post.school}/${post.id}`}>
@@ -83,7 +88,6 @@ export default function Home(props) {
         <hr id="page-separator"/>
         
         <div className="feed-container">
-
             {feed}
         </div>
     </>
@@ -118,15 +122,30 @@ export async function getServerSideProps({params, req}){
     const payload = await fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
-            auth: req.cookies.token,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)
     })
     
-    const { data } = await payload.json();
+    const authQuery = {
+        query: 
+        ` 
+            {
+            isAdmin
+            }
+        `
+    }
 
+    const authPayload = await fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(authQuery)
+    })
 
+    const { data }     = await payload.json();
+    const authData = await authPayload.json(); 
 
     const college = Schools.find(element => element.abrv === params.school);
 
@@ -136,11 +155,13 @@ export async function getServerSideProps({params, req}){
         }
     }
 
+    console.log('isAdmin: ', authData.data.isAdmin);
+
     return {
         props: {
             posts: data.getPosts || [],
             college: college,
-            loggedIn: req.cookies.token || ""
+            loggedIn: authData.data.isAdmin
         }
     }
 }

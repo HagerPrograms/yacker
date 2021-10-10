@@ -9,9 +9,11 @@ async function createPostReport(ip ,{content,postID}){
         data: {
           author: ip,
           thread_id: parseInt(postID),
-          content: content
+          report_content: content
         },
       })
+
+    console.log("REPORT:", report)
     return report;
 };
 

@@ -37,19 +37,19 @@ module.exports = buildSchema(`
     }
 
     type ReplyReport {
-        author:    String!
-        created_on: String!
-        id:         ID!
-        reply_ID:   ID
-        content:    String!   
+        author:            String!
+        created_on:        String!
+        report_id:         ID!
+        reply_ID:          ID
+        report_content:    String!   
     }
 
     type PostReport {
-        author:    String!
-        created_on: String!
-        id:         ID!
-        post_ID:    ID
-        content:    String!
+        author:            String!
+        created_on:        String!
+        report_id:         ID!
+        post_ID:           ID
+        report_content:    String!
     }
 
     type AuthData {
@@ -77,13 +77,11 @@ module.exports = buildSchema(`
 
     input reportPostData{
         content:    String!
-        author:     String!
         postID:     ID
     }
 
     input reportReplyData{
         content:    String!
-        author:     String!
         replyID:    ID
     }
 
@@ -96,6 +94,7 @@ module.exports = buildSchema(`
         getPosts(abbreviation: String!):          [Post!]!
         getPostReports:                           [Post!]!
         getReplyReports:                          [Reply!]!
+        isAdmin:                                  Boolean!
     }
 
     type RootMutation{

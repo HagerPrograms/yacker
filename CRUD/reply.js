@@ -71,8 +71,6 @@ async function getReplyReports(){
             reply_report: true,
         }
     })
-
-    console.log(replies[0].reply_report);
     return replies
 }
 

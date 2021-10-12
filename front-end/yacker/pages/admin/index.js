@@ -8,19 +8,20 @@ import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
+import ThreadActions from '../../components/threadActions.js'
 
 export default function ReportsPage(props) {
     const allReports = [];
 
-    allReports.push(...props.replyReports);
-    allReports.push(...props.postReports);
-
-    //console.log("All reports: ", allReports);
+    if(props.replyReports){
+        allReports.push(...props.replyReports);
+    }
+    if(props.postReports){
+        allReports.push(...props.postReports);
+    }
 
     allReports.sort((x,y) => {
-        // console.log('This is the first element: ', x)
-        // console.log('This is the second element: ', y)
-        return x.report.length - y.report.length;
+        return y.report.length - x.report.length;
     })
 
     //console.log("This is the reports sorted and sliced: ", allReports)
@@ -30,17 +31,16 @@ export default function ReportsPage(props) {
         let last_reply = new Date(r.last_reply);
 
         const reports = r.report.map((element)=>{
-            console.log("These are the reports", element)
-            console.log(typeof element.created_on);
-
             const reportDate = parseInt(element.created_on)
-
+            console.log("report date: ", reportDate);
             return(
             <Reply 
                 file_path={null}
                 created_on={reportDate} 
                 content={element.report_content} 
                 author={element.author}
+                loggedIn = {props.loggedIn}
+                report = {true}
             />
             )
         })
@@ -58,6 +58,12 @@ export default function ReportsPage(props) {
                     last_reply={last_reply} 
                     content={r.content} 
                     loggedIn = {props.loggedIn}
+                />
+                <ThreadActions
+                    loggedIn= {props.loggedIn}
+                    post = {r.id}
+                    author= {r.author}
+                    school={r.school}
                 />
                 {reports}
             </div>
@@ -78,23 +84,32 @@ export default function ReportsPage(props) {
 
 export async function getServerSideProps({params, req}){
 
+    const auth = (req.headers.cookie)? req.headers.cookie.split('=')[1] : '';
+
+    if(!auth){
+        return {
+            notFound: true
+        }
+    }
+
+
     let graphqlQuery = {
         query: `
         {
-            getReplyReports {
-              author
-              created_on
-              last_reply
-              id
-              file_path
-              content
-              report {
+            getReplyReports{
+                id
+                content
                 author
                 created_on
-                report_content
-              }
+                last_reply
+                file_path
+                report{
+                    author
+                    created_on
+                    report_content
+                }
             }
-          }
+        }
           
         `
     }
@@ -102,13 +117,13 @@ export async function getServerSideProps({params, req}){
     const replyPayload = await fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
-            auth: req.cookies.token,
+            'Authorization': `Bearer ${auth}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)
     })
 
-     graphqlQuery = {
+    graphqlQuery = {
         query: `
         {
             getPostReports {
@@ -118,6 +133,7 @@ export async function getServerSideProps({params, req}){
               id
               file_path
               content
+              school
               report {
                 author
                 created_on
@@ -129,10 +145,28 @@ export async function getServerSideProps({params, req}){
         `
     }
 
+    const authQuery = {
+        query: `
+            {
+                isAdmin
+            }
+        `
+    }
+
+    const authPayload = await fetch('http://localhost:4000/graphql', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${auth}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(authQuery)
+    })
+    
+
     const postPayload = await fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
-            auth: req.cookies.token,
+            'Authorization': `Bearer ${auth}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)
@@ -140,25 +174,19 @@ export async function getServerSideProps({params, req}){
     
     const postData   = await postPayload.json();
     const replyData  = await replyPayload.json();
-
+    const {data}     = await authPayload.json();
+    
     const replyReports = replyData.data;
     const postReports = postData.data;
 
-    console.log(replyReports);
-    console.log(postReports);
-
-
-    if (!req.cookies.token){
-        return {
-            notFound: true,
-        }
-    }
+    console.log("reply reports:", replyReports);
+    console.log("post reports:", postReports);
 
     return {
         props: {
             replyReports: replyReports.getReplyReports,
             postReports: postReports.getPostReports,
-            loggedIn: req.cookies.token || ""
+            loggedIn:    data.isAdmin
         }
     }
 }

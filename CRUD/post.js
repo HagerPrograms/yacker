@@ -17,12 +17,14 @@ async function createPost({ip,file,content,school}){
     return createdPost;
 };
 
-async function deletePost(post){
+async function deletePost(id){
+    const postid = parseInt(id);
     const deletePost = await prisma.post.delete({
         where: {
-            id: post.id
+            id: postid
         }
     })
+    return deletePost;
 };
 
 async function deleteAllPosts(user){

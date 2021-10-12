@@ -13,7 +13,7 @@ async function createUser(ip){
 };
 
 //If a user breaks the rules of the website then they get banned.
-async function banUser({ip}){
+async function banUser(ip){
     const banUser = await prisma.users.update({
         where: {
           address: ip,
@@ -22,10 +22,11 @@ async function banUser({ip}){
           banned: true,
         },
       })
+      return banUser;
 };
 
 //If a user appeals their ban sucessfully then they get unbanned.
-async function unbanUser({ip}){
+async function unbanUser(ip){
     const unbanUser = await prisma.users.update({
         where: {
           address: ip,

@@ -52,9 +52,10 @@ export default function replyForm(props){
 }
 
 async function replyHandler(event, postData){
-
     event.preventDefault();
-  
+    
+    console.log("Post Data:",postData)
+
     const formData = new FormData();
     const content = postData.content.replaceAll(`"`, `\\"`);
   
@@ -84,6 +85,8 @@ async function replyHandler(event, postData){
               }
               `};
             
+            console.log("graqla query:", graphqlQuery);
+
             fetch('http://localhost:4000/graphql', {
               method: 'POST',
               headers: {
@@ -91,7 +94,7 @@ async function replyHandler(event, postData){
               },
               body: JSON.stringify(graphqlQuery)
           }).then(res => {
-            console.log(res.json().then(window.location.reload()));
+            //console.log(res.json().then(window.location.reload()));
             })
           })
       })
@@ -111,6 +114,8 @@ async function replyHandler(event, postData){
         }
         `};
 
+        console.log("graqla query:", graphqlQuery);
+
       fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
@@ -118,7 +123,7 @@ async function replyHandler(event, postData){
         },
         body: JSON.stringify(graphqlQuery)
         }).then(res => {
-          console.log(res.json().then(window.location.reload()));
+          //console.log(res.json().then(window.location.reload()));
         })
     }
 

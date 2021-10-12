@@ -58,7 +58,7 @@ module.exports = buildSchema(`
     }
 
     type Report {
-        content:  String!
+        report_content:  String!
         masterID: String!
     }
     
@@ -85,8 +85,6 @@ module.exports = buildSchema(`
         replyID:    ID
     }
 
-
-
     type RootQuery {
         posts:                                    [Post!]!
         users:                                    [User!]!
@@ -98,10 +96,14 @@ module.exports = buildSchema(`
     }
 
     type RootMutation{
-        createPost  (postInput:  PostInputData):    Post!
-        createReply (replyData:  ReplyInputData):   Reply!
-        reportPost  (reportData: reportPostData):   Report!
-        reportReply (reportData: reportReplyData):  Report!
+        createPost     (postInput:  PostInputData): Post!
+        createReply   (replyData:  ReplyInputData): Reply!
+        reportPost    (reportData: reportPostData): Report!
+        reportReply  (reportData: reportReplyData): Report!
+        banUser                      (ip: String!): String!
+        unbanUser                    (ip: String!): String!
+        closePost                    (postID: ID!): String!
+        closeReply                  (replyID: ID!): String!                               
     }
 
     schema {

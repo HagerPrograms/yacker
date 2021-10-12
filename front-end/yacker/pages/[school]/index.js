@@ -10,11 +10,15 @@ import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
 import Popup from '../../components/Popup.js';
 import ThreadActions from '../../components/threadActions'
+import cookie from 'js-cookie';
+
 
 
 export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query;
+
+    cookie.remove('token');
 
     const posts = props.posts;
 
@@ -96,6 +100,9 @@ export default function Home(props) {
 
 export async function getServerSideProps({params, req}){
 
+    const auth = (req.headers.cookie)? req.headers.cookie.split('=')[1] : '';
+    console.log(auth)
+
     const graphqlQuery = {
         query: `
         {
@@ -126,26 +133,29 @@ export async function getServerSideProps({params, req}){
         },
         body: JSON.stringify(graphqlQuery)
     })
-    
+
     const authQuery = {
-        query: 
-        ` 
-            {
-            isAdmin
-            }
+       query: 
+        `
+        {
+         isAdmin   
+        }
         `
     }
-
+    
     const authPayload = await fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${auth}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(authQuery)
     })
+    
+    const authData      = await authPayload.json();
+    const { data }          = await payload.json();
 
-    const { data }     = await payload.json();
-    const authData = await authPayload.json(); 
+    console.log('Authdata: ', authData.data);
 
     const college = Schools.find(element => element.abrv === params.school);
 
@@ -154,8 +164,6 @@ export async function getServerSideProps({params, req}){
             notFound: true,
         }
     }
-
-    console.log('isAdmin: ', authData.data.isAdmin);
 
     return {
         props: {

@@ -15,8 +15,13 @@ const auth = require('./middleware/auth');
 
 const Post = require('./CRUD/post');
 
+cors.SupportsCredentials = true;
+
+app.use(cors());
 app.use(cookie());
 app.use(auth);
+
+
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -54,7 +59,7 @@ const PORT = 4000;
 const upload = multer({storage: fileStorageEngine})
 
 //enable cors
-app.use(cors());
+
 
 //
 app.use(express.static('./uploads'));

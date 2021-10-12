@@ -35,7 +35,7 @@ async function reportHandler(event, {content, id}){
         mutation{
             reportPost(reportData: {content: "${content}", postID: ${id}})
             {
-                content
+                report_content
             }
         }
         `};

@@ -44,7 +44,7 @@ module.exports = {
         return usersMapped
     },
 
-    login: async function ({email, password}){
+    login: async function ({email, password}, req ){
 
         const admin = await User.getAdmin(email);
         //checks if user exists
@@ -69,9 +69,8 @@ module.exports = {
             email: admin.email,
         },
         'asupersecretsecret',
-        {expiresIn: '1h'} //new tokens required in an hour.
+        {expiresIn: '24h'} //new tokens required in a day.
         );
-
 
         return {
             token: token,
@@ -158,7 +157,7 @@ module.exports = {
     createReply: async function({replyData}, req){
         const errors = [];
 
-        //console.log("ReplyData: ", replyData);
+        console.log("ReplyData: ", replyData);
         const user = await User.getUser(req.socket.remoteAddress)
 
         const ip = req.socket.remoteAddress;
@@ -256,25 +255,30 @@ module.exports = {
         const ip = req.socket.remoteAddress;
 
         if(!user){
+            console.log("HERER 1");
             user = await User.createUser(req.socket.remoteAddress)
         }
 
         if(user.banned){
             const error = new Error('User is banned!');
+            console.log("HERER 2");
             throw error;
         }
 
         if(reportData.content == ''){
             errors.push("Report content is empty.")
+            console.log("HERER 3");
             throw error;
         }
 
         if(reportData.replyID === null){
             const error = new Error('Invalid Report');
+            console.log("HERER 4");
             throw error
         }
 
         if(errors.length > 0){
+            console.log("HERER 5");
             const error = new Error('Invalid input.');
             error.data = errors;
             error.code = 422;
@@ -297,7 +301,7 @@ module.exports = {
 
     getPostReports: async function (data, req) {
         
-        if(!req.isAuth()){
+        if(!req.isAuth){
             throw new Error('User is not authorized.')
         }
 
@@ -320,15 +324,18 @@ module.exports = {
 
     getReplyReports: async function (data, req) {
         
-        if(!req.isAuth()){
+        console.log("HERE");
+
+        if(!req.isAuth){
             throw new Error('User is not authorized.')
         }
 
         const replies = await Reply.getReplyReports();
 
+
         const ip = req.socket.remoteAddress;
 
-        console.log(replies.reply_report);
+        console.log("REPLIES", replies)
 
         const graphqlArray = replies.map(r => {
             return {
@@ -345,5 +352,38 @@ module.exports = {
 
     isAdmin: (data, req) => {
         return req.isAuth;
-    }
+    },
+
+    banUser: async function ({ip}, req){
+        const bannedUser = await User.banUser(ip);
+        return `Banned user ${ip}`
+    },
+    
+    unbanUser: async function ({ip}, req){
+        const unbannedUser = await User.unbanUser(ip);
+        return `Unbanned user ${ip}`
+    },
+    closePost: async function ({postID}, req){
+        const post = await Post.deletePost(postID);
+        return `Closed thread ${post.id}`;
+    },
+
+    // closeReply: async function ({id}, req){
+
+    // },
+    
+    // muteThreadMedia: async function ({ip}, req){
+    //     const bannedUser = await User.banUser(ip);
+    //     return `Banned user ${ip}`
+    // },
+
+    // muteReply: async function ({ip}, req){
+    //     const bannedUser = await User.banUser(ip);
+    //     return `Banned user ${ip}`
+    // },
+    
+    // muteReplyMedia: async function ({ip}, req){
+    //     const bannedUser = await User.banUser(ip);
+    //     return `Banned user ${ip}`
+    // },
 }

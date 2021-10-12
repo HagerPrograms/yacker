@@ -12,14 +12,15 @@ const graphql_schema = require('./graphql/schema');
 const graphql_resolvers = require('./graphql/resolvers');
 
 const Post = require('./CRUD/post');
-
+const User = require('./CRUD/user');
 const Reply = require('./CRUD/reply');
 
 Reply.createReply({masterID: '155', content:'test', file: null, author: '::1'})
 
 async function test(){
 const posts = await Post.getPosts("centralaz");
-console.log(posts);
+const user  = await User.unbanUser("::1");
+console.log("User is unbanned", user)
 }
 
 test();

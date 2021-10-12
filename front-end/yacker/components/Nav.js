@@ -15,7 +15,10 @@ function Nav(props){
         )
     }
     console.log(props.loggedIn)
-    let adminHeader = (props.loggedIn === false) ? <></> : <p className="admin-subheader">Admin</p> 
+    let adminHeader = (props.loggedIn === false) ? <></> : 
+        <Link href="/admin">
+            <a className="admin-subheader">Admin</a>
+        </Link>
     
     if(props.states){
         stateLink = (

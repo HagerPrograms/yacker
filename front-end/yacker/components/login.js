@@ -57,18 +57,20 @@ async function LoginHandler(event, authData){
   }).then(res => {
     return res.json();
   }).then(resData => {
-    if(resData.errors && resData.errors[0].status === 422){
-      throw new Error("Validation failed! Make sure the email is correct.");
-    }
-    if(resData.errors){
-      throw new Error("User login failed.")
-    }
+      if(resData.errors && resData.errors[0].status === 422){
+        throw new Error("Validation failed! Make sure the email is correct.");
+      }
+      if(resData.errors){
+        throw new Error("User login failed.")
+      }
+    const loginToken = resData.data.login.token
+
+    cookie.set("logintoken", loginToken)
     
-    cookie.set("token", resData.data.login.token)
-  })
+    console.log("Login Token:", cookie.get("logintoken"));
 
+    })
+  }
 
-
-}
 
 export default LoginForm;

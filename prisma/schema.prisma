@@ -27,9 +27,12 @@ model reply {
   id           Int            @id @default(autoincrement())
   file_path    String?        @db.VarChar(255)
   thread_id    Int            @default(autoincrement())
+  reply_id     Int            @default(autoincrement())
   content      String         @db.VarChar(255)
   users        users?         @relation(fields: [author], references: [address])
+  reply        reply          @relation("replyToreply_reply_id", fields: [reply_id], references: [id])
   post         post           @relation(fields: [thread_id], references: [id])
+  other_reply  reply[]        @relation("replyToreply_reply_id")
   reply_report reply_report[]
 }
 
@@ -53,7 +56,7 @@ model admin {
 model post_report {
   author         String?  @db.Inet
   created_on     DateTime @default(now()) @db.Timestamp(6)
-  report_id      Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   thread_id      Int      @default(autoincrement())
   report_content String   @db.VarChar(255)
   users          users?   @relation(fields: [author], references: [address])
@@ -63,7 +66,7 @@ model post_report {
 model reply_report {
   author         String?  @db.Inet
   created_on     DateTime @default(now()) @db.Timestamp(6)
-  report_id      Int      @id @default(autoincrement())
+  id             Int      @id @default(autoincrement())
   reply_id       Int      @default(autoincrement())
   report_content String   @db.VarChar(255)
   users          users?   @relation(fields: [author], references: [address])

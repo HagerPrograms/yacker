@@ -5,11 +5,13 @@ const prisma = new PrismaClient()
 //If a post/reply is reported 
 async function createReplyReport(ip , {content,replyID}){
 
+    console.log("HERE", content, replyID);
+    
     const report = await prisma.reply_report.create({
         data: {
           author: ip,
           reply_id: parseInt(replyID),
-          content: content
+          report_content: content
         },
       })
     return report;

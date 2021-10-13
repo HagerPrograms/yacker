@@ -1,4 +1,5 @@
-const { PrismaClient } = require('@prisma/client')
+const { PrismaClient } = require('@prisma/client');
+const { parse } = require('graphql');
 
 const prisma = new PrismaClient()
 
@@ -26,12 +27,11 @@ async function createReply({author, file_path, masterID, content}){
 };
 
 //Deleting reply for debug
-async function deleteReply(reply){
-    const deleteReply = await prisma.reply.delete({
-        where: {
-            id: reply.id
-        }
-    })
+async function deleteReply(id){
+    const replyID = parseInt(id);
+    console.log("ID", replyID)
+    const deletePost = await prisma.$executeRaw`DELETE FROM reply WHERE id=${replyID}`
+    console.log(deletePost);
 };
 
 //Delete all replies created by an user.

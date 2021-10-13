@@ -18,8 +18,6 @@ export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query;
 
-    cookie.remove('token');
-
     const posts = props.posts;
 
     let feed;
@@ -39,6 +37,8 @@ export default function Home(props) {
                     created_on={created_on} 
                     content={reply.content} 
                     author={reply.author}
+                    loggedIn = {props.loggedIn}
+                    id = {reply.id}
                 />
                 )
             }): (<h2 className="error-container">No replies yet.</h2>)
@@ -63,6 +63,7 @@ export default function Home(props) {
                 <ReplyForm 
                     masterID={post.id}
                     school={school}
+
                 />
                 {replyFeed}
                 <Link href={`/${post.school}/${post.id}`}>
@@ -76,10 +77,6 @@ export default function Home(props) {
             <Error content={"No posts for " + school + " yet, but you can create one!"}/>
             </>
         )
-
-    //console.log(feed);
-
-
 
     return ( 
     <>
@@ -101,7 +98,6 @@ export default function Home(props) {
 export async function getServerSideProps({params, req}){
 
     const auth = (req.headers.cookie)? req.headers.cookie.split('=')[1] : '';
-    console.log(auth)
 
     const graphqlQuery = {
         query: `
@@ -119,6 +115,7 @@ export async function getServerSideProps({params, req}){
                 author
                 created_on
                 file_path
+                id
               }
             }
           }
@@ -154,8 +151,6 @@ export async function getServerSideProps({params, req}){
     
     const authData      = await authPayload.json();
     const { data }          = await payload.json();
-
-    console.log('Authdata: ', authData.data);
 
     const college = Schools.find(element => element.abrv === params.school);
 

@@ -19,11 +19,7 @@ async function createPost({ip,file,content,school}){
 
 async function deletePost(id){
     const postid = parseInt(id);
-    const deletePost = await prisma.post.delete({
-        where: {
-            id: postid
-        }
-    })
+    const deletePost = await prisma.$executeRaw`DELETE FROM post WHERE id=${postid}`
     return deletePost;
 };
 

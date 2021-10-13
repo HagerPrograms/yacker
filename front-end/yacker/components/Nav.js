@@ -14,7 +14,6 @@ function Nav(props){
         </>
         )
     }
-    console.log(props.loggedIn)
     let adminHeader = (props.loggedIn === false) ? <></> : 
         <Link href="/admin">
             <a className="admin-subheader">Admin</a>

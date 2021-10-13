@@ -365,12 +365,13 @@ module.exports = {
     },
     closePost: async function ({postID}, req){
         const post = await Post.deletePost(postID);
-        return `Closed thread ${post.id}`;
+        return `Closed thread ${postID}`;
     },
 
-    // closeReply: async function ({id}, req){
-
-    // },
+    closeReply: async function ({replyID}, req){
+        const reply = await Reply.deleteReply(replyID);
+        return `Closed reply ${replyID}`;
+    },
     
     // muteThreadMedia: async function ({ip}, req){
     //     const bannedUser = await User.banUser(ip);

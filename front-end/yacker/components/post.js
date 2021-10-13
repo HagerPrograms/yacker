@@ -9,6 +9,8 @@ export default function Post(props) {
         setReport((e) => !e)
     }
 
+    const reply = (props.school === undefined)
+
     if(props.file !== null){
         media = <></>;
         if(props.file.includes("gif") || props.file.includes("jpg") || props.file.includes("jpeg") || props.file.includes("png")){

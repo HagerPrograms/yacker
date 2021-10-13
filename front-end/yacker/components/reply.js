@@ -3,8 +3,9 @@ import { getServerSideProps } from '../pages/admin';
 import ReplyActions from './replyActions';
 
 export default function Reply(props){
-    // (props.media)
     let media = props.file_path;
+
+    console.log("PROPS:", props);
 
     if(media === null){
         media = (<>
@@ -31,7 +32,7 @@ export default function Reply(props){
             <div>
                 <div className="reply-header">
                     <p className="date">{created_on}</p>
-                    <ReplyActions isAuth={props.loggedIn} report= {props.report}/>
+                    <ReplyActions id={props.id}content={props.content} isAuth={props.loggedIn} report={props.report}/>
                 </div>
                 {media}
                 <p className="reply-content">{props.content}</p>

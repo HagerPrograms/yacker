@@ -97,10 +97,10 @@ async function getPostReports(){
     return posts
 }
 
-async function getPost(post_id){
+async function getPost(post_id, school){
     const post = await prisma.post.findUnique({
         where:{
-            id: post_id
+            id: post_id,
         },
         include:{
             reply:true

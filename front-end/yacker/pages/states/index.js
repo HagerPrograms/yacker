@@ -7,9 +7,10 @@ import StateSelector from '../../components/state-selector';
 export default function StateList() {
     
     const stateList = StateData.map((state) =>{
+
         return (
             <>
-            <Link href={`/states/`+state.abbr}>
+            <Link href={`/states/`+ state.abbr}>
                 <a className="state-list">{state.name}</a>
             </Link>
             </>
@@ -19,7 +20,7 @@ export default function StateList() {
     
     return (
         <>
-        <Nav/>
+        <Nav loggedIn={false}/>
         <div className="class-wrapper">
         <h1 className="state-header">Choose your state:</h1>
         <StateSelector/>

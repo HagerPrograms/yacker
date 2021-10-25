@@ -5,7 +5,7 @@ export default function replyForm(props){
 
     const [content, setContent] = useState('');
     const [media, setMedia] = useState('');
-    const [size, setSize] = useState(0)
+    const [size, setSize] = useState(0);
   
     let wordCounter;
 
@@ -52,9 +52,6 @@ export default function replyForm(props){
 }
 
 async function replyHandler(event, postData){
-    event.preventDefault();
-    
-    console.log("Post Data:",postData)
 
     const formData = new FormData();
     const content = postData.content.replaceAll(`"`, `\\"`);

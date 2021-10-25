@@ -10,24 +10,6 @@ const bcrypt =       require('bcrypt');
 const jwt =          require('jsonwebtoken');
 
 module.exports = {
-
-    //Fetches posts for certain school.
-    posts: async function(){
-        //fetch posts from database
-        const posts = await Post.getPosts('New Mexico State University');
-        
-        //Map all users so that graphql will accept the data
-        const graphqlArray = posts.map(p => {
-            return {
-                ...p,
-                author: p.author.toString(),
-                created_on: p.created_on.toISOString(),
-                last_reply: p.last_reply.toISOString()
-            };
-        })
-
-        return graphqlArray
-    },
     
     //Fetches all user IPs
     users: async function() {
@@ -78,8 +60,26 @@ module.exports = {
         }
     },
     
+    getPost: async function({postID, school}, req){
+        
+        id = parseInt(postID);
+
+        const post = await Post.getPost(id, school);
+
+        if(post.school === school){
+            return {
+                ...post,
+                author: post.author.toString(),
+                created_on: post.created_on.toISOString(),
+                last_reply: post.last_reply.toISOString()
+            };
+        }
+
+        else return null;
+
+    },
+
     getPosts: async function ({abbreviation}, req) {
-        console.log("User authenication status: ", req.isAuth);
         
         const posts = await Post.getPosts(abbreviation);
 
@@ -101,6 +101,8 @@ module.exports = {
     createPost: async function({ postInput }, req) {
         const errors = [];
         
+        console.log("Almost there")
+
         const user = await User.getUser(req.socket.remoteAddress)
 
         if(!user){
@@ -137,6 +139,19 @@ module.exports = {
             throw error;
         }
 
+        const posts = await Post.getPosts(postInput.school);
+
+        posts.sort((a,b) => {
+            return b.last_reply - a.last_reply;
+        })
+
+        console.log("POST LENGTH", posts.length);
+
+        if(parseInt(posts.length) >= 20){
+            const pruned = posts.pop();
+            const del = await Post.deletePost(pruned.id);
+        }
+
         //if no errors sucessful post
         const createdPost = await Post.createPost({
             ip: req.socket.remoteAddress,
@@ -157,7 +172,6 @@ module.exports = {
     createReply: async function({replyData}, req){
         const errors = [];
 
-        console.log("ReplyData: ", replyData);
         const user = await User.getUser(req.socket.remoteAddress)
 
         const ip = req.socket.remoteAddress;
@@ -202,28 +216,23 @@ module.exports = {
 
         //console.log("ReplyData: ", replyData);
         const user = await User.getUser(req.socket.remoteAddress)
-        console.log("Report Data: ", reportData);
         const ip = req.socket.remoteAddress;
 
         if(!user){
             user = await User.createUser(req.socket.remoteAddress)
-            console.log("HERE 1");
         }
 
         if(user.banned){
             const error = new Error('User is banned!');
-            console.log("HERE 1");
             throw error;
         }
 
         if(reportData.content == ''){
             errors.push("Report content is empty.")
-            console.log("HERE 1");
         }
 
         if(reportData.postID === null){
             const error = new Error('Invalid Report');
-            console.log("HERE 1");
             throw error
         }
 
@@ -239,8 +248,6 @@ module.exports = {
             postID: reportData.postID,
         })
 
-        console.log("Insertion complete: ", createdReport);
-
         return {
             ...createdReport,
             content: createdReport.report_content,
@@ -250,49 +257,39 @@ module.exports = {
     reportReply: async function ({reportData}, req){
         const errors = [];
 
-        console.log("ReplyData: ", reportData);
         const user = await User.getUser(req.socket.remoteAddress)
         const ip = req.socket.remoteAddress;
 
         if(!user){
-            console.log("HERER 1");
             user = await User.createUser(req.socket.remoteAddress)
         }
 
         if(user.banned){
             const error = new Error('User is banned!');
-            console.log("HERER 2");
             throw error;
         }
 
         if(reportData.content == ''){
             errors.push("Report content is empty.")
-            console.log("HERER 3");
             throw error;
         }
 
         if(reportData.replyID === null){
             const error = new Error('Invalid Report');
-            console.log("HERER 4");
             throw error
         }
 
         if(errors.length > 0){
-            console.log("HERER 5");
             const error = new Error('Invalid input.');
             error.data = errors;
             error.code = 422;
             throw error;
         }
-        
-        console.log("REPLY REPORT DATA", reportData);
 
         const createdReport = await ReportReply.createReplyReport(ip, {
             content: reportData.content,
             replyID: reportData.replyID,
         })
-
-        console.log("Insertion complete: ", createdReport);
 
         return {
             ...createdReport,
@@ -323,8 +320,6 @@ module.exports = {
     },
 
     getReplyReports: async function (data, req) {
-        
-        console.log("HERE");
 
         if(!req.isAuth){
             throw new Error('User is not authorized.')
@@ -334,8 +329,6 @@ module.exports = {
 
 
         const ip = req.socket.remoteAddress;
-
-        console.log("REPLIES", replies)
 
         const graphqlArray = replies.map(r => {
             return {
@@ -356,6 +349,7 @@ module.exports = {
 
     banUser: async function ({ip}, req){
         const bannedUser = await User.banUser(ip);
+        console.log(req.isAuth);
         return `Banned user ${ip}`
     },
     

@@ -5,8 +5,6 @@ import ReplyActions from './replyActions';
 export default function Reply(props){
     let media = props.file_path;
 
-    console.log("PROPS:", props);
-
     if(media === null){
         media = (<>
         </>)

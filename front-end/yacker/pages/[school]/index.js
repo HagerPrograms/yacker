@@ -26,7 +26,7 @@ export default function Home(props) {
             let created_on = new Date(post.created_on);
             let last_reply = new Date(post.last_reply);
             
-            const replyFeed = (post.reply.length>0) ? post.reply.map(reply => {
+            const replyFeed = (post.reply.length>0) ? post.reply.slice(-3).map(reply => {
                 
                 let created_on = new Date(parseInt(reply.created_on));
                 return (
@@ -63,7 +63,6 @@ export default function Home(props) {
                 <ReplyForm 
                     masterID={post.id}
                     school={school}
-
                 />
                 {replyFeed}
                 <Link href={`/${post.school}/${post.id}`}>
@@ -81,7 +80,7 @@ export default function Home(props) {
     return ( 
     <>
         <div className="nav">
-            <Nav school={school} state={props.college.state} loggedIn={props.loggedIn}/>
+            <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>
         </div>
         <Banner school={props.college.school}/>
         <PostForm school={school}/>

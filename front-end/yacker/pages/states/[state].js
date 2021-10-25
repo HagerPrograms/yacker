@@ -1,13 +1,13 @@
-import Nav from "../../components/Nav"
-import schools from "../../../data/schools.json"
-import states from "../../../data/stateabbr.json"
-import Link from "next/link"
+import Nav         from "../../components/Nav"
+import schools     from "../../../data/schools.json"
+import states      from "../../../data/stateabbr.json"
+import Link        from "next/link"
 import {useRouter} from 'next/router'
 
 export default function State(props){
     
     const stateSchools = schools.filter((school)=> {
-        return (school.state === props.state) ? 1 : 0;
+        return (school.state.toLowerCase() === props.state.toLowerCase()) ? 1 : 0;
     })
     
     const schoolList = stateSchools.map((school) => {
@@ -20,7 +20,7 @@ export default function State(props){
 
     return(
     <>
-    <Nav states={true}></Nav>
+    <Nav states={true} loggedIn={false}></Nav>
     <div className="class-wrapper">
         <h1 className="list-header">Select your school:</h1>
         <ul>
@@ -45,7 +45,7 @@ export async function getStaticPaths(context){
     let names = [];
     
     states.map((state)=> {
-        names.push('/states/' + state.abbr);
+        names.push('/states/' + state.abbr.toLowerCase());
     })
     
     return {

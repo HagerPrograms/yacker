@@ -86,13 +86,14 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        posts:                                    [Post!]!
-        users:                                    [User!]!
-        login(email: String!, password: String!): AuthData!
-        getPosts(abbreviation: String!):          [Post!]!
-        getPostReports:                           [Post!]!
-        getReplyReports:                          [Reply!]!
-        isAdmin:                                  Boolean!
+        posts:                                      [Post!]!
+        users:                                      [User!]!
+        login(email: String!, password: String!):   AuthData!
+        getPosts(abbreviation: String!):            [Post!]!
+        getPost(postID: String!, school: String!):  Post
+        getPostReports:                             [Post!]!
+        getReplyReports:                            [Reply!]!
+        isAdmin:                                    Boolean!
     }
 
     type RootMutation{

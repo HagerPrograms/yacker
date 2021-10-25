@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 export default function StateSelector() {
     
-    const [state, setState] = useState('AL');
+    const [state, setState] = useState('al');
 
     function handleChange(event){
-        setState(() => {return event.target.value})
+        setState(() => {return event.target.value.toLowerCase()})
     }
 
     return (

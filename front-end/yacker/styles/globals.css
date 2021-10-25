@@ -304,7 +304,7 @@ textarea{
 }
 
 .class-wrapper{
-  background-color: transparent;
+  background-color: #FFFFE0;
   width: 60%;
   margin: 0 auto 0 auto;
   border-radius: 10px;
@@ -603,4 +603,30 @@ textarea{
 
 .close-report:hover{
   color: black;
+}
+
+.thread-container{
+  width: 70%;
+  padding-bottom: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.thread-container>a{
+  display: block;
+  margin: 0 auto 0 auto;
+}
+
+.back-link{
+  margin: 0 auto 0 auto;
+  text-align: center;
+}
+.report-counter{
+  display: inline;
+  float:right;
+}
+
+.reported-content{
+  color: red;
 }

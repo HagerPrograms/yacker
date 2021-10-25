@@ -3,9 +3,11 @@ import { useState } from "react";
 function PostForm(props){
   const school = props.school
 
+  console.log("THIS IS THE SCHOOL:", school)
+
   const [content, setContent] = useState('');
   const [media, setMedia] = useState('');
-  const [size, setSize] = useState(0)
+  const [size, setSize] = useState(0);
 
   let wordCounter;
 
@@ -79,18 +81,17 @@ async function postHandler(event, postData){
       }
       `};
 
+      console.log("graphql query:", graphqlQuery);
+
       fetch('http://localhost:4000/graphql', {
         method: 'POST',
         headers: {
-          auth: localStorage.getItem('token'),
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)
-    }).then(res => {
-      window.location.reload();
+      })
     })
-    })
-})
+  })
 }
 
 export default PostForm;

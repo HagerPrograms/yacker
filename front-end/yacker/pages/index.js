@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Footer from '../components/footer';
 
 export default function HomePage() {
     return (
@@ -11,6 +12,7 @@ export default function HomePage() {
         <div className="button">Continue...</div>
     </Link>
     </div>
+    <Footer/>
     </>
     )
 }

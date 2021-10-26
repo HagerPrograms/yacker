@@ -187,6 +187,7 @@ a {
   left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Montserrat', sans-serif;
+  background-color: white;
 }
 
 #welcome-header{
@@ -304,8 +305,8 @@ textarea{
 }
 
 .class-wrapper{
-  background-color: #FFFFE0;
-  width: 60%;
+  background-color: white;
+  max-width: 50%;
   margin: 0 auto 0 auto;
   border-radius: 10px;
   border-color: black;
@@ -362,7 +363,7 @@ textarea{
   display: block;
   margin: 0;
   font-size: 32px;
-  background-color: #FFFFE0;
+  background-color: white;
   border: 1px solid gray;
   box-shadow: 1px 2px #000;
   margin-top: 5px;
@@ -381,7 +382,7 @@ textarea{
 
 
 .post:nth-child(odd){
-  background-color: #F9F9F0;
+  background-color: white;
 }
 
 .post-header{
@@ -629,4 +630,33 @@ textarea{
 
 .reported-content{
   color: red;
+}
+
+.contact-header{
+  text-align: center;
+  text-decoration: underline;
+  color: red;
+}
+
+.contact-info{
+  padding-left:10px
+}
+
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+.footer-link{
+  color: blue;
+  text-decoration: underline; 
+}
+
+.footer-link:hover{
+  color: purple;
 }

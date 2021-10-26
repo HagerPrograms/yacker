@@ -28,10 +28,6 @@ export default function Post(props) {
 
     const type = (props.school)? 'Post' : 'Reply';
 
-    if(props.school === null){
-        console.log("THIS IS A REPLY");
-    }
-
     return ( 
         <>
             <div className="post-header">

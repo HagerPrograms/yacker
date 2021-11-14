@@ -62,7 +62,7 @@ async function postHandler(event, postData){
   formData.append('school', postData.school);
   formData.append('upload', fileField.files[0]);
 
-  fetch('http://localhost:4000/post-media-upload', {
+  fetch('http://yacker.co:4000/post-media-upload', {
     method: 'PUT',
     body:formData
   }).then(res => {
@@ -83,7 +83,7 @@ async function postHandler(event, postData){
 
       console.log("graphql query:", graphqlQuery);
 
-      fetch('http://localhost:4000/graphql', {
+      fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

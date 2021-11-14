@@ -15,12 +15,12 @@ export default function Post(props) {
         media = <></>;
         if(props.file.includes("gif") || props.file.includes("jpg") || props.file.includes("jpeg") || props.file.includes("png")){
             media = (
-                <img key={props.id} src={`http://localhost:4000${props.file}`}/>
+                <img key={props.id} src={`http://yacker.co:4000${props.file}`}/>
             )
         } else {
             media = (
             <video controls>
-                <source src={`http://localhost:4000${props.file}`}/>
+                <source src={`http:/yacker.co:4000${props.file}`}/>
             </video>
             )
         }

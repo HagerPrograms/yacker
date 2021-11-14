@@ -1,17 +1,15 @@
 import Nav from '../../components/Nav.js';
 import {useRouter} from 'next/router';
 import PostForm from '../../components/postform'
-import Banner from '../../components/banner.js';
+import TopBanner from '../../components/banner.js';
 import Schools from '../../../data/schools.json'
 import Post from '../../components/post'
 import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
-import Popup from '../../components/Popup.js';
 import ThreadActions from '../../components/threadActions'
-import cookie from 'js-cookie';
-
+import { StickyBanner, Outstream } from "exoclick-react";
 
 
 export default function Home(props) {
@@ -82,7 +80,7 @@ export default function Home(props) {
         <div className="nav">
             <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>
         </div>
-        <Banner school={props.college.school}/>
+        <TopBanner school={props.college.school}/>
         <PostForm school={school}/>
         
         <hr id="page-separator"/>
@@ -90,6 +88,10 @@ export default function Home(props) {
         <div className="feed-container">
             {feed}
         </div>
+        <StickyBanner 
+            zoneId={4497820}
+            format="900x250"
+        />
     </>
     )
 }

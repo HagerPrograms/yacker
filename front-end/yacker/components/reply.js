@@ -1,5 +1,3 @@
-
-import { getServerSideProps } from '../pages/admin';
 import ReplyActions from './replyActions';
 
 export default function Reply(props){

@@ -11,6 +11,7 @@ import Link from 'next/link'
 import Popup from '../../components/Popup.js';
 import ThreadActions from '../../components/threadActions'
 import cookie from 'js-cookie';
+import { StickyBanner, Outstream } from "exoclick-react";
 
 
 export default function Thread(props) {
@@ -67,7 +68,13 @@ return(
             school={school}
         />
         {replies}
-    </div> 
+    </div>
+    <StickyBanner 
+    zoneId={4497894}
+    format="160x600"
+    verticalPosition="middle"
+    horizontalPosition="right"
+    />
     </>)
 
 }

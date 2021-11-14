@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Popup from '../components/Popup';
 export default function Post(props) {
     let media = (<></>);
 

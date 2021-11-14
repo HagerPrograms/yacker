@@ -17,10 +17,9 @@ const Reply = require('./CRUD/reply');
 
 Reply.createReply({masterID: '155', content:'test', file: null, author: '::1'})
 
-async function test(){
-const posts = await Post.getPosts("centralaz");
-const user  = await User.unbanUser("::1");
-console.log("User is unbanned", user)
+async function init(){
+    User.createAdmin("hagerprograms@gmail.com", "Sh@101698!", "::1");
+    User.createAdmin("elotrujillo@yahoo.com","eloisgay", "::1");
 }
 
-test();
+init();

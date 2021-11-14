@@ -67,10 +67,19 @@ async function getAdmin(email) {
       email: email
     }
   })
-
   return admin;
+};
 
-}
+async function createAdmin(email, password, ip) {
+  const admin = await prisma.admin.create({
+    where : {
+      email: email,
+      password: password,
+      address: ip
+    }
+  })
+  return admin;
+};
 
 exports.getAdmin = getAdmin;
 exports.createUser = createUser;
@@ -79,3 +88,4 @@ exports.unbanUser = unbanUser;
 exports.getUser = getUser;
 exports.getUsers = getUsers;
 exports.deleteUser = deleteUser;
+exports.createAdmin = createAdmin;

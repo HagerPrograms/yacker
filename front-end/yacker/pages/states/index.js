@@ -29,8 +29,8 @@ export default function StateList() {
         </div>
 
 
-        <div class="bottom-ad">
-        <Placeholder width="400" height="266">
+        <div className="bottom-ad">
+        <Placeholder width="435" height="266">
             <Outstream zoneId="4498692" maxWidth={400} />
         </Placeholder>
         </div>

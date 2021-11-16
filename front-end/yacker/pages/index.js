@@ -18,9 +18,7 @@ export default function HomePage() {
     </Link>
     </div>
 
-    <Placeholder>
-        <Banner zoneId={4498692}/>
-    </Placeholder>
+
     </>
     )
 }

@@ -9,7 +9,7 @@ import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
 import ThreadActions from '../../components/threadActions'
-import { StickyBanner, Outstream } from "exoclick-react";
+import { Placeholder, StickyBanner, Outstream } from "exoclick-react";
 
 
 export default function Home(props) {
@@ -88,10 +88,18 @@ export default function Home(props) {
         <div className="feed-container">
             {feed}
         </div>
-        <StickyBanner 
-            zoneId={4497820}
-            format="900x250"
+        <StickyBanner
+            zoneId="4294580"
+            horizontalPosition="right"
+            verticalPosition="middle"
+            format="160x600"
         />
+
+    <div className="bottom-ad">
+        <Placeholder width="435" height="266">
+            <Outstream zoneId="4498692" maxWidth={400} />
+        </Placeholder>
+    </div>
     </>
     )
 }

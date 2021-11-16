@@ -664,3 +664,28 @@ textarea{
   transform: translateX(-50%);
   /* Height of the footer*/ 
 }
+
+@media only screen and (max-width: 600px) {
+
+  .welcome-banner{
+    width: 95%;
+  }
+  .class-wrapper{
+    width: 95%;
+    max-width: none;
+  }
+  .post-form-container{
+    width:95%;
+  }
+  .feed-container{
+    width:95%;
+  }
+  .rules-banner{
+    width:95%
+  }
+  #page-separator{
+    width:95%
+  }
+
+
+}

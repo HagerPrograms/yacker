@@ -89,9 +89,9 @@ export default function Home(props) {
             {feed}
         </div>
         <StickyBanner
-            zoneId="4294580"
-            horizontalPosition="right"
-            verticalPosition="middle"
+            zoneId="4498744"
+            horizontalPosition="left"
+            verticalPosition="top"
             format="160x600"
         />
 

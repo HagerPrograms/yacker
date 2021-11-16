@@ -1,8 +1,10 @@
 import Link from 'next/link'
-import Banner from '../../components/banner'
+import TopBanner from '../../components/banner'
 import Nav from '../../components/Nav'
 import StateData from '../../../data/states-data.json';
 import StateSelector from '../../components/state-selector';
+import { StickyBanner, Banner, Outstream, Placeholder } from "exoclick-react";
+
 
 export default function StateList() {
     
@@ -24,6 +26,13 @@ export default function StateList() {
         <div className="class-wrapper">
         <h1 className="state-header">Choose your state:</h1>
         <StateSelector/>
+        </div>
+
+
+        <div class="bottom-ad">
+        <Placeholder width="400" height="266">
+            <Outstream zoneId="4498692" maxWidth={400} />
+        </Placeholder>
         </div>
         </>
     )

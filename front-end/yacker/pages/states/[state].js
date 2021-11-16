@@ -3,6 +3,8 @@ import schools     from "../../../data/schools.json"
 import states      from "../../../data/stateabbr.json"
 import Link        from "next/link"
 import {useRouter} from 'next/router'
+import { StickyBanner, Banner, Outstream, Placeholder } from "exoclick-react";
+
 
 export default function State(props){
     
@@ -26,6 +28,11 @@ export default function State(props){
         <ul>
             {schoolList}
         </ul>
+    </div>
+    <div class="bottom-ad">
+        <Placeholder width="400" height="266">
+            <Outstream zoneId="4498692" maxWidth={400} />
+        </Placeholder>
     </div>
     </>
     

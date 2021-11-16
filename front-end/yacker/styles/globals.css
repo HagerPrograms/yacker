@@ -8,6 +8,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   word-break:normal;
+  min-width: 100vw;
+  min-height: 100vh;
 }
 
 
@@ -659,4 +661,14 @@ textarea{
 
 .footer-link:hover{
   color: purple;
+}
+
+.bottom-ad{
+  position: absolute;
+  display: inline-block;
+  top:100%;
+  left: 50%;
+
+  transform: translate(-50%,-100%);
+
 }

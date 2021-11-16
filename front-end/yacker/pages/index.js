@@ -1,15 +1,12 @@
 import Link from 'next/link';
 import Footer from '../components/footer';
 import Head from 'next/head';
-import { StickyBanner, Banner, Outstream } from "exoclick-react";
+import { FullpageInterstitial,Placeholder, StickyBanner, Banner, Outstream } from "exoclick-react";
 
 export default function HomePage() {
     return (
     <>
-    <StickyBanner 
-    zoneId={4497820}
-    format="900x250"
-    />
+
     <Head>
     	<meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
     </Head>
@@ -21,8 +18,9 @@ export default function HomePage() {
     </Link>
     </div>
 
-    <Footer/>
-
+    <Placeholder>
+        <Banner zoneId={4498692}/>
+    </Placeholder>
     </>
     )
 }

@@ -54,7 +54,7 @@ async function banUser(ip){
             }
         `}
 
-    const ban = await fetch('http://localhost:4000/graphql', {
+    const ban = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${auth}`,
@@ -83,7 +83,7 @@ async function closePost(postID, post){
 
     console.log(closeQuery)
 
-    const ban = await fetch('http://localhost:4000/graphql', {
+    const ban = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${auth}`,

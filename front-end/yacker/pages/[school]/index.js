@@ -9,7 +9,7 @@ import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
 import ThreadActions from '../../components/threadActions'
-import { Placeholder, StickyBanner, Outstream } from "exoclick-react";
+import { Banner, Placeholder, StickyBanner, Outstream } from "exoclick-react";
 
 
 export default function Home(props) {
@@ -42,7 +42,7 @@ export default function Home(props) {
             }): (<h2 className="error-container">No replies yet.</h2>)
 
             return (
-                <div className="post">
+                <div key={post.id} className="post">
                 <Post
                     key={post.id} 
                     author={post.author}
@@ -66,6 +66,12 @@ export default function Home(props) {
                 <Link href={`/${post.school}/${post.id}`}>
                     <a className="thread-actions view-thread">View thread</a>
                 </Link>
+
+                <div className="post-ad">
+                    <Placeholder width="300" height="250">
+                        <Banner zoneId={4499688}/>
+                    </Placeholder>
+                </div>
                 </div>
             )
         }) :
@@ -88,18 +94,12 @@ export default function Home(props) {
         <div className="feed-container">
             {feed}
         </div>
-        <StickyBanner
-            zoneId="4498744"
-            horizontalPosition="left"
-            verticalPosition="top"
-            format="160x600"
-        />
 
-    <div className="bottom-ad">
-        <Placeholder width="435" height="266">
-            <Outstream zoneId="4498692" maxWidth={400} />
-        </Placeholder>
-    </div>
+        <div className="bottom-ad">
+            <Placeholder width="400" height="266">
+                <Outstream zoneId="4499630" maxWidth={400}/>
+            </Placeholder>
+        </div>
     </>
     )
 }

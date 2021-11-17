@@ -48,7 +48,7 @@ async function LoginHandler(event, authData){
     `
   };
 
-  fetch('http://localhost:4000/graphql', {
+  fetch('http://yacker.co:4000/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

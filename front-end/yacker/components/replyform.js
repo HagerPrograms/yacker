@@ -62,7 +62,7 @@ async function replyHandler(event, postData){
     formData.append('upload', fileField.files[0]);
   
     if(fileField.files[0]){
-      fetch('http://localhost:4000/post-media-upload', {
+      fetch('http://yacker.co:4000/post-media-upload', {
         method: 'PUT',
         body:formData
         }).then(res => {
@@ -84,7 +84,7 @@ async function replyHandler(event, postData){
             
             console.log("graqla query:", graphqlQuery);
 
-            fetch('http://localhost:4000/graphql', {
+            fetch('http://yacker.co:4000/graphql', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -113,7 +113,7 @@ async function replyHandler(event, postData){
 
         console.log("graqla query:", graphqlQuery);
 
-      fetch('http://localhost:4000/graphql', {
+      fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

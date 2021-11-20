@@ -10,13 +10,13 @@ export default function Reply(props){
     else if(media.includes("gif") || media.includes("jpg") || media.includes("jpeg") || media.includes("png")){
         media = 
         <div className="reply-media">
-            <img src={"http://localhost:4000" + media}></img>
+            <img src={"http://yacker.co:4000" + media}></img>
         </div>
     }
     else{
         media =
         <div className="reply-media">
-            <video controls src={"http://localhost:4000" + media}></video>
+            <video controls src={"http://yacker.co:4000" + media}></video>
         </div>
     }
 

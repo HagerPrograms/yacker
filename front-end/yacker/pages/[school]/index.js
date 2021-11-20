@@ -67,11 +67,11 @@ export default function Home(props) {
                     <a className="thread-actions view-thread">View thread</a>
                 </Link>
 
-                <div className="post-ad">
+                {/* <div className="post-ad">
                     <Placeholder width="300" height="250">
                         <Banner zoneId={4499688}/>
                     </Placeholder>
-                </div>
+                </div> */}
                 </div>
             )
         }) :
@@ -94,12 +94,12 @@ export default function Home(props) {
         <div className="feed-container">
             {feed}
         </div>
-
+{/* 
         <div className="bottom-ad">
             <Placeholder width="400" height="266">
                 <Outstream zoneId="4499630" maxWidth={400}/>
             </Placeholder>
-        </div>
+        </div> */}
     </>
     )
 }

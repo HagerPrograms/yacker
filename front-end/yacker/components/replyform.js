@@ -60,7 +60,7 @@ async function replyHandler(event, postData){
   
     formData.append('school', postData.school);
     formData.append('upload', fileField.files[0]);
-  
+
     if(fileField.files[0]){
       fetch('http://yacker.co:4000/post-media-upload', {
         method: 'PUT',
@@ -91,7 +91,7 @@ async function replyHandler(event, postData){
               },
               body: JSON.stringify(graphqlQuery)
           }).then(res => {
-            //console.log(res.json().then(window.location.reload()));
+            console.log(res.json().then(window.location.reload()));
             })
           })
       })
@@ -120,7 +120,7 @@ async function replyHandler(event, postData){
         },
         body: JSON.stringify(graphqlQuery)
         }).then(res => {
-          //console.log(res.json().then(window.location.reload()));
+          console.log(res.json().then(window.location.reload()));
         })
     }
 

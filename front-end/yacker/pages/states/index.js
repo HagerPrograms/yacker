@@ -29,11 +29,11 @@ export default function StateList() {
         </div>
 
 
-        <div className="bottom-ad">
+        {/* <div className="bottom-ad">
             <Placeholder width="435" height="266">
                 <Outstream zoneId="4499630" maxWidth={400}/>
             </Placeholder>
-        </div>
+        </div> */}
         </>
     )
 }

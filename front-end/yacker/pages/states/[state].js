@@ -29,11 +29,11 @@ export default function State(props){
             {schoolList}
         </ul>
     </div>
-    <div className="bottom-ad">
+    {/* <div className="bottom-ad">
             <Placeholder width="400" height="266">
                 <Outstream zoneId="4499630" maxWidth={400}/>
             </Placeholder>
-    </div>
+    </div> */}
     </>
     
     )

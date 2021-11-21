@@ -109,7 +109,7 @@ a {
   height: 100px;
   border-radius: 5px;
   border-color: black;
-  margin: 0 5px 0 5px;
+  margin: 5px 5px 0 5px;
 }
 
 #post-form-submit{
@@ -117,7 +117,7 @@ a {
   background-color: white;
   border-color: black;
   border-radius: 5px;
-  margin: 0 5px 0 5px;
+  margin: 0 5px 5px 5px;
 }
 
 #post-form-submit:hover{
@@ -128,7 +128,7 @@ a {
 
 #file-upload{
   grid-column: 2/4;
-  display: inline-block;
+  display: block;
   margin-left: auto;
   margin-right: 0;
 
@@ -362,10 +362,10 @@ textarea{
   display: block;
   margin: 0;
   font-size: 32px;
-  background-color: white;
+  background-color: #FFFFE0;
   border: 1px solid gray;
   box-shadow: 1px 2px #000;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
@@ -603,7 +603,7 @@ textarea{
 }
 
 .thread-container{
-  width: 70%;
+  width: 80%;
   padding-bottom: 10px;
   background-color: white;
   border: 1px solid black;

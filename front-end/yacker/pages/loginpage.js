@@ -6,6 +6,12 @@ import { useState } from 'react'
 
 export default function LoginPage() {
 
-  return (<Login/>)
+  return (<>
+  <Head>
+    <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
+      <title>Admin login</title>
+  </Head>
+  <Login/>
+  </>)
 
 }

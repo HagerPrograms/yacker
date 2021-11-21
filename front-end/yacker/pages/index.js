@@ -6,9 +6,9 @@ import { FullpageInterstitial,Placeholder, StickyBanner, Banner, Outstream } fro
 export default function HomePage() {
     return (
     <>
-
     <Head>
     	<meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
+        <title>Welcome to yacker!</title>
     </Head>
     <div className="welcome-banner">
     <h1 id="welcome-header">Welcome to yacker!</h1>

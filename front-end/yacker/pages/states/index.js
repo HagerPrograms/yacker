@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Head from 'next/head'
 import TopBanner from '../../components/banner'
 import Nav from '../../components/Nav'
 import StateData from '../../../data/states-data.json';
@@ -22,6 +23,10 @@ export default function StateList() {
     
     return (
         <>
+        <Head>
+    	    <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
+            <title>Select state</title>
+        </Head>
         <Nav loggedIn={false}/>
         <div className="class-wrapper">
         <h1 className="state-header">Choose your state:</h1>

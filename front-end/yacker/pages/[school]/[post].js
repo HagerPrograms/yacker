@@ -8,6 +8,7 @@ import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
+import Head from 'next/head'
 import Popup from '../../components/Popup.js';
 import ThreadActions from '../../components/threadActions'
 import cookie from 'js-cookie';
@@ -41,6 +42,9 @@ const replies = post.reply.map((r) => {
  
 return(
     <>
+    <Head>
+        <title>{post.school.toUpperCase() + " Post: "+ post.id + " " }</title>
+    </Head>
     <div className="thread-container">
         <Nav loggedIn={false}/>
         <div className="back-link">

@@ -9,6 +9,7 @@ import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
 import Link from 'next/link'
 import ThreadActions from '../../components/threadActions'
+import Head from 'next/head';
 import { Banner, Placeholder, StickyBanner, Outstream } from "exoclick-react";
 
 
@@ -83,6 +84,10 @@ export default function Home(props) {
 
     return ( 
     <>
+        <Head>
+    	    <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
+            <title>{"Yacker: " + props.college.school}</title>
+        </Head>
         <div className="nav">
             <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>
         </div>

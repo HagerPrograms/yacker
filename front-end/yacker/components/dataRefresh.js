@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-function RefreshData(props){
+function RefreshData(url){
     const router = useRouter();
     const refreshData = () => {
         router.replace(router.asPath);

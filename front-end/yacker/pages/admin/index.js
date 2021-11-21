@@ -32,9 +32,9 @@ export default function ReportsPage(props) {
 
         const reports = r.report.map((element)=>{
             const reportDate = parseInt(element.created_on)
-            console.log("report date: ", reportDate);
             return(
             <Reply 
+                key = {element.r.id}
                 file_path={null}
                 created_on={reportDate} 
                 content={element.report_content} 

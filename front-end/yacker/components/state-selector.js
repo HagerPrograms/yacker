@@ -66,7 +66,7 @@ export default function StateSelector() {
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
             </select>
-            <Link href={"/states/" + state}>
+            <Link href={"/states/" + state} passHref>
                 <button id="go-button">Go!</button>
             </Link>
         </form>

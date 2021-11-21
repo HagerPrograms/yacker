@@ -16,10 +16,10 @@ export default function ReplyForm(props){
 
     (size > 255) ? 
       wordCounter = (
-        <label className="word-counter"style={{color: "red"}} className="word-counter">{size + "/255"}</label>
+        <label className="word-counter"style={{color: "red"}} >{size + "/255"}</label>
       ):
       wordCounter = (
-        <label className="word-counter"style={{color: "white"}} className="word-counter">{size + "/255"}</label>
+        <label className="word-counter"style={{color: "white"}} >{size + "/255"}</label>
         )
 
     function onContentChange(event) {

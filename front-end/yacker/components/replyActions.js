@@ -2,7 +2,7 @@ import {useState} from 'react';
 import Popup from './Popup';
 import cookie from 'js-cookie';
 
-export default function replyActions(props){
+export default function ReplyActions(props){
     
     const [reported, setReported] = useState(false);
     const [banned, setBanned] = useState(()=>false);

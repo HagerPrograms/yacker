@@ -10,6 +10,7 @@ body {
   word-break:normal;
   min-width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 
@@ -92,12 +93,11 @@ a {
 }
 
 .post-form-container{
-  width: 60%;
+  width: 80%;
   margin: 0 auto 0 auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px;
   border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: transparent;
   color: white;
   overflow: hidden;
@@ -135,7 +135,7 @@ a {
 }
 
 .rules-banner{
-  width: 60%;
+  width: 80%;
   margin: auto;
 }
 
@@ -177,7 +177,7 @@ a {
 
 
 .welcome-banner{
-  width: 60%;
+  width: 70%;
   margin: 0 auto 0 auto;
   border: 1px solid black;
   border-radius: 10px;
@@ -317,10 +317,10 @@ textarea{
 
 .feed-container{
   margin-top: 25px;
-  width: 60%;
+  width: 80%;
   margin: 0 auto 0 auto;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 15px;
   background-color: maroon;
 }
 
@@ -694,6 +694,9 @@ textarea{
   }
   #page-separator{
     width:95%
+  }
+  .thread-container{
+    width:95%;
   }
 
 

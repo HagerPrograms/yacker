@@ -29,7 +29,7 @@ export default function Popup(props){
 
     const reportHeader = (!props.reply)? 
         <h3 className="report-label"> Report post {props.id}: </h3> :
-        <h3 className="report-label"> Report reply "<span class="reported-content">{props.content}</span>": </h3> 
+        <h3 className="report-label"> Report reply &quot;<span className="reported-content">{props.content}</span>&quot;: </h3> 
 
     return (
         <div className="report-popup">

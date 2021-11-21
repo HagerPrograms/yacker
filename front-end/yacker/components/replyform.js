@@ -1,6 +1,8 @@
+import { Router } from "next/router";
 import { useState } from "react";
+import RefreshData from '../components/dataRefresh';
 
-export default function replyForm(props){
+export default function ReplyForm(props){
     
 
     const [content, setContent] = useState('');
@@ -53,6 +55,8 @@ export default function replyForm(props){
 
 async function replyHandler(event, postData){
 
+    event.preventDefault();
+
     const formData = new FormData();
     const content = postData.content.replaceAll(`"`, `\\"`);
   
@@ -62,11 +66,14 @@ async function replyHandler(event, postData){
     formData.append('upload', fileField.files[0]);
 
     if(fileField.files[0]){
+
       fetch('http://yacker.co:4000/post-media-upload', {
         method: 'PUT',
         body:formData
         }).then(res => {
           res.json().then((data)=>{
+            
+            console.log("DATA: ", data);
             
             const graphqlQuery = {
               query: `
@@ -90,8 +97,10 @@ async function replyHandler(event, postData){
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify(graphqlQuery)
-          }).then(res => {
-            console.log(res.json().then(window.location.reload()));
+            }).then(res => {
+              res.json().then((data) => {
+                location.reload();
+            })
             })
           })
       })
@@ -111,8 +120,6 @@ async function replyHandler(event, postData){
         }
         `};
 
-        console.log("graqla query:", graphqlQuery);
-
       fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
@@ -120,8 +127,12 @@ async function replyHandler(event, postData){
         },
         body: JSON.stringify(graphqlQuery)
         }).then(res => {
-          console.log(res.json().then(window.location.reload()));
-        })
+          res.json().then(data => {
+            // console.log("DATA: ", data)
+          }).then(() => {
+            location.reload();
+          })
+        });
     }
 
 

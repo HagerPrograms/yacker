@@ -73,12 +73,11 @@ return(
         />
         {replies}
     </div>
-    <StickyBanner 
-    zoneId={4497894}
-    format="160x600"
-    verticalPosition="middle"
-    horizontalPosition="right"
-    />
+    <div className="bottom-ad">
+        <Placeholder width="400" height="266">
+            <Outstream zoneId="4499688" maxWidth={400}/>
+        </Placeholder>
+    </div>
     </>)
 
 }

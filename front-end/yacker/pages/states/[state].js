@@ -1,6 +1,7 @@
 import Nav         from "../../components/Nav"
 import schools     from "../../../data/schools.json"
 import states      from "../../../data/stateabbr.json"
+import BottomAd    from "../../components/bottomAd"
 import Link        from "next/link"
 import Head        from 'next/head'
 import {useRouter} from 'next/router'
@@ -34,13 +35,8 @@ export default function State(props){
             {schoolList}
         </ul>
     </div>
-    <div className="bottom-ad">
-            <Placeholder width="400" height="266">
-                <Outstream zoneId="4499630" maxWidth={400}/>
-            </Placeholder>
-    </div>
+    <BottomAd/>
     </>
-    
     )
 }
 

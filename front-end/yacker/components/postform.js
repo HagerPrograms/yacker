@@ -89,6 +89,12 @@ async function postHandler(event, postData){
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)
+      }).then(res => {
+        res.json().then(data => {
+          // console.log("DATA: ", data)
+        }).then(() => {
+          location.reload();
+        })
       })
     })
   })

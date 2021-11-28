@@ -4,7 +4,7 @@ import TopBanner from '../../components/banner'
 import Nav from '../../components/Nav'
 import StateData from '../../../data/states-data.json';
 import StateSelector from '../../components/state-selector';
-import { StickyBanner, Banner, Outstream, Placeholder } from "exoclick-react";
+import BottomAd    from "../../components/bottomAd"
 
 
 export default function StateList() {
@@ -34,11 +34,7 @@ export default function StateList() {
         </div>
 
 
-        <div className="bottom-ad">
-            <Placeholder width="435" height="266">
-                <Outstream zoneId="4499630" maxWidth={400}/>
-            </Placeholder>
-        </div>
+        <BottomAd/>
         </>
     )
 }

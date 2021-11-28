@@ -7,6 +7,7 @@ import Post from '../../components/post'
 import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
+import BottomAd from '../../components/bottomAd.js';
 import Link from 'next/link'
 import Head from 'next/head'
 import Popup from '../../components/Popup.js';
@@ -73,11 +74,7 @@ return(
         />
         {replies}
     </div>
-    <div className="bottom-ad">
-        <Placeholder width="400" height="266">
-            <Outstream zoneId="4499688" maxWidth={400}/>
-        </Placeholder>
-    </div>
+    <BottomAd/>
     </>)
 
 }

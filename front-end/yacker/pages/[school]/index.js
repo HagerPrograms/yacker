@@ -7,6 +7,7 @@ import Post from '../../components/post'
 import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
+import BottomAd from '../../components/bottomAd.js';
 import Link from 'next/link'
 import ThreadActions from '../../components/threadActions'
 import Head from 'next/head';
@@ -68,11 +69,7 @@ export default function Home(props) {
                     <a className="thread-actions view-thread">View thread</a>
                 </Link>
 
-                <div className="post-ad">
-                    <Placeholder width="300" height="250">
-                        <Banner zoneId={4499688}/>
-                    </Placeholder>
-                </div>
+                <BottomAd/>
                 </div>
             )
         }) :

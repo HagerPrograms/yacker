@@ -68,8 +68,11 @@ export default function Home(props) {
                 <Link href={`/${post.school}/${post.id}`}>
                     <a className="thread-actions view-thread">View thread</a>
                 </Link>
-
-                <BottomAd/>
+                <div className="post-ad">
+                    <Placeholder height="250">
+                        <Banner zoneId="4499688"/>
+                    </Placeholder>
+                </div>
                 </div>
             )
         }) :
@@ -97,11 +100,7 @@ export default function Home(props) {
             {feed}
         </div>
 
-        <div className="bottom-ad">
-            <Placeholder width="400" height="266">
-                <Outstream zoneId="4499630" maxWidth={400}/>
-            </Placeholder>
-        </div>
+        <BottomAd/>
     </>
     )
 }

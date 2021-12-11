@@ -23,6 +23,7 @@ body{
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+  background-attachment: fixed;
   background-color: #000;
 
 }
@@ -146,7 +147,7 @@ a {
 .rules{
   font-size: 20px;
   font-weight: 900;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Playfair Display', serif;
   text-align: center;
   color: crimson;
   text-decoration: underline;
@@ -155,7 +156,12 @@ a {
 .school-name{
   text-align: center;
   color: white;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Playfair Display', serif;
+  text-shadow:
+  -1px -1px 0 #000,
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;  
 }
 
 .state-list{
@@ -321,6 +327,7 @@ textarea{
 }
 .college-container{
   background-color: white;
+  width: 50%;
   margin: 0 auto 0 auto;
   border-radius: 10px;
   border-color: black;
@@ -340,10 +347,10 @@ textarea{
 }
 
 #page-separator{
-  width:80%;
+  width: 50%;
   margin-top: 10px;
   margin-bottom: 10px;
-  border-color: black;
+  border-color: white;
   border-width: 1px;
   border-top: transparent;
 }
@@ -631,6 +638,7 @@ textarea{
 .back-link{
   margin: 0 auto 0 auto;
   text-align: center;
+  
 }
 .report-counter{
   display: inline;

@@ -42,7 +42,7 @@ function PostForm(props){
                 <textarea value={content} onChange={onContentChange} required id="post-form-text"placeholder="Say something!"/>
                 {wordCounter}
                 <label id="post-form-label" htmlFor="file-upload">Media upload:</label>
-                <input accept="image/*,video/*" value={media} onChange={onMediaChange} required id="upload" type="file"></input>
+                <input accept="image/*,video/*" value={media} onChange={onMediaChange} required id="file-upload" type="file"></input>
                 <input required id="post-form-submit" type="submit" value="Create Post"></input>
             </form>
         </div>

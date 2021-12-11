@@ -29,7 +29,7 @@ export default function State(props){
         <title>Select your school.</title>
     </Head>
     <Nav states={true} loggedIn={false}></Nav>
-    <div className="class-wrapper">
+    <div className="college-container">
         <h1 className="list-header">Select your school:</h1>
         <ul>
             {schoolList}

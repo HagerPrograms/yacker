@@ -32,7 +32,7 @@ function Nav(props){
     return(
         <>
         <div className="header">
-        <h1 id="website-name">yacker{(props.school)? ` - ${props.school}`: ""}</h1>
+        <h1 id="website-name">Yacker{(props.school)? ` - ${props.school}`: ""}</h1>
         {stateLink}
         {adminHeader}
         </div>

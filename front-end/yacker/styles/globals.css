@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
 html,
 body {
@@ -11,14 +12,19 @@ body {
   min-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
+  font-family: 'Playfair Display', serif;
 }
 
 
 body{
   min-height: 100vh;
   width: 100%;
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(200,200,200,1) 100%);
+  background-image: url("../public/yacker_background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #000;
+
 }
 
 a {
@@ -78,22 +84,23 @@ a {
 }
 
 #website-name{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 800;
   font-size: 36px;
   margin: 0;
   display: block;
-  color: black;
+  color: white;
 }
 
 .header{
   text-align: center;
-  width: 60%;
+  width: 50%;
   margin: 0 auto 0 auto;
+  color: white;
 }
 
 .post-form-container{
-  width: 80%;
+  width: 50%;
   margin: 0 auto 0 auto;
   padding: 10px;
   border: 1px solid black;
@@ -101,7 +108,7 @@ a {
   background-color: transparent;
   color: white;
   overflow: hidden;
-  background-color: maroon;
+  background-color: gray
 }
 
 #post-form-text{
@@ -116,6 +123,7 @@ a {
   grid-column: 1/4;
   background-color: white;
   border-color: black;
+  border-width: 1px;
   border-radius: 5px;
   margin: 0 5px 5px 5px;
 }
@@ -127,15 +135,11 @@ a {
 
 
 #file-upload{
-  grid-column: 2/4;
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-
+  grid-column: 3/4;
 }
 
 .rules-banner{
-  width: 80%;
+  width: 50%;
   margin: auto;
 }
 
@@ -150,7 +154,7 @@ a {
 
 .school-name{
   text-align: center;
-  color: black;
+  color: white;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -172,7 +176,7 @@ a {
 
 .state-header{
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Playfair Display', serif;
 }
 
 
@@ -207,11 +211,7 @@ a {
 
 #post-form-label{
   margin-left: 7px;
-  text-shadow:
-  -1px -1px 0 #000,
-  1px -1px 0 #000,
-  -1px 1px 0 #000,
-  1px 1px 0 #000;  
+
 }
 
 .button{
@@ -250,7 +250,7 @@ a {
 }
 
 .list-header{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Playfair Display', serif;
   text-align:center;
 }
 
@@ -292,15 +292,20 @@ textarea{
 }
 
 #go-button{
-  height: 25px;
-  font-size: 20px;
+  height: 32px;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
   display: inline;
   vertical-align: top;
+  overflow: hidden;
 }
 
 .state-form{
   display: inline;
   margin-right: 20px;
+  font-family: 'Playfair Display', serif;
+  height: fit-content;
+  max-height: 30vw;
 }
 
 .class-wrapper{
@@ -314,32 +319,40 @@ textarea{
   margin-top: 30px;
   padding-bottom: 20px;
 }
+.college-container{
+  background-color: white;
+  margin: 0 auto 0 auto;
+  border-radius: 10px;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  margin-top: 30px;
+  padding-bottom: 20px;
+}
 
 .feed-container{
-  margin-top: 25px;
-  width: 80%;
+  padding: 15px;
+  width: 50%;
   margin: 0 auto 0 auto;
   border: 1px solid black;
   border-radius: 15px;
-  background-color: maroon;
+  background-color: gray;
 }
 
 #page-separator{
   width:80%;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-color: black;
   border-width: 1px;
   border-top: transparent;
 }
 
 .post{
-  width: 95%;
+  width: 100%;
   border: 1px solid black;
   border-radius: 5px;
   margin: auto;
-  margin-bottom: 10px;
-  margin-top: 20px;
   background-color: white;
   box-shadow: 3px 3px 5px black;
   overflow: hidden;
@@ -444,7 +457,7 @@ textarea{
 
 .reply-form-wrapper{
   width: 95%;
-  background-color: maroon;
+  background-color: gray;
   color: white;
   overflow: hidden;
   border: 1px solid black;
@@ -675,14 +688,79 @@ textarea{
   margin: 0 auto 0 auto;
 }
 
-@media only screen and (max-width: 600px) {
+.welcome-text{
+  color: black;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.welcome-container{
+  background-color: white;
+  width: fit-content;
+  position:absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin: 0 auto 0 auto;
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: solid;
+  border-radius: 5px;
+}
+
+.welcome-button{  
+  font-size: 1.5em;
+  font-weight: 900;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+  text-align: center;
+  border: solid black 1px;
+  width:fit-content;
+  font-family: 'Playfair Display', serif;
+  border-radius: 5px;
+  margin: 10px auto 0 auto;
+  animation: 1s infinite pulse alternate;
+}
+
+@keyframes pulse {
+  from{
+    background-color:white;
+    color: black;
+  }
+  to{
+    background-color: black;
+    color: white;
+  }
+  
+}
+
+
+.welcome-button:hover{  
+  color: white;
+  background-color: black;
+  animation: none;
+}
+
+@media only screen and (max-width: 1000px) {
 
   .welcome-banner{
     width: 95%;
+  
   }
   .class-wrapper{
+    position: absolute;
     width: 95%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     max-width: none;
+  }
+  .college-container{
+    width:95%;
   }
   .post-form-container{
     width:95%;

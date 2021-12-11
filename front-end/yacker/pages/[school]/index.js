@@ -84,23 +84,25 @@ export default function Home(props) {
 
     return ( 
     <>
-        <Head>
-    	    <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
-            <title>{"Yacker: " + props.college.school}</title>
-        </Head>
-        <div className="nav">
-            <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>
-        </div>
-        <TopBanner school={props.college.school}/>
-        <PostForm school={school}/>
-        
-        <hr id="page-separator"/>
-        
-        <div className="feed-container">
-            {feed}
-        </div>
+        <div style={{background: "#000000"}}>
+            <Head>
+                <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
+                <title>{"Yacker: " + props.college.school}</title>
+            </Head>
+            <div className="nav">
+                <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>
+            </div>
+            <TopBanner school={props.college.school}/>
+            <PostForm school={school}/>
+            
+            <hr id="page-separator"/>
+            
+            <div className="feed-container">
+                {feed}
+            </div>
 
-        <BottomAd/>
+            <BottomAd/>
+        </div>
     </>
     )
 }

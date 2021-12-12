@@ -17,7 +17,6 @@ import { Banner, Placeholder, StickyBanner, Outstream } from "exoclick-react";
 export default function Home(props) {
     const router = useRouter();
     let{ school } = router.query;
-
     const posts = props.posts;
 
     let feed;
@@ -84,10 +83,11 @@ export default function Home(props) {
 
     return ( 
     <>
-        <div style={{background: "#000000"}}>
+        <div style={{backgroundImage: "none"}}>
             <Head>
                 <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
                 <title>{"Yacker: " + props.college.school}</title>
+                <style>{'body {background-image: none !important;}'}</style>
             </Head>
             <div className="nav">
                 <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>

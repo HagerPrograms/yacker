@@ -19,13 +19,54 @@ body {
 body{
   min-height: 100vh;
   width: 100%;
-  background-image: url("../public/yacker_background.png");
+  background-image: url("../public/Yakkins.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   background-attachment: fixed;
-  background-color: #000;
+  background-color: #192734;
 
+}
+
+.nav{
+  margin: 10px auto 0 auto;
+  text-align: center;
+}
+
+.nav-item > h2{
+  margin: 5px;
+}
+
+.nav-active > h2{
+  margin: 5px;
+}
+
+.nav-item{
+  margin: 0;
+  display: inline-block;
+  color: white;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.nav-item:hover{
+  text-decoration: underline;
+  background-color: black;
+}
+.nav-active{
+  margin: 0;
+  display: inline-block;
+  color: red;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color:lightslategray;
+  text-decoration: underline;
+}
+
+.nav-active:hover{
+  color: black;
+  background-color:lightslategray;
 }
 
 a {
@@ -39,7 +80,7 @@ a {
 
 .login-container{
   width:25%;
-  border: 1px solid gray;
+  border: 1px solid lightgray;
   border-radius: 5px;
   padding: 10px;
   background-color: white;
@@ -104,12 +145,12 @@ a {
   width: 50%;
   margin: 0 auto 0 auto;
   padding: 10px;
-  border: 1px solid black;
-  border-radius: 15px;
+  border: 3px solid black;
+  border-radius: 5px;
   background-color: transparent;
-  color: white;
+  color: black;
   overflow: hidden;
-  background-color: gray
+  background-color: lightgray;
 }
 
 #post-form-text{
@@ -341,9 +382,9 @@ textarea{
   padding: 15px;
   width: 50%;
   margin: 0 auto 0 auto;
-  border: 1px solid black;
-  border-radius: 15px;
-  background-color: gray;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: lightgray;
 }
 
 #page-separator{
@@ -358,7 +399,7 @@ textarea{
 .post{
   width: 100%;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 2px;
   margin: auto;
   background-color: white;
   box-shadow: 3px 3px 5px black;
@@ -464,21 +505,17 @@ textarea{
 
 .reply-form-wrapper{
   width: 95%;
-  background-color: gray;
-  color: white;
+  background-color: lightgray;
+  color: black;
   overflow: hidden;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 2px;
   margin: 10px auto 10px auto;
 }
 
 .reply-form-header{
   margin: 5px 0 5px 7px;
-  text-shadow:
-  -1px -1px 0 #000,
-  1px -1px 0 #000,
-  -1px 1px 0 #000,
-  1px 1px 0 #000;  
+
 }
 
 .error-container{
@@ -578,7 +615,7 @@ textarea{
 
 .report-popup{
   position: fixed;
-  background-color: maroon;
+  background-color: lightgray;
   border: 2px solid black;
   right: 0;
   bottom: 80%;
@@ -602,7 +639,7 @@ textarea{
 .report-label{
   display: inline;
   margin: 0;
-  color: white;
+  color: black;
 }
 
 .report-header{
@@ -613,7 +650,7 @@ textarea{
   margin: 0;
   display: inline;
   float: right;
-  color: white;
+  color: red;
   cursor: pointer;
   font-weight: 900;
 }
@@ -717,6 +754,11 @@ textarea{
   padding-bottom: 10px;
   border: solid;
   border-radius: 5px;
+  max-width: 700px
+}
+
+.gone{
+  display: none;;
 }
 
 .welcome-button{  
@@ -752,6 +794,53 @@ textarea{
   background-color: black;
   animation: none;
 }
+
+.ticker-container{
+  overflow: hidden; /* HIDE SCROLL BAR */
+  background-color: gray;
+  /* max-height: ; */
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+
+}
+
+.top-school-text{
+  color: green;
+}
+
+.hottest-post-text{
+  color: red;
+}
+
+.ticker-content{
+  display: flex;
+  color: black;
+}
+
+.ticker-content > div{
+  flex-shrink: 0;
+  padding-right: 100px;
+  box-sizing: border-box;
+  text-align: center;
+  max-height: 1.5em;
+}
+
+.ticker-background{
+  background-color: white ;
+}
+
+@keyframes tickerh {
+  0% { transform: translate3d(100%, 0, 0); }
+  100% { transform: translate3d(-200%, 0, 0); }
+}
+
+.ticker-content { animation: tickerh linear 30s infinite; }
+.ticker-content:hover { animation-play-state: paused; }
+
 
 @media only screen and (max-width: 1000px) {
 

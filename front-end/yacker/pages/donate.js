@@ -6,14 +6,12 @@ export default function contact () {
         <>
         <Head>
     	    <meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
-            <title>Contact us</title>
+            <title>Donate to Yacker</title>
         </Head>
-        <Header active="contact"/>
+        <Header active="donate"/>
         <div className="welcome-container">
-            <h1 className="welcome-text">Contact us</h1>
-            <h2 className="contact-text">Email: hagerprograms@gmail.com</h2>
-            <h2 className="contact-text">Twitter: @yackerco</h2>
-            <h2 className="contact-text">LinkedIn: http://www.linkedin.com/in/seth-hager</h2>
+            <h1 className="welcome-text">Donate</h1>
+            <h2 className="contact-text"><em>Donation links coming soon!</em></h2>
         </div>
         </>
     )   

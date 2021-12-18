@@ -296,6 +296,21 @@ module.exports = {
         }
     },
 
+    getTop: async function (data, req) {
+    
+        const topPosts = await Post.getTop();
+        const topData = topPosts.map((post)=>{
+            return {
+                id: post.id,
+                school: post.school,
+                content: post.content
+            }
+        })
+
+        return topData;
+
+    },
+
     getPostReports: async function (data, req) {
         
         if(!req.isAuth){

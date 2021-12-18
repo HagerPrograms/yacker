@@ -20,12 +20,15 @@ body{
   min-height: 100vh;
   width: 100%;
   background-image: url("../public/Yakkins.svg");
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
   background-attachment: fixed;
   background-color: #192734;
+}
 
+svg{
+  color: white;
 }
 
 .nav{
@@ -55,7 +58,7 @@ body{
 }
 .nav-active{
   margin: 0;
-  display: inline-block;
+  display: none;
   color: red;
   cursor: pointer;
   padding-left: 10px;
@@ -224,6 +227,8 @@ a {
 .state-header{
   text-align: center;
   font-family: 'Playfair Display', serif;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 
@@ -299,6 +304,7 @@ a {
 .list-header{
   font-family: 'Playfair Display', serif;
   text-align:center;
+  margin: 0;
 }
 
 ul{
@@ -696,6 +702,10 @@ textarea{
   padding-left:10px
 }
 
+.contact-text{
+  display: inline-block;
+}
+
 .footer{
   position: fixed;
   left: 0;
@@ -757,6 +767,18 @@ textarea{
   max-width: 700px
 }
 
+.content-container{
+  background-color: white;
+  width: fit-content;
+  margin: 0 auto 0 auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 25px;
+  border: solid;
+  border-radius: 5px;
+  max-width: 700px
+}
+
 .gone{
   display: none;;
 }
@@ -797,7 +819,7 @@ textarea{
 
 .ticker-container{
   overflow: hidden; /* HIDE SCROLL BAR */
-  background-color: gray;
+  background-color: #2E4A60;
   /* max-height: ; */
   width: 100%;
   bottom: 0;
@@ -833,9 +855,29 @@ textarea{
   background-color: white ;
 }
 
+.icons{
+  height: 2em;
+  display: inline-block;
+  margin: 0;
+  margin-left: 5px;
+  margin-right: 5px;
+  transform: translateY(25%);
+}
+
+.email{
+  text-decoration: underline;
+}
+.twitter{
+  color:dodgerblue;
+}
+.linkedin{
+  color:blue;
+  text-decoration: underline;
+}
+
 @keyframes tickerh {
   0% { transform: translate3d(100%, 0, 0); }
-  100% { transform: translate3d(-200%, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
 }
 
 .ticker-content { animation: tickerh linear 30s infinite; }

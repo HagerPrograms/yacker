@@ -61,6 +61,12 @@ module.exports = buildSchema(`
         report_content:  String!
         masterID: String!
     }
+
+    type TopData{
+        id:       ID
+        school:   String!
+        content:  String!
+    }
     
     input PostInputData{
         content:   String!
@@ -92,6 +98,7 @@ module.exports = buildSchema(`
         getPosts(abbreviation: String!):            [Post!]!
         getPost(postID: String!, school: String!):  Post
         getPostReports:                             [Post!]!
+        getTop:                                     [TopData!]!
         getReplyReports:                            [Reply!]!
         isAdmin:                                    Boolean!
     }

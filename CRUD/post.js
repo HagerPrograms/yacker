@@ -109,6 +109,21 @@ async function getPost(post_id, school){
     return post;
 }
 
+async function getTop(){
+    const post = await prisma.post.findMany({
+        orderBy: {
+            reply: {
+                _count: 'desc'
+            }
+        },
+
+        take: 3
+    })
+
+    return post;
+}
+
+exports.getTop = getTop;
 exports.getPostReports = getPostReports;
 exports.createPost = createPost;
 exports.mutePost = mutePost;

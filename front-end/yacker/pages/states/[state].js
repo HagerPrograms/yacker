@@ -28,8 +28,8 @@ export default function State(props){
     	<meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
         <title>Select your school.</title>
     </Head>
-    <Nav states={true} loggedIn={false}></Nav>
-    <div className="college-container">
+    <Nav states={true} loggedIn={false}/>
+    <div className="content-container">
         <h1 className="list-header">Select your school:</h1>
         <ul>
             {schoolList}

@@ -15,11 +15,9 @@ const Post = require('./CRUD/post');
 const User = require('./CRUD/user');
 const Reply = require('./CRUD/reply');
 
-Reply.createReply({masterID: '155', content:'test', file: null, author: '::1'})
-
 async function init(){
-    User.createAdmin("hagerprograms@gmail.com", "Sh@101698!", "::1");
-    User.createAdmin("elotrujillo@yahoo.com","eloisgay", "::1");
+    const topPosts = await Post.getTop();
+    console.log(topPosts);
 }
 
 init();

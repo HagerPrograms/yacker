@@ -28,9 +28,9 @@ export default function StateList() {
             <title>Select state</title>
         </Head>
         <Nav loggedIn={false}/>
-        <div className="class-wrapper">
-        <h1 className="state-header">Choose your state:</h1>
-        <StateSelector/>
+        <div className="welcome-container">
+            <h1 className="state-header">Choose your state:</h1>
+            <StateSelector/>
         </div>
 
 

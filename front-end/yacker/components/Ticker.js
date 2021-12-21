@@ -1,33 +1,65 @@
 import { useState } from 'react'
+import Link from 'next/link'
 
-export default function Ticker(props){
+export default function Ticker({topPosts}){
 
     const [loading, setLoading] = useState(true);
+    const [feed, setFeed] = useState("Retrieving top posts...");
 
     function loadingHandler(){
         setLoading(() => false)
     }
 
-    getTop().then((data) => {
-        console.log(data);
-    })
+    function feedHandler(data){
+        setFeed(() => {
+            return (<>
+                <div className="ticker-content">
+                    <h3 className="ticker-item">{"#1 Hottest post: "}</h3>
+                    <h3 className="ticker-item">{" " + data[0].content}</h3>
+                    <Link href={"/" + data[0].school}>
+                        <a className="ticker-item link">{"/" + data[0].school}</a>
+                    </Link>
+                    <Link href={"/" + data[0].school + "/" + data[0].id}>
+                        <a className="ticker-item link">{"Post Link"}</a>
+                    </Link>
+
+                    <h3 className="ticker-item">{"#2 Hottest post: "}</h3>
+                    <h3 className="ticker-item">{" " + data[1].content}</h3>
+                    <Link href={"/" + data[1].school}>
+                        <a className="ticker-item link">{"/" + data[1].school}</a>
+                    </Link>
+                    <Link href={"/" + data[1].school + "/" + data[1].id}>
+                        <a className="ticker-item link">{"Post Link"}</a>
+                    </Link>
+
+                    <h3 className="ticker-item">{"#3 Hottest post: "}</h3>
+                    <h3 className="ticker-item">{" " + data[2].content}</h3>
+                    <Link href={"/" + data[2].school}>
+                        <a className="ticker-item link">{"/" + data[2].school}</a>
+                    </Link>
+                    <Link href={"/" + data[2].school + "/" + data[2].id}>
+                        <a className="ticker-item link">{"Post Link"}</a>
+                    </Link>
+
+                </div>
+            </>)
+        })
+    }
+    
+    if(loading){
+        getTop().then(data => {
+            loadingHandler()
+            feedHandler(data);
+        })
+    }
+
 
     return <>
-    <div className="ticker-container">
-        <div className="ticker-background">
-            <div className="ticker-content">   
-                <div>
-                    <span className="top-school-text">{"Top"}</span>
-                    {` schools: #1 ${'New Mexico State University'} /nmsu, #2 ${`University of New Mexico`} /unm, #3 ${'Western New Mexico University'} /wnmu`}
-                </div>
-                <div>
-                    <span className="hottest-post-text">{"Hottest "}</span>
-                    {` posts: #1 ${'FIRST PLACE POST TITLE'} @ ${'POST SCHOOL'} ${'NUMBER OF REPLIES'} ${'POST LINK'} #2 ${'SECOND PLACE POST TITLE'} @ ${'POST SCHOOL'} ${'NUMBER OF REPLIES'} ${'POST LINK'} #3 ${'THIRD PLACE POST TITLE'} @ ${'POST SCHOOL'} ${'NUMBER OF REPLIES'} ${'POST LINK'}
-                    `} 
-                </div>
+        <div className="ticker-container">
+            <div className="ticker-background">
+                {feed}
             </div>
         </div>
-    </div>
     </>
 }
 
@@ -37,13 +69,11 @@ async function getTop(){
         query: `
         {
             getTop{
-                posts{
-                    title
-                    school
-                    number of replies
-                }
+              id
+              school
+              content
             }
-        }
+          }
           
         `
     }
@@ -56,8 +86,7 @@ async function getTop(){
         body: JSON.stringify(graphqlQuery)
     })
 
-    const data = await payload.json();
-    console.log("DATA: ", data);
+    const { data } = await payload.json();
 
-    return data;
+    return data.getTop;
 }

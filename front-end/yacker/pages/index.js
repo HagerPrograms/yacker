@@ -1,6 +1,8 @@
 import Header from '../components/Header'
 import Head from 'next/head'
 import Link from 'next/link'
+import Ticker from '../components/Ticker'
+
 export default function Index() {
     return(
     <>
@@ -18,5 +20,6 @@ export default function Index() {
     	    <div className="welcome-button">Find your university</div>
         </Link>
     </div>
+    <Ticker/>
     </>)
 }

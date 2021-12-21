@@ -843,7 +843,7 @@ textarea{
   color: black;
 }
 
-.ticker-content > div{
+.ticker-item{
   flex-shrink: 0;
   padding-right: 100px;
   box-sizing: border-box;
@@ -877,12 +877,28 @@ textarea{
 
 @keyframes tickerh {
   0% { transform: translate3d(100%, 0, 0); }
-  100% { transform: translate3d(-100%, 0, 0); }
+  100% { transform: translate3d(-150%, 0, 0); }
 }
 
 .ticker-content { animation: tickerh linear 30s infinite; }
 .ticker-content:hover { animation-play-state: paused; }
 
+.ticker-item{
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5em;
+  max-height: 1.5em;
+  padding-right: 10px;
+}
+
+.link{
+  color: blue;
+  text-decoration: underline;
+}
+
+.link:hover{
+  color: purple;
+}
 
 @media only screen and (max-width: 1000px) {
 

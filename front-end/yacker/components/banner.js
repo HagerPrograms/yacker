@@ -4,9 +4,10 @@ function Banner(props) {
             <div className="rules-banner">
                 <hr/>
                 <h2 className="rules">Rules:</h2>
-                <p className="rules">1. Don&apos;t post illegal content.</p>
-                <p className="rules">2. Don&apos;t spam the board.</p>
-                <p className="rules">3. Don&apos;t advertise on the board.</p>
+                <p className="rule"><em>1. Don&apos;t post illegal content.</em></p>
+                <p className="rule"><em>2. Don&apos;t spam the board.</em></p>
+                <p className="rule"><em>3. Don&apos;t advertise on the board.</em></p>
+                <h2 className="sub-banner"><em>Otherwise... go wild.</em></h2>
                 <hr/>
             </div>
             <div>

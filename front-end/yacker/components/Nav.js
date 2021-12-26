@@ -9,7 +9,7 @@ function Nav(props){
         stateLink = (
         <>
         <Link href={"/states/" + props.state}>
-            <a id="back-link">{"<<" + props.state}</a>
+            <a id="back-link">{"<< back to " + props.state.toUpperCase()}</a>
         </Link>
         </>
         )

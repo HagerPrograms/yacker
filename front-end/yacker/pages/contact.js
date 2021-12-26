@@ -13,15 +13,12 @@ export default function contact () {
             <h1 className="welcome-text">Contact us</h1>
             <h2 className="contact-text">Email</h2>
             <img alt="twitter logo" className="icons" src="./email.png"/>
-            <h2 className="contact-text">: <span className="email">hagerprograms@gmail.com</span></h2>
+            <h2 className="contact-text">: <span className="email">yackerco@gmail.com</span></h2>
             <br/>
             <h2 className="contact-text">Twitter</h2>
             <img alt="twitter logo" className="icons" src="./twitter.png"/>
             <h2 className="contact-text">: <span className="twitter">@yackerco</span></h2>
             <br/>
-            <h2 className="contact-text">LinkedIn </h2>
-            <img alt="twitter logo" className="icons" src="./linkedin.png"/>
-            <h2 className="contact-text">: <span className="linkedin">http://www.linkedin.com/in/seth-hager</span></h2>
         </div>
         </>
     )   

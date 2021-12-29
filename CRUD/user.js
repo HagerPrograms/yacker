@@ -71,8 +71,13 @@ async function getAdmin(email) {
 };
 
 async function createAdmin(email, password, ip) {
+  
+  console.log("EMAIL:", email)
+  console.log("PASSWORD:", password)
+  console.log("ADDRESS:", ip)
+
   const admin = await prisma.admin.create({
-    where : {
+    data : {
       email: email,
       password: password,
       address: ip

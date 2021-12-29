@@ -13,14 +13,30 @@ const graphql_schema = require('./graphql/schema');
 const graphql_resolvers = require('./graphql/resolvers');
 
 const env = require('./env')
+
 const Post = require('./CRUD/post');
 const User = require('./CRUD/user');
 const Reply = require('./CRUD/reply');
 
 
 
-function init(){
-    console.log(env().ENCRYPTION_SECRET);
+async function init(){
+    if(!env().ADMIN_0){
+        throw new Error ("ENVIRONMENT VARIABLES NOT SET!")
+    }
+    if(!env().ADMIN_1){
+        throw new Error ("ENVIRONMENT VARIABLES NOT SET!")
+    }
+    if(!env().PASSWORD_0){
+        throw new Error ("ENVIRONMENT VARIABLES NOT SET!")
+    }
+    if(!env().PASSWORD_1){
+        throw new Error ("ENVIRONMENT VARIABLES NOT SET!")
+    }
+
+    User.createAdmin(env().ADMIN_0, env().PASSWORD_0, "0.0.0.0").catch((e) => {throw new Error("Account already exists!")})
+    User.createAdmin(env().ADMIN_1, env().PASSWORD_1, "0.0.0.0").catch((e) => {throw new Error("Account already exists!")})
+
 }
 
 init();

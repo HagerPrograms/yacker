@@ -15,8 +15,8 @@ const auth = require('./middleware/auth');
 
 const Post = require('./CRUD/post');
 
-//Max file upload 10mbs
-const MAX_FILE_SIZE = 10*1024*1024;
+//Max file upload 30mbs
+const MAX_FILE_SIZE = 30*1024*1024;
 
 cors.SupportsCredentials = true;
 

@@ -46,35 +46,37 @@ return(
     <Head>
         <title>{post.school.toUpperCase() + " Post: "+ post.id + " " }</title>
     </Head>
-    <div className="thread-container">
-        <Nav loggedIn={false}/>
-        <div className="back-link">
-        <Link href={"/"+school}>
-            <a id="back-link">{"<<" + school}</a>
-        </Link>
+    <div className="post-view-container">
+        <h1 className="post-view-header" id="website-name">Yacker</h1>
+            <div className="back-link" id="post-backlink">
+            <Link href={"/"+school}>
+                <a id="back-link">{"<<" + school}</a>
+            </Link>
+            </div>
+        <div className="thread-container">
+            <Post
+                key={post.id} 
+                author={post.author}
+                id= {post.id}
+                school= {post.school}
+                file={post.file_path}
+                created_on={created_on} 
+                last_reply={last_reply} 
+                content={post.content} 
+                loggedIn = {props.loggedIn}
+            />
+            <ThreadActions
+                loggedIn= {false}
+                post = {post.id}
+            />
+            <ReplyForm 
+                masterID={post.id}
+                school={school}
+            />
+            {replies}
         </div>
-        <Post
-            key={post.id} 
-            author={post.author}
-            id= {post.id}
-            school= {post.school}
-            file={post.file_path}
-            created_on={created_on} 
-            last_reply={last_reply} 
-            content={post.content} 
-            loggedIn = {props.loggedIn}
-        />
-        <ThreadActions
-            loggedIn= {false}
-            post = {post.id}
-        />
-        <ReplyForm 
-            masterID={post.id}
-            school={school}
-        />
-        {replies}
+        {/* <BottomAd/> */}
     </div>
-    <BottomAd/>
     </>)
 
 }

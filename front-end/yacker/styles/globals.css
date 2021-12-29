@@ -418,11 +418,17 @@ textarea{
   border-top: transparent;
 }
 
+.loading{
+  animation: none;
+  text-align: center;
+}
+
 .post{
   width: 100%;
   border: 1px solid black;
   border-radius: 2px;
   margin: auto;
+  margin-bottom: 25px;
   background-color: white;
   box-shadow: 3px 3px 5px black;
   overflow: hidden;
@@ -682,15 +688,15 @@ textarea{
 }
 
 .thread-container{
-  width: 80%;
+  display: inline-block;
+  width: 90%;
   padding-bottom: 10px;
   background-color: white;
   border: 1px solid black;
-  border-radius: 15px;
+  border-radius: 5px
 }
 
 .thread-container>a{
-  display: block;
   margin: 0 auto 0 auto;
 }
 
@@ -750,6 +756,21 @@ textarea{
   transform: translateX(-50%);
 
   /* Height of the footer*/ 
+}
+
+#post-backlink{
+  margin-left: 30px;
+  margin-bottom: 20px;
+  text-align: left !important;
+}
+
+.post-view-header{
+  margin-left: 30px !important;
+  font-size: 3.5em !important;
+}
+
+.post-view-container{
+  display: inline-block;
 }
 
 .post-ad{
@@ -948,8 +969,27 @@ textarea{
     width:95%
   }
   .thread-container{
-    width:95%;
+    width:100%;
+  }
+  .post-created{
+    display: block;
+    width: 100%;
+  }
+  .post-updated{
+    display: block;
+    float: initial;
   }
 
+}
+@media only screen and (max-width: 1200px) {
+
+  .post-created{
+    display: block;
+    width: 100%;
+  }
+  .post-updated{
+    display: block;
+    float: initial;
+  }
 
 }

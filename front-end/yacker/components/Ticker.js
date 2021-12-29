@@ -4,7 +4,14 @@ import Link from 'next/link'
 export default function Ticker({topPosts}){
 
     const [loading, setLoading] = useState(true);
-    const [feed, setFeed] = useState("Retrieving top posts...");
+    const [feed, setFeed] = useState(
+        () => 
+        <>
+        <div className="ticker-content loading">
+            <h3 className="ticker-item">Retrieving top posts...</h3>   
+        </div>
+        </>
+    );
 
     function loadingHandler(){
         setLoading(() => false)
@@ -56,7 +63,7 @@ export default function Ticker({topPosts}){
 
     return <>
         <div className="ticker-container">
-            <div className="ticker-background">
+            <div className="ticker-background">    
                 {feed}
             </div>
         </div>

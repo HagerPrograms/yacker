@@ -15,8 +15,11 @@ const secret = env.ENCRYPTION_SECRET;
 module.exports = {
     
     //Fetches all user IPs
-    users: async function() {
+    users: async function(data, req) {
 
+        if(!req.isAuth){
+            throw new Error("User is not authorized.")
+        }
 
         //fetch users from User table
         const users = await User.getUsers();

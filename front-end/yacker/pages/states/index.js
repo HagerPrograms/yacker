@@ -34,7 +34,8 @@ export default function StateList() {
         </div>
 
 
-        <BottomAd/>
+        {//<BottomAd/>
+        }
         </>
     )
 }

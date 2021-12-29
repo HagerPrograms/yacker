@@ -19,7 +19,7 @@ export default function Post(props) {
         } else {
             media = (
             <video controls>
-                <source src={`http:/yacker.co:4000${props.file}`}/>
+                <source src={`http://yacker.co:4000${props.file}`}/>
             </video>
             )
         }

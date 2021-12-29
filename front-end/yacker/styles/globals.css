@@ -82,13 +82,12 @@ a {
 }
 
 .login-container{
-  width:25%;
   border: 1px solid lightgray;
   border-radius: 5px;
   padding: 10px;
   background-color: white;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -101,8 +100,8 @@ a {
 .login-form{
   display: grid;
   grid-template-columns: auto auto;
-  row-gap: 5px;
-}
+  gap: 10px;
+  }
 
 .post-form{
   display: grid;
@@ -567,7 +566,7 @@ textarea{
   background-color: #FFFFE0;
   margin: 0 auto 0 auto;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-bottom: 5px;
   padding-bottom: 5px;
 }
@@ -724,13 +723,15 @@ textarea{
 }
 
 .footer{
-  position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
-  background-color: white;
+  height: 150px;
   color: black;
   text-align: center;
+  margin-top: 100px;
+}
+
+.footer>div>h2{
+  background-color: green;
 }
 
 .footer-link{

@@ -5,14 +5,19 @@ const Reply =        require('../CRUD/reply');
 const ReportPost =   require('../CRUD/postReport');
 const ReportReply =  require('../CRUD/replyReport');
 const User =         require('../CRUD/user');
+const env =          require('../env')
 
 const bcrypt =       require('bcrypt');
 const jwt =          require('jsonwebtoken');
+
+const secret = env.ENCRYPTION_SECRET;
 
 module.exports = {
     
     //Fetches all user IPs
     users: async function() {
+
+
         //fetch users from User table
         const users = await User.getUsers();
         //Map all users so that graphql will accept the data
@@ -50,7 +55,7 @@ module.exports = {
         {
             email: admin.email,
         },
-        'asupersecretsecret',
+        secret,
         {expiresIn: '24h'} //new tokens required in a day.
         );
 
@@ -60,6 +65,7 @@ module.exports = {
         }
     },
     
+    // author should be only returned if user is authorized.
     getPost: async function({postID, school}, req){
         
         id = parseInt(postID);
@@ -69,7 +75,7 @@ module.exports = {
         if(post.school === school){
             return {
                 ...post,
-                author: post.author.toString(),
+                author: (req.isAuth)? post.author.toString() : "",
                 created_on: post.created_on.toISOString(),
                 last_reply: post.last_reply.toISOString()
             };
@@ -90,7 +96,7 @@ module.exports = {
         const graphqlArray = posts.map(p => {
             return {
                 ...p,
-                author: p.author.toString(),
+                author: (req.isAuth) ? p.author.toString() : "",
                 created_on: p.created_on.toISOString(),
                 last_reply: p.last_reply.toISOString()
             };
@@ -101,8 +107,6 @@ module.exports = {
     createPost: async function({ postInput }, req) {
         const errors = [];
         
-        console.log("Almost there")
-
         const user = await User.getUser(req.socket.remoteAddress)
 
         if(!user){
@@ -144,8 +148,6 @@ module.exports = {
         posts.sort((a,b) => {
             return b.last_reply - a.last_reply;
         })
-
-        console.log("POST LENGTH", posts.length);
 
         if(parseInt(posts.length) >= 20){
             const pruned = posts.pop();
@@ -212,9 +214,9 @@ module.exports = {
         }   
     },
     reportPost: async function ({reportData}, req){
+        
         const errors = [];
 
-        //console.log("ReplyData: ", replyData);
         const user = await User.getUser(req.socket.remoteAddress)
         const ip = req.socket.remoteAddress;
 
@@ -297,7 +299,7 @@ module.exports = {
     },
 
     getTop: async function (data, req) {
-    
+
         const topPosts = await Post.getTop();
         const topData = topPosts.map((post)=>{
             return {
@@ -363,12 +365,17 @@ module.exports = {
     },
 
     banUser: async function ({ip}, req){
+        if(!req.isAuth){
+            throw new Error("Permission Denied.")
+        }
         const bannedUser = await User.banUser(ip);
-        console.log(req.isAuth);
         return `Banned user ${ip}`
     },
     
     unbanUser: async function ({ip}, req){
+        if(!req.isAuth){
+            throw new Error("Permission Denied.")
+        }
         const unbannedUser = await User.unbanUser(ip);
         return `Unbanned user ${ip}`
     },

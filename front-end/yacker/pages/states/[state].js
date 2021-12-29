@@ -35,7 +35,9 @@ export default function State(props){
             {schoolList}
         </ul>
     </div>
-    <BottomAd/>
+    {
+    //<BottomAd/>
+    }
     </>
     )
 }

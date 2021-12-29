@@ -15,13 +15,14 @@ const auth = require('./middleware/auth');
 
 const Post = require('./CRUD/post');
 
+//Max file upload 10mbs
+const MAX_FILE_SIZE = 10*1024*1024;
+
 cors.SupportsCredentials = true;
 
 app.use(cors());
 app.use(cookie());
 app.use(auth);
-
-
 
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -56,12 +57,15 @@ const fileStorageEngine = multer.diskStorage({
 const PORT = 4000;
 
 //import multer package for file upload.
-const upload = multer({storage: fileStorageEngine})
+const upload = multer(
+    {
+        storage: fileStorageEngine,
+        limits: {
+            fileSize: MAX_FILE_SIZE
+        }
+    })
 
-//enable cors
-
-
-//
+//statically 
 app.use(express.static('./uploads'));
 
 

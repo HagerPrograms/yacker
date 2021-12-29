@@ -7,6 +7,7 @@ import Post from '../../components/post'
 import Error from '../../components/error.js';
 import Reply from '../../components/reply.js';
 import ReplyForm from '../../components/replyform'
+import Footer from '../../components/footer'
 import BottomAd from '../../components/bottomAd.js';
 import Link from 'next/link'
 import ThreadActions from '../../components/threadActions'
@@ -67,11 +68,15 @@ export default function Home(props) {
                 <Link href={`/${post.school}/${post.id}`}>
                     <a className="thread-actions view-thread">View thread</a>
                 </Link>
+                {
+                /*
                 <div className="post-ad">
                     <Placeholder height="250">
                         <Banner zoneId="4499688"/>
                     </Placeholder>
                 </div>
+                */
+                }
                 </div>
             )
         }) :
@@ -92,7 +97,9 @@ export default function Home(props) {
             <div className="nav">
                 <Nav school={school} state={props.college.state.toLowerCase()} loggedIn={props.loggedIn}/>
             </div>
-            <TopBanner school={props.college.school}/>
+            {
+                <TopBanner school={props.college.school}/>
+            }
             <PostForm school={school}/>
             
             <hr id="page-separator"/>
@@ -101,8 +108,11 @@ export default function Home(props) {
                 {feed}
             </div>
 
-            <BottomAd/>
+            {
+            //    <BottomAd/>
+            }
         </div>
+        <Footer/>
     </>
     )
 }

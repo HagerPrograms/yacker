@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const env = require("../env")
 
 module.exports = (req,res,next) => {
 
@@ -12,7 +13,7 @@ module.exports = (req,res,next) => {
     const token = authHeader;
     let decodedToken;
     try{
-        decodedToken = jwt.verify(token, 'asupersecretsecret');
+        decodedToken = jwt.verify(token, env().ENCRYPTION_SECRET);
     } catch(err) {
         console.log(err);
         req.isAuth = false;

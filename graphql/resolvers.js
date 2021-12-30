@@ -10,8 +10,6 @@ const env =          require('../env')
 const bcrypt =       require('bcrypt');
 const jwt =          require('jsonwebtoken');
 
-const secret = env.ENCRYPTION_SECRET;
-
 module.exports = {
     
     //Fetches all user IPs
@@ -58,7 +56,7 @@ module.exports = {
         {
             email: admin.email,
         },
-        secret,
+        env().ENCRYPTION_SECRET,
         {expiresIn: '24h'} //new tokens required in a day.
         );
 

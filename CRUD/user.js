@@ -1,7 +1,11 @@
 const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
+
+const env = require("../env");
+
 const bcrypt = require('bcrypt');
 
-const prisma = new PrismaClient()
+
 
 //Create a user, once a new connection goes to Yacker, their IP is logged to the database.
 async function createUser(ip){
@@ -72,14 +76,12 @@ async function getAdmin(email) {
 
 async function createAdmin(email, password, ip) {
   
-  console.log("EMAIL:", email)
-  console.log("PASSWORD:", password)
-  console.log("ADDRESS:", ip)
+  const hashed_pass = await bcrypt.hash(password, parseInt(env().HASH_ROUNDS))
 
   const admin = await prisma.admin.create({
     data : {
       email: email,
-      password: password,
+      password: hashed_pass,
       address: ip
     }
   })

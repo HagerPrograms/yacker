@@ -35,7 +35,7 @@ function LoginForm(props){
 
 async function LoginHandler(event, authData){
   event.preventDefault();
-  //console.log(`This is authData:`, authData)
+  console.log(`This is authData:`, authData)
   
   const graphqlQuery = {
     query: `

@@ -31,10 +31,11 @@ export default function ReportsPage(props) {
         let last_reply = new Date(r.last_reply);
 
         const reports = r.report.map((element)=>{
+            console.log(element)
             const reportDate = parseInt(element.created_on)
             return(
             <Reply 
-                key = {element.r.id}
+                key = {element.id || "0000000"}
                 file_path={null}
                 created_on={reportDate} 
                 content={element.report_content} 

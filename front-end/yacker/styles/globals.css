@@ -402,6 +402,7 @@ textarea{
 
 .feed-container{
   padding: 15px;
+  padding-bottom: 0;
   width: 50%;
   margin: 0 auto 0 auto;
   border: 3px solid black;
@@ -428,7 +429,7 @@ textarea{
   border: 1px solid black;
   border-radius: 2px;
   margin: auto;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   background-color: white;
   box-shadow: 3px 3px 5px black;
   overflow: hidden;

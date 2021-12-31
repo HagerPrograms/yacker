@@ -148,6 +148,7 @@ export async function getServerSideProps({params, req}){
     const payload = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
+            'Authorization': `Bearer ${auth}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphqlQuery)

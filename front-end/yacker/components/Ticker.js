@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function Ticker({topPosts}){
+export default function Ticker(){
 
     const [loading, setLoading] = useState(true);
     const [feed, setFeed] = useState(

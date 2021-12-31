@@ -5,13 +5,62 @@ function LoginForm(props){
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('')
 
   function onEmailChange(event) {
+    if(error){
+      errorClear()
+    }
     setEmail(() => {return event.target.value})
   }
 
   function onPasswordChange(event){
+    if(error){
+      errorClear()
+    }
     setPassword(() => {return event.target.value})
+  }
+
+  function errorClear(){
+    setError('');
+  }
+
+  function successClear(){
+    setSuccess('');
+  }
+
+  function successHandler(){
+    setSuccess(() => {
+      return <>
+        <div className="success-message">
+          Login successful!
+        </div>
+      </>
+    })
+  }
+
+  function errorHandler(msg){
+    setError(() => {
+    return <>
+    <div className="error-message">
+      {msg}
+    </div>
+    </>})
+  }
+
+  async function login(e, credentials){
+    const data = await LoginHandler(e, credentials)
+    
+    console.log(data);
+    
+    if(data.error){
+      errorHandler(data.error)
+      successClear()
+    } else {
+    errorClear();
+    successHandler();
+    }
   }
   
   return (
@@ -20,13 +69,15 @@ function LoginForm(props){
         <h3 id="login-header">Admin login:</h3>
         <hr id="login-form-divider"></hr>
         <div className='form-container'>
-          <form method="POST" className="login-form" onSubmit={e => LoginHandler(e, {email, password})}>
+          <form method="POST" className="login-form" onSubmit={e => login(e, {email, password})}>
               <label htmlFor="email">Email:</label>
               <input value={email} onChange={onEmailChange} type="email" id="email" name="name" required></input>
               <label htmlFor="password">Password:</label>
               <input value={password} onChange={onPasswordChange} type="password" id="password" name="password" required></input>
               <input type="submit" value="Login" id="login-button"></input>
           </form>
+          {error}
+          {success}
         </div>
       </div>
       </>
@@ -34,8 +85,8 @@ function LoginForm(props){
 }
 
 async function LoginHandler(event, authData){
+  
   event.preventDefault();
-  console.log(`This is authData:`, authData)
   
   const graphqlQuery = {
     query: `
@@ -48,29 +99,30 @@ async function LoginHandler(event, authData){
     `
   };
 
-  fetch('http://yacker.co:4000/graphql', {
+
+  const payload = await fetch('http://yacker.co:4000/graphql', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(graphqlQuery)
-  }).then(res => {
-    return res.json();
-  }).then(resData => {
-      if(resData.errors && resData.errors[0].status === 422){
-        throw new Error("Validation failed! Make sure the email is correct.");
-      }
-      if(resData.errors){
-        throw new Error("User login failed.")
-      }
-    const loginToken = resData.data.login.token
+  })
 
-    cookie.set("logintoken", loginToken)
-    
-    console.log("Login Token:", cookie.get("logintoken"));
+  const resData = await payload.json();
 
-    })
+  if(resData.data){
+    cookie.set("logintoken", resData.data.login.token)
+    return resData.data.login
   }
+  
+  console.log("RESDATA:", resData.errors[0])
+
+  return {
+    error: resData.errors[0].message
+  }
+  
+
+}
 
 
 export default LoginForm;

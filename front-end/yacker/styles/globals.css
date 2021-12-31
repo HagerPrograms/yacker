@@ -941,6 +941,25 @@ textarea{
   color: purple;
 }
 
+.error-message{
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  background-color: red;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.success-message{
+  font-weight: 900;
+  color: white;
+  text-align: center;
+  background-color: green;
+  width: 100%;
+  margin-top: 10px;
+}
+
+
 @media only screen and (max-width: 1000px) {
 
   .welcome-banner{

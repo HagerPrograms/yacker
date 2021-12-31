@@ -15,6 +15,11 @@ body {
   font-family: 'Playfair Display', serif;
 }
 
+.error404{
+  color: white;
+  margin-top: 100px;
+  text-align: center;
+}
 
 body{
   min-height: 100vh;

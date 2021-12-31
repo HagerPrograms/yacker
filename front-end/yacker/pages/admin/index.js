@@ -89,7 +89,10 @@ export async function getServerSideProps({params, req}){
 
     if(!auth){
         return {
-            notFound: true
+            redirect: {
+                destination: '/401',
+                permananent: false
+            }
         }
     }
 

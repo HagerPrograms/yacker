@@ -366,26 +366,40 @@ module.exports = {
     },
 
     banUser: async function ({ip}, req){
+        
         if(!req.isAuth){
             throw new Error("Permission Denied.")
         }
+        
         const bannedUser = await User.banUser(ip);
         return `Banned user ${ip}`
     },
     
     unbanUser: async function ({ip}, req){
+        
         if(!req.isAuth){
             throw new Error("Permission Denied.")
         }
+        
         const unbannedUser = await User.unbanUser(ip);
         return `Unbanned user ${ip}`
     },
     closePost: async function ({postID}, req){
+
+        if(!req.isAuth){
+            throw new Error("Permission Denied.")
+        }
+
         const post = await Post.deletePost(postID);
         return `Closed thread ${postID}`;
     },
 
     closeReply: async function ({replyID}, req){
+
+        if(!req.isAuth){
+            throw new Error("Permission Denied.")
+        }
+        
         const reply = await Reply.deleteReply(replyID);
         return `Closed reply ${replyID}`;
     },

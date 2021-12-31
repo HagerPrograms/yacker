@@ -114,7 +114,7 @@ export async function getServerSideProps({params, req}){
         `
     }
 
-    const replyPayload = await fetch('http://localhost:4000/graphql', {
+    const replyPayload = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${auth}`,
@@ -153,7 +153,7 @@ export async function getServerSideProps({params, req}){
         `
     }
 
-    const authPayload = await fetch('http://localhost:4000/graphql', {
+    const authPayload = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${auth}`,
@@ -163,7 +163,7 @@ export async function getServerSideProps({params, req}){
     })
     
 
-    const postPayload = await fetch('http://localhost:4000/graphql', {
+    const postPayload = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${auth}`,
@@ -178,9 +178,6 @@ export async function getServerSideProps({params, req}){
     
     const replyReports = replyData.data;
     const postReports = postData.data;
-
-    console.log("reply reports:", replyReports);
-    console.log("post reports:", postReports);
 
     return {
         props: {

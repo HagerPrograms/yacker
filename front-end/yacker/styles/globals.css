@@ -1013,11 +1013,11 @@ textarea{
     display: block;
     float: initial;
   }
-  .report-popup{
-    min-width: 70%
-  }
-
-
+}
+@media only screen and (max-width: 800px) {
+.report-popup{
+  min-width: 85%
+}
 }
 @media only screen and (max-width: 1200px) {
 

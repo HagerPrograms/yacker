@@ -124,7 +124,7 @@ async function postHandler(event, postData){
       }
       `};
 
-      console.log("graphql query:", graphqlQuery);
+      console.log("graphql query:", graphqlQuery.query);
 
       fetch('http://yacker.co:4000/graphql', {
         method: 'POST',

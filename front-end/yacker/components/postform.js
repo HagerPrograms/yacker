@@ -82,6 +82,7 @@ function PostForm(props){
                     sitekey="6LdW0uAdAAAAAG1As-Pq-9OJTR1Cvx4HfdIsWB0q"
                     onChange={onCaptchaChange}
                     theme="dark"
+                    size="compact"
                   />
                 </div>
                 <input required id="post-form-submit" type="submit" value="Create Post"></input>

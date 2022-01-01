@@ -85,6 +85,7 @@ export default function Popup(props){
                     sitekey="6LdW0uAdAAAAAG1As-Pq-9OJTR1Cvx4HfdIsWB0q"
                     onChange={onCaptchaChange}
                     theme="dark"
+                    size="normal"
                   />
                   {error}
                 </div>
@@ -114,6 +115,8 @@ async function reportHandler(event, reportData){
                 }
             }
         `}
+
+
 
     const data = await fetch('http://yacker.co:4000/graphql', {
         method: 'POST',

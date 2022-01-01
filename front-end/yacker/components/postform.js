@@ -97,7 +97,9 @@ async function postHandler(event, postData){
   const formData = new FormData();
   const content = postData.content.replaceAll(`"`, `\\"`);
 
-  console.log(postData.captcha)
+  event.preventDefault();
+
+  console.log("Inside postHandler:", postData.captcha)
 
   const fileField = document.querySelector('input[type="file"]');
 

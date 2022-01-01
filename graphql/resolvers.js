@@ -1,5 +1,4 @@
 //import dev created libraries
-const { graphql } =  require('graphql');
 const Post =         require('../CRUD/post');
 const Reply =        require('../CRUD/reply');
 const ReportPost =   require('../CRUD/postReport');
@@ -7,8 +6,10 @@ const ReportReply =  require('../CRUD/replyReport');
 const User =         require('../CRUD/user');
 const env =          require('../env')
 
+//3rd party libraries
 const bcrypt =       require('bcrypt');
 const jwt =          require('jsonwebtoken');
+const axios =        require('axios');
 
 module.exports = {
     
@@ -110,10 +111,12 @@ module.exports = {
         
         const user = await User.getUser(req.socket.remoteAddress)
 
+        //if user hasn't posted before then create a user in database.
         if(!user){
             const user = await User.createUser(req.socket.remoteAddress)
         }
 
+        //if found user is banned then return an empty post
         if(user.banned === true){
             errors.push("User is banned");
             return {
@@ -129,6 +132,10 @@ module.exports = {
         }
 
         //Input errors
+        if(!postInput.captcha){
+            errors.push("No captcha value provided.")
+        }
+
         if(postInput.filepath === ''){
             errors.push("No picture/video uploaded.")
         }
@@ -138,12 +145,24 @@ module.exports = {
         }
 
         if(errors.length > 0){
+            console.log("ERRORS:", errors)
             const error = new Error('Invalid input.');
             error.data = errors;
             error.code = 422;
             throw error;
         }
+        
+        //verify captcha value.
+        const {data} = await axios.post(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${env().CAPTCHA_KEY}&response=${postInput.captcha}&remoteip=${req.socket.address}`, 
+        {})
+        
+        //if captcha fails then throw error.
+        if(!data.success){
+            throw new Error("Captcha failed!")
+        }
 
+        //prune the post that has been longest since last reply.
         const posts = await Post.getPosts(postInput.school);
 
         posts.sort((a,b) => {
@@ -199,6 +218,16 @@ module.exports = {
             error.code = 422;
             throw error;
         }
+       
+        //verify captcha value.
+        const {data} = await axios.post(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${env().CAPTCHA_KEY}&response=${replyData.captcha}&remoteip=${req.socket.address}`, 
+        {})
+
+        //if captcha fails then throw error.
+        if(!data.success){
+            throw new Error("Captcha failed!")
+        }
 
         const createdReply = await Reply.createReply(
             {
@@ -245,6 +274,18 @@ module.exports = {
             error.code = 422;
             throw error;
         }
+
+        //verify captcha value.
+        const {data} = await axios.post(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${env().CAPTCHA_KEY}&response=${reportData.captcha}&remoteip=${req.socket.address}`, 
+        {})
+
+        //if captcha fails then throw error.
+        if(!data.success){
+            throw new Error("Captcha failed!")
+        }
+
+        console.log("IP:", ip)
         
         const createdReport = await ReportPost.createPostReport(ip, {
             content: reportData.content,
@@ -287,6 +328,16 @@ module.exports = {
             error.data = errors;
             error.code = 422;
             throw error;
+        }
+
+        //verify captcha value.
+        const {data} = await axios.post(
+            `https://www.google.com/recaptcha/api/siteverify?secret=${env().CAPTCHA_KEY}&response=${reportData.captcha}&remoteip=${req.socket.address}`, 
+        {})
+
+        //if captcha fails then throw error.
+        if(!data.success){
+            throw new Error("Captcha failed!")
         }
 
         const createdReport = await ReportReply.createReplyReport(ip, {
@@ -399,7 +450,7 @@ module.exports = {
         if(!req.isAuth){
             throw new Error("Permission Denied.")
         }
-        
+
         const reply = await Reply.deleteReply(replyID);
         return `Closed reply ${replyID}`;
     },

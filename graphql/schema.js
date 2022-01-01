@@ -72,6 +72,7 @@ module.exports = buildSchema(`
         content:   String!
         school:    String!
         file_path: String!
+        captcha:   String!
     }
 
     input ReplyInputData{
@@ -79,16 +80,19 @@ module.exports = buildSchema(`
         school:    String!
         file_path: String
         masterID:  String!
+        captcha:   String!
     }
 
     input reportPostData{
         content:    String!
         postID:     ID
+        captcha:    String!
     }
 
     input reportReplyData{
         content:    String!
         replyID:    ID
+        captcha:    String!
     }
 
     type RootQuery {

@@ -719,7 +719,6 @@ textarea{
   text-align: center;
 }
 .report-captcha{
-  height: 95px;
   grid-column:1/4;
   overflow: hidden;
 

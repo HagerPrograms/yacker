@@ -89,7 +89,7 @@ async function replyHandler(event, postData){
               }
               `};
             
-            console.log("graqla query:", graphqlQuery);
+            console.log("graqla query:", graphqlQuery.query);
 
             fetch('http://yacker.co:4000/graphql', {
               method: 'POST',

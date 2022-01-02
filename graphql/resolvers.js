@@ -218,16 +218,6 @@ module.exports = {
             error.code = 422;
             throw error;
         }
-       
-        //verify captcha value.
-        const {data} = await axios.post(
-            `https://www.google.com/recaptcha/api/siteverify?secret=${env().CAPTCHA_KEY}&response=${replyData.captcha}&remoteip=${req.socket.address}`, 
-        {})
-
-        //if captcha fails then throw error.
-        if(!data.success){
-            throw new Error("Captcha failed!")
-        }
 
         const createdReply = await Reply.createReply(
             {

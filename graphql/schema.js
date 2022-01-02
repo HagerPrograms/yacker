@@ -80,7 +80,6 @@ module.exports = buildSchema(`
         school:    String!
         file_path: String
         masterID:  String!
-        captcha:   String!
     }
 
     input reportPostData{

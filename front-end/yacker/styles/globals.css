@@ -416,7 +416,7 @@ textarea{
   padding-bottom: 0;
   width: 50%;
   margin: 0 auto 0 auto;
-  border: 3px solid black;
+  border: 1px solid white;
   border-radius: 5px;
   background-color: #C8D7E4;
 }
@@ -834,6 +834,10 @@ textarea{
   border: solid;
   border-radius: 5px;
   max-width: 700px
+}
+
+.post-captcha{
+  overflow: hidden;
 }
 
 .gone{

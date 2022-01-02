@@ -2,9 +2,7 @@ import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 function PostForm(props){
-  const school = props.school
-
-  console.log("THIS IS THE SCHOOL:", school)
+  const school = props.school;
 
   const [content, setContent] = useState('');
   const [media, setMedia] = useState('');
@@ -63,7 +61,6 @@ function PostForm(props){
     if(!postData.captcha){
       event.preventDefault();
       errorHandle("Captcha Required!");
-      console.log("ERROR", error);
       return
     }
     postHandler(event, postData)
@@ -82,7 +79,6 @@ function PostForm(props){
                     sitekey="6LdW0uAdAAAAAG1As-Pq-9OJTR1Cvx4HfdIsWB0q"
                     onChange={onCaptchaChange}
                     theme="dark"
-                    size="compact"
                   />
                 </div>
                 <input required id="post-form-submit" type="submit" value="Create Post"></input>
@@ -99,8 +95,6 @@ async function postHandler(event, postData){
   const content = postData.content.replaceAll(`"`, `\\"`);
 
   event.preventDefault();
-
-  console.log("Inside postHandler:", postData.captcha)
 
   const fileField = document.querySelector('input[type="file"]');
 
@@ -126,8 +120,6 @@ async function postHandler(event, postData){
         }
       }
       `};
-
-      console.log("graphql query:", graphqlQuery.query);
 
       fetch('http://yacker.co:4000/graphql', {
         method: 'POST',

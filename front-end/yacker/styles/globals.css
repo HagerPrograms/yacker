@@ -838,6 +838,7 @@ textarea{
 
 .post-captcha{
   overflow: hidden;
+  grid-column: 1/4;
 }
 
 .gone{

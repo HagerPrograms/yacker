@@ -47,7 +47,9 @@ svg{
 }
 
 .nav-item > h2{
-  margin: 5px;
+  font-size: 1.25em;
+  text-decoration: underline;
+
 }
 
 .nav-active > h2{
@@ -56,6 +58,7 @@ svg{
 
 .nav-item{
   margin: 0;
+  max-width: 100%;
   display: inline-block;
   color: white;
   cursor: pointer;
@@ -803,12 +806,15 @@ textarea{
 
 .welcome-text{
   color: black;
+  font-size: 1.25rem;
   font-weight: 900;
   padding-bottom: 2px;
   text-align: center;
   margin: 0;
   text-align: none;
   font-family: 'Playfair Display', serif;
+  max-width: 95%;
+
 }
 
 #website-name:hover{
@@ -824,7 +830,7 @@ textarea{
   background-color: white;
   width: fit-content;
   position:absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%,-50%);
   margin: 0 auto 0 auto;
@@ -858,10 +864,11 @@ textarea{
 }
 
 .welcome-button{  
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: 900;
   padding-left: 5px;
   padding-right: 5px;
+  max-width: 100%;
   cursor: pointer;
   text-align: center;
   border: solid black 1px;
@@ -892,6 +899,7 @@ textarea{
 }
 
 .ticker-container{
+  display: sticky;
   overflow: hidden; /* HIDE SCROLL BAR */
   background-color: #2E4A60;
   /* max-height: ; */

@@ -8,7 +8,7 @@ export default function Header({active}){
     <div className="nav">
     
         <Link href="/">
-            <div className={(active)? "nav-item" : "gone"}>  
+            <div className={(active === "home")? "nav-active" : "nav-item"}>  
                 <h2 >Home</h2>
             </div>
         </Link>

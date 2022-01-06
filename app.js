@@ -47,6 +47,7 @@ const fileStorageEngine = multer.diskStorage({
     },
     fileFilter: (req,file,cb) => {
         const ext = path.extname(file.originalname);
+        console.log(ext)
         if(ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".mp4" && ext !== ".avi" && ext !== ".mov"){
             return cb(new Error('Only images and videos allowed.'))
         }

@@ -1,6 +1,7 @@
 import Nav         from "../../components/Nav"
 import schools     from "../../../data/schools.json"
 import states      from "../../../data/stateabbr.json"
+import stateData   from "../../../data/states-data.json"
 import BottomAd    from "../../components/bottomAd"
 import Link        from "next/link"
 import Head        from 'next/head'
@@ -26,11 +27,13 @@ export default function State(props){
     <>
     <Head>
     	<meta name="exoclick-site-verification" content="4f6086c3b9e6543f5f7f4df5c4184df2"/>
-        <title>Select your school.</title>
+        <meta name="description" content="Select your university, so you can begin to post to your university's Yacker page.
+        "/>
+        <title>{"Colleges in " + props.fullState + ":"}</title>
     </Head>
     <Nav states={true} loggedIn={false}/>
     <div className="content-container">
-        <h1 className="list-header">Select your school:</h1>
+        <h1 className="list-header">{"Colleges in " + props.fullState + ":"}</h1>
         <ul>
             {schoolList}
         </ul>
@@ -46,8 +49,13 @@ export async function getStaticProps(context){
     
     const {state} = context.params;
     
+    const fullState = stateData.find((element) => element.abbr === state.toUpperCase())
+
+    console.log(fullState)
+    
     return {props: {
-        state: state
+        state: state,
+        fullState: fullState.name
     }}
 }
 

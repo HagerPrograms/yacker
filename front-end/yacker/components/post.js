@@ -14,7 +14,7 @@ export default function Post(props) {
         media = <></>;
         if(props.file.includes("gif") || props.file.includes("jpg") || props.file.includes("jpeg") || props.file.includes("png")){
             media = (
-                <img key={props.id} src={`http://yacker.co:4000${props.file}`}/>
+                <img key={props.id} alt={props.content} src={`http://yacker.co:4000${props.file}`}/>
             )
         } else {
             media = (

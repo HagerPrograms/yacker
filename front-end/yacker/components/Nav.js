@@ -23,7 +23,7 @@ function Nav(props){
         stateLink = (
         <>
         <Link href={"/states"}>
-            <a id="back-link">{"<<STATES"}</a>
+            <a id="back-link">{"<< choose your state"}</a>
         </Link>
         </>
         )
@@ -32,7 +32,9 @@ function Nav(props){
     return(
         <>
         <div className="header">
-        <h1 id="website-name">Yacker{(props.school)? ` - ${props.school}`: ""}</h1>
+        <Link href="/">
+            <h1 id="website-name">Yacker{(props.school)? ` - ${props.school}`: ""}</h1>
+        </Link>
         {stateLink}
         {adminHeader}
         </div>

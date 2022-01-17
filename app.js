@@ -46,11 +46,13 @@ const fileStorageEngine = multer.diskStorage({
         cb(null, id+ext)
     },
     fileFilter: (req,file,cb) => {
-        const ext = path.extname(file.originalname);
+        const ext = path.extname(file.originalname).toLocaleLowerCase();
+        console.log(ext);
+        
         if(ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".mp4" && ext !== ".avi" && ext !== ".mov"){
-            cb(null, false)
+            cb("Wrong file type!", false)
         }
-        cb(null, true)
+        cb("File uploaded successfully.", true)
     }
 })
 

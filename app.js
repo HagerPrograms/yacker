@@ -42,18 +42,10 @@ const fileStorageEngine = multer.diskStorage({
     filename: (req, file, cb) => {
         //generates universally unique identifier, and names the file.
         const ext = path.extname(file.originalname);
-        const id = uuidv4()
-        cb(null, id+ext)
+        const id = uuidv4();
+        cb(null, id+ext);
     },
-    fileFilter: (req,file,cb) => {
-        const ext = path.extname(file.originalname).toLocaleLowerCase();
-        console.log(ext);
-        
-        if(ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".mp4" && ext !== ".avi" && ext !== ".mov"){
-            cb("Wrong file type!", false)
-        }
-        cb("File uploaded successfully.", true)
-    }
+
 })
 
 //set port 
@@ -65,6 +57,17 @@ const upload = multer(
         storage: fileStorageEngine,
         limits: {
             fileSize: MAX_FILE_SIZE
+        },
+        fileFilter: (req,file,cb) => {
+            const ext = path.extname(file.originalname).toLocaleLowerCase();
+            // console.log("EXT:", ext);
+    
+            if(ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".mp4" && ext !== ".avi" && ext !== ".mov"){
+                cb("Wrong file type!", false)
+            }
+            else{
+                cb("File uploaded successfully.", true)
+            }
         }
     })
 

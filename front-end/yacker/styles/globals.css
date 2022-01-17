@@ -52,6 +52,11 @@ svg{
 
 }
 
+.center{
+  font-size: 1.75em !important;
+  text-decoration: underline;
+}
+
 .nav-active > h2{
   margin: 5px;
 }
@@ -1006,6 +1011,7 @@ textarea{
 @media only screen and (max-width: 1000px) {
 
   .welcome-banner{
+    padding-top: 100px;
     width: 95%;
   
   }
@@ -1060,5 +1066,8 @@ textarea{
     float: initial;
   }
 
+  .welcome-container{
+    top: 50%;
+  }
 
 }

@@ -20,7 +20,7 @@ export default function Index() {
         <h2 className="welcome-text">Yacker will change universities forever.</h2>
         <h2 className="welcome-text"><em>No registration, and only 3 rules.</em></h2>
         <h2 className="welcome-text">No restrictions on content like Instagram or Snapchat.</h2>
-        <h2 className="welcome-text">Post whatever wild shit you'd like.</h2>
+        <h2 className="welcome-text">Post whatever wild shit you&apos;d like.</h2>
         <h2 className="welcome-text"><em>Do whatever you want!</em></h2>
         <Link href='/states' passHref>
     	    <div className="welcome-button">Join the fun and find your university!</div>

@@ -121,6 +121,8 @@ async function postHandler(event, postData){
       }
       `};
 
+      console.log(graphqlQuery.query)
+
       fetch('http://yacker.co:4000/graphql', {
         method: 'POST',
         headers: {
@@ -129,7 +131,7 @@ async function postHandler(event, postData){
         body: JSON.stringify(graphqlQuery)
       }).then(res => {
         res.json().then(data => {
-          // console.log("DATA: ", data)
+          console.log("DATA: ", data)
         }).then(() => {
           location.reload();
         })

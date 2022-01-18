@@ -59,14 +59,11 @@ const upload = multer(
             fileSize: MAX_FILE_SIZE
         },
         fileFilter: (req,file,cb) => {
-            const ext = path.extname(file.originalname).toLocaleLowerCase();
-            // console.log("EXT:", ext);
-    
+            const ext = path.extname(file.originalname);
             if(ext !== ".png" && ext !== ".jpg" && ext !== ".gif" && ext !== ".jpeg" && ext !== ".mp4" && ext !== ".avi" && ext !== ".mov"){
                 cb("Wrong file type!", false)
-            }
-            else{
-                cb("File uploaded successfully.", true)
+            } else {
+                cb(null, true)
             }
         }
     })
@@ -96,6 +93,7 @@ app.use("/:school/:file", (req, res, next)=>{
 
 //rest endpoint to accept file upload.
 app.put('/post-media-upload', upload.single('upload'), (req, res, next) => {
+    console.log("Uploaded file!");
     res.send({file_path: req.file.filename});
 })
 

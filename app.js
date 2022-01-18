@@ -76,7 +76,7 @@ app.use(express.static('./uploads'));
 app.use('/graphql', graphqlHTTP({
     schema: graphql_schema,
     rootValue: graphql_resolvers,
-    graphiql: true
+    graphiql: false,
 }))
 
 //statically serve all files.

@@ -19,35 +19,22 @@ export default function Ticker(){
 
     function feedHandler(data){
         setFeed(() => {
+            let feed = data.map((e, position) => {
+                return (<>
+                    <h3 className="ticker-item">{`#${position + 1} Hottest post: `}</h3>
+                    <h3 className="ticker-item">{" " + e.content}</h3>
+                    <Link href={"/" + e.school}>
+                        <a className="ticker-item link">{"/" + e.school}</a>
+                    </Link>
+                    <Link href={"/" + e.school + "/" + e.id}>
+                        <a className="ticker-item link">{"Click here to go to post."}</a>
+                    </Link>
+                </>)
+            })
+            
             return (<>
                 <div className="ticker-content">
-                    <h3 className="ticker-item">{"#1 Hottest post: "}</h3>
-                    <h3 className="ticker-item">{" " + data[0].content}</h3>
-                    <Link href={"/" + data[0].school}>
-                        <a className="ticker-item link">{"/" + data[0].school}</a>
-                    </Link>
-                    <Link href={"/" + data[0].school + "/" + data[0].id}>
-                        <a className="ticker-item link">{"Post Link"}</a>
-                    </Link>
-
-                    <h3 className="ticker-item">{"#2 Hottest post: "}</h3>
-                    <h3 className="ticker-item">{" " + data[1].content}</h3>
-                    <Link href={"/" + data[1].school}>
-                        <a className="ticker-item link">{"/" + data[1].school}</a>
-                    </Link>
-                    <Link href={"/" + data[1].school + "/" + data[1].id}>
-                        <a className="ticker-item link">{"Post Link"}</a>
-                    </Link>
-
-                    <h3 className="ticker-item">{"#3 Hottest post: "}</h3>
-                    <h3 className="ticker-item">{" " + data[2].content}</h3>
-                    <Link href={"/" + data[2].school}>
-                        <a className="ticker-item link">{"/" + data[2].school}</a>
-                    </Link>
-                    <Link href={"/" + data[2].school + "/" + data[2].id}>
-                        <a className="ticker-item link">{"Post Link"}</a>
-                    </Link>
-
+                    {feed}
                 </div>
             </>)
         })

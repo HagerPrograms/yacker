@@ -109,11 +109,12 @@ module.exports = {
     createPost: async function({ postInput }, req) {
         const errors = [];
         
-        const user = await User.getUser(req.socket.remoteAddress)
+        let user;
+        user = await User.getUser(req.socket.remoteAddress)
 
         //if user hasn't posted before then create a user in database.
         if(!user){
-            const user = await User.createUser(req.socket.remoteAddress)
+            user = await User.createUser(req.socket.remoteAddress)
         }
 
         //if found user is banned then return an empty post
@@ -194,7 +195,7 @@ module.exports = {
     createReply: async function({replyData}, req){
         const errors = [];
 
-        const user = await User.getUser(req.socket.remoteAddress)
+        let user = await User.getUser(req.socket.remoteAddress)
 
         const ip = req.socket.remoteAddress;
 

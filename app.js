@@ -77,6 +77,17 @@ app.use('/graphql', graphqlHTTP({
     schema: graphql_schema,
     rootValue: graphql_resolvers,
     graphiql: false,
+    customFormatErrorFn: (error) => {
+        console.log(error);
+        return {
+            message: error.message,
+            locations: error.locations,
+            stack: error.stack ? error.stack.split('\n') : [],
+            path: error.path,
+          }
+    }
+        
+        
 }))
 
 //statically serve all files.
